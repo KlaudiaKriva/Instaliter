@@ -21,13 +21,16 @@
         android:layout_above="@+id/bottom_navigation"
         />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_nav" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            app:itemTextColor="@color/colorText2"
+            app:itemIconTint="@color/colorText2"
+            app:itemHorizontalTranslationEnabled="true"
+            app:menu="@menu/bottom_nav" />
     </RelativeLayout>
 
 </RelativeLayout>
