@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -11,6 +11,12 @@
 <!--        <item name="colorOrange">@color/colorOrange</item>-->
 <!--        <item name="colorText">@color/colorText</item>-->
 <!--        <item name="colorText2">@color/colorText2</item>-->
+        <item name="android:buttonStyle">@style/NoShadowButton</item>
     </style>
+
+    <style name="NoShadowButton" parent="android:style/Widget.Button">
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    </style>
+
 
 </resources>
