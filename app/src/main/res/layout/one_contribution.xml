@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pn_post"
         android:layout_width="410dp"
         android:layout_height="80dp"
         android:layout_marginBottom="431dp"
@@ -20,7 +21,8 @@
 
         <ImageView
             android:id="@+id/profileImage"
-            android:paddingLeft="7dp"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:background="@drawable/img" />
@@ -28,18 +30,22 @@
         <TextView
             android:id="@+id/userName"
             android:layout_width="330dp"
-            android:layout_height="41dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Name"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             tools:layout_editor_absoluteX="80dp"
             tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/place"
             android:layout_width="330dp"
-            android:layout_height="41dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Place"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             tools:layout_editor_absoluteX="80dp"
             tools:layout_editor_absoluteY="39dp" />
 
@@ -59,22 +65,44 @@
             android:layout_marginTop="340dp">
 
             <CheckBox
+                android:id="@+id/heart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:button="@null"
-                android:layout_marginLeft="160dp"
+                android:layout_marginStart="160dp"
                 android:background="@drawable/heart_icon">
             </CheckBox>
 
             <Button
+                android:id="@+id/bubble"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="220dp"
+                android:layout_marginStart="220dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/comment_icon">
 
             </Button>
 
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="380dp">
+
+        <TextView
+            android:id="@+id/peoples_likes"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="paci sa mi to"/>
+
+        <TextView
+            android:id="@+id/post_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="teeeext" />
 
     </RelativeLayout>
 
