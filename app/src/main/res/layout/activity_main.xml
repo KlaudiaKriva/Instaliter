@@ -6,16 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/list_posts"
+        android:layout_width="match_parent"
+        android:layout_height="681dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        >
+
     <FrameLayout
         android:id="@+id/fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation"
+
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,9 +32,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/colorPrimaryDark"
+        app:itemTextColor="@color/colorText2"
+        app:itemIconTint="@color/colorText2"
+        app:itemHorizontalTranslationEnabled="true"
         app:menu="@menu/bottom_nav" />
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>
