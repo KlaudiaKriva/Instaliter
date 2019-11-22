@@ -1,11 +1,22 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<!--        <item name="colorLight">@color/colorLight</item>-->
+<!--        <item name="colorLightOrg">@color/colorLightOrg</item>-->
+<!--        <item name="colorOrange">@color/colorOrange</item>-->
+<!--        <item name="colorText">@color/colorText</item>-->
+<!--        <item name="colorText2">@color/colorText2</item>-->
+        <item name="android:buttonStyle">@style/NoShadowButton</item>
     </style>
+
+    <style name="NoShadowButton" parent="android:style/Widget.Button">
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    </style>
+
 
 </resources>
