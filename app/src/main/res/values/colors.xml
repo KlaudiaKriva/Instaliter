@@ -8,4 +8,5 @@
     <color name="colorOrange">#FFA000</color>
     <color name="colorText">#000000</color>
     <color name="colorText2">#727272</color>
+    <color name="transparent">#00000000</color>
 </resources>
