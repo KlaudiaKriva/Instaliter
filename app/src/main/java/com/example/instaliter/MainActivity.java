@@ -1,12 +1,16 @@
 package com.example.instaliter;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.example.instaliter.activities.CameraActivity;
 import com.example.instaliter.activities.ProfileActivity;
@@ -14,8 +18,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("vykresluje sa prva screena");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -23,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -45,4 +50,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

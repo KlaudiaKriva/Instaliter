@@ -1,9 +1,12 @@
 package com.example.instaliter.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,10 +18,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class CameraActivity extends AppCompatActivity {
 
+    ImageView imageView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        System.out.println(" vykresluje sa druha screena");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_layout);
+        imageView = (ImageView) findViewById(R.id.cameraView);
+        Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        System.out.println("spusta sa fotenie");
+        startActivityForResult(intent2,0);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
@@ -45,5 +55,15 @@ public class CameraActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+        imageView.setImageBitmap(bitmap);
     }
 }
