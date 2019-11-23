@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Instaliter</string>
     <string name="zero_number" textSize="28sp">0</string>
+    <string name="new_post">New Post</string>
+    <string name="share">Share</string>
+    <string name="hint_text">Write an title …</string>
 </resources>
