@@ -11,6 +11,8 @@
         android:width="1dp"
         android:color="@color/colorText"/>
 
+    <solid android:color="@color/colorLight"/>
+
 
 
 
