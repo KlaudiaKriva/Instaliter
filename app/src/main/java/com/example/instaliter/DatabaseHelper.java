@@ -56,7 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("idU", idU);
         contentValues.put("path", path);
         contentValues.put("cTime", new Date().getTime()); //alebo iny time
-        contentValues.put("description", description);
+        contentValues.put("decsriptipn", description);
 
         long result = db.insert("Image", null, contentValues);
 
