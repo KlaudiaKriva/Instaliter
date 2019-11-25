@@ -33,16 +33,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-//        button = findViewById(R.id.btn_signUp2);
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                insertNewUser();
-//                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        button = findViewById(R.id.back_button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 

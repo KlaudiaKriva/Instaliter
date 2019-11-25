@@ -6,12 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:paddingTop="10dp"
+        android:text="@string/app_name"
+        android:textColor="@color/colorText"
+        android:textSize="25sp">
+    </TextView>
+
+    <View
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorText2"/>
+
     <ListView
         android:id="@+id/list_posts"
         android:layout_width="match_parent"
-        android:layout_height="681dp"
+        android:layout_height="627dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="54dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
