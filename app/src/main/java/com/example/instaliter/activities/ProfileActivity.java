@@ -37,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
 
+        databaseHelper = new DatabaseHelper(this);
         arrayList = new ArrayList<>();
         profile_username = findViewById(R.id.profile_username);
         profile_username.setText(String.valueOf(RegisterActivity.userID));
