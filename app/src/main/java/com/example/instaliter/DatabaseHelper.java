@@ -4,15 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context){
-        super(context, "instaliter.db", null, 1);
+        super(context, "instaliter.db", null, 2);
     }
 
     @Override
@@ -50,14 +52,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertNewPost(long idU, String path, String description) {
-        if (path.equals("")) return false;
+//        if (path.equals("")) return false;
+//int id, String userName, String postImage, String post_text
+        System.out.println("spon som sa tu dostal");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("idU", idU);
+        contentValues.put("idU", RegisterActivity.userID);
         contentValues.put("path", path);
         contentValues.put("cTime", new Date().getTime()); //alebo iny time
         contentValues.put("decsriptipn", description);
 
+        System.out.println("date je: " + new Date().getTime());
         long result = db.insert("Image", null, contentValues);
 
         if (result == -1) return false;
@@ -89,28 +94,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     } //na zaklade id
     public boolean selectAllPosts(){return false;}
-    public boolean selectMyPosts(){return false;}
 
     public boolean loginUser(String email, String password){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT email, password FROM User WHERE idu ="+RegisterActivity.userID, null);
-        String pass = "";
-        String mail= "";
-        while (cursor.moveToNext()){
-            mail = cursor.getString(0);
-            pass = cursor.getString(1);
-        }
+        try {
+            Cursor cursor = db.rawQuery("SELECT id FROM User where email = ? and password = ?", new String[]{email, password});
 
-        if(email.equals(mail) && password.equals(pass)){
-            return true;
-        } else {
-            return false;
-        }
+            int userid = 0;
+            while (cursor.moveToNext()) {
+                userid = cursor.getInt(0);
 
+            }
+
+            if(userid != 0){
+                RegisterActivity.userID = userid;
+                return true;
+            } else {
+                return false;
+            }
+        } catch ( SQLiteException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
 
+    public ArrayList<Post> selectMyPosts(){
+        ArrayList<Post> arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from Image where idU = " + RegisterActivity.userID, null);
 
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            String path = cursor.getString(2);
+            String ctime = cursor.getString(3);
+            String description = cursor.getString(4);
+            Post post = new Post(id, (int) RegisterActivity.userID, ctime, path, description);
+            System.out.println("vypisujem selectmyposts "+ id + path + description);
+            arrayList.add(post);
+
+        }
+        return arrayList;
+    }
 
 
 
