@@ -54,8 +54,8 @@ public class PostsAdapter extends BaseAdapter {
         TextView userName = convertView.findViewById(R.id.userName);
         userName.setText(post.getUserName());
 
-        TextView place = convertView.findViewById(R.id.place);
-        place.setText(post.getPlace());
+//        TextView place = convertView.findViewById(R.id.place);
+//        place.setText(post.getPlace());
 
         ImageView postImage = convertView.findViewById(R.id.postImage);
         postImage.setImageURI(Uri.parse(post.getPostImage()));
@@ -67,7 +67,6 @@ public class PostsAdapter extends BaseAdapter {
 
         TextView post_text = convertView.findViewById(R.id.post_text);
         post_text.setText(post.getPost_text());
-
 
 
         return convertView;

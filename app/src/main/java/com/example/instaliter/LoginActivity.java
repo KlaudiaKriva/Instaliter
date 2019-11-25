@@ -56,26 +56,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //send data to server and check them
-                // after checking -> main page
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-
-            }
-        });
+//        button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //send data to server and check them
+//                // after checking -> main page
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
 
 
     }
 
     public void getLoginUser(View view){
-        if(!(login_email.getText().toString().equals("")) && (login_email.getText().toString().equals(""))){
+        if(!(login_email.getText().toString().equals("") && (login_email.getText().toString().equals("")))){
             boolean result = databaseHelper.loginUser(login_email.getText().toString(), login_pass.getText().toString());
             if(result){
                 Toast.makeText(view.getContext(), "Login inserted successfully",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                System.out.println("loginactivity som "+ RegisterActivity.userID);
                 startActivity(intent);
                 System.out.println(result + " result vracia");
             } else {

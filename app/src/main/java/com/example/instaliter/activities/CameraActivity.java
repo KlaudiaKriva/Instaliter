@@ -100,7 +100,6 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         System.out.println("vola sa onActivity result");
         if (requestCode == 100 ){
             System.out.println("image path "+pathImage);
@@ -109,9 +108,15 @@ public class CameraActivity extends AppCompatActivity {
             System.out.println("request code is not 100");
         }
 
+
+//         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+//         pathImage = getImageUri(getApplicationContext(),bitmap);
+//         System.out.println("path image "+pathImage);
+//         imageView.setImageBitmap(bitmap);
+
     }
 
-    public void insertNewPost(View view){
+    public void insertPost(View view){
         if(!(textView.getText().toString().equals(""))){
             boolean result = databaseHelper.insertNewPost(RegisterActivity.userID,pathImage,textView.getText().toString());
             if (result){
@@ -133,6 +138,7 @@ public class CameraActivity extends AppCompatActivity {
         File image = File.createTempFile(imageFile,".jpg",storage);
         pathImage = image.getAbsolutePath();
         return image;
+
     }
 }
 

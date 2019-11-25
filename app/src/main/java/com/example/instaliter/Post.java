@@ -4,15 +4,15 @@ public class Post {
     int id;
     String userName;
     String profileImage;
-    String place;
+//    String place;
     String postImage;
     String post_text;
 
-    public Post(int id, String userName, String profileImage, String place, String postImage, String post_text) {
+    public Post(int id, String userName, String profileImage, String postImage, String post_text) {
         this.id = id;
         this.userName = userName;
         this.profileImage = profileImage;
-        this.place = place;
+//        this.place = place;
         this.postImage = postImage;
         this.post_text = post_text;
     }
@@ -29,9 +29,9 @@ public class Post {
         this.profileImage = profileImage;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
-    }
+//    public void setPlace(String place) {
+//        this.place = place;
+//    }
 
     public void setPostImage(String postImage) {
         this.postImage = postImage;
@@ -49,9 +49,9 @@ public class Post {
         return profileImage;
     }
 
-    public String getPlace() {
-        return place;
-    }
+//    public String getPlace() {
+//        return place;
+//    }
 
     public String getPostImage() {
         return postImage;

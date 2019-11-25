@@ -35,7 +35,7 @@
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:text="@string/share"
-            android:onClick="insertNewPost"
+            android:onClick="insertPost"
             android:textSize="18sp"
             android:textColor="@color/colorText2"
             android:background="@drawable/border">
