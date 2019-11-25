@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Instaliter</string>
+    <string name="zero_number" textSize="28sp">0</string>
+    <string name="new_post">New Post</string>
+    <string name="share">Share</string>
+    <string name="hint_text">Write a title …</string>
+    <string name="login_text">Login</string>
+    <string name="username_text">Username</string>
+    <string name="email_text">Email</string>
+    <string name="pass_text">Password</string>
+    <string name="sing_up">Sign up</string>
+    <string name="name_text">Name</string>
+
+
 </resources>

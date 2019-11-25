@@ -6,16 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:paddingTop="10dp"
+        android:text="@string/app_name"
+        android:textColor="@color/colorText"
+        android:textSize="25sp">
+    </TextView>
+
+    <View
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorText2"/>
+
+    <ListView
+        android:id="@+id/list_posts"
+        android:layout_width="match_parent"
+        android:layout_height="627dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="54dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        >
+
     <FrameLayout
         android:id="@+id/fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation"
+
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,9 +48,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/colorPrimaryDark"
+        app:itemTextColor="@color/colorText2"
+        app:itemIconTint="@color/colorText2"
+        app:itemHorizontalTranslationEnabled="true"
         app:menu="@menu/bottom_nav" />
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>
