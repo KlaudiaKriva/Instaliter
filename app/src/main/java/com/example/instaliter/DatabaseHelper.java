@@ -93,7 +93,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
 
     } //na zaklade id
-    public boolean selectAllPosts(){return false;}
+    public ArrayList<Post> selectAllPosts(){
+        ArrayList<Post> arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from Image where idU not like " + RegisterActivity.userID, null);
+
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            String path = cursor.getString(2);
+            String ctime = cursor.getString(3);
+            String description = cursor.getString(4);
+            Post post = new Post(id, (int) RegisterActivity.userID, ctime, path, description);
+            System.out.println("vypisujem selectallposts "+ id + path + description);
+            arrayList.add(post);
+
+        }
+        return arrayList;
+    }
 
     public boolean loginUser(String email, String password){
         SQLiteDatabase db = this.getReadableDatabase();
