@@ -5,9 +5,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/grad_bg2">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/icon_back">
+    </Button>
 
 
     <RelativeLayout
@@ -158,6 +162,7 @@
                         android:fontFamily="sans-serif-light"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
+                        android:inputType="numberPassword"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/et_bg"/>
                 </LinearLayout>
@@ -182,8 +187,6 @@
 
         </RelativeLayout>
     </RelativeLayout>
-
-    </ScrollView>
 
 
 </RelativeLayout>
