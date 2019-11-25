@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.instaliter.DatabaseHelper;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 
@@ -55,8 +56,9 @@ public class PostsAdapter extends BaseAdapter {
         System.out.println(post.getId() + post.getPost_text());
 
 
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
         TextView userName = convertView.findViewById(R.id.userName);
-        userName.setText(String.valueOf(post.getId()));
+        userName.setText(databaseHelper.selectUserNameFromPost(post.getId()));//tu treba ine
 
         ImageView postImage = convertView.findViewById(R.id.postImage);
         System.out.println(postImage + "imageview");
