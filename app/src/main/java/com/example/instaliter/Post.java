@@ -6,6 +6,8 @@ public class Post {
     String datum;
     String postImage;
     String post_text;
+    String user;
+
 
     public Post(int id, int userID, String datum, String postImage, String post_text) {
         this.id = id;

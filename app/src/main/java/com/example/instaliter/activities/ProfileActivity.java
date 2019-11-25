@@ -44,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         arrayList = new ArrayList<>();
         profile_username = findViewById(R.id.profile_username);
-        profile_username.setText(String.valueOf(RegisterActivity.userID));
+        profile_username.setText(databaseHelper.selectUserNameFromID((int)RegisterActivity.userID));
         listView = findViewById(R.id.myPosts);
 
         loadDataInListview();

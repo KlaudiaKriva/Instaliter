@@ -93,6 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
 
     } //na zaklade id
+
     public ArrayList<Post> selectAllPosts(){
         ArrayList<Post> arrayList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -153,6 +154,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public String selectUserNameFromPost(int idPost){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select idu from Image where id = " + idPost, null);
+
+        int iduser = 0;
+        while(cursor.moveToNext()){
+            iduser = cursor.getInt(0);
+        }
+
+        Cursor cursor2 = db.rawQuery("select instaName from User where id = " + iduser, null);
+        String instaname = "";
+        while(cursor2.moveToNext()){
+            instaname = cursor2.getString(0);
+        }
+
+        return instaname;
+    }
+
+
+
+    public String selectUserNameFromID(int userid) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select instaName from User where id = " + userid, null);
+
+        String nickname = "";
+        while(cursor.moveToNext()){
+            nickname = cursor.getString(0);
+        }
+
+        return nickname;
+    }
 
 
 }
