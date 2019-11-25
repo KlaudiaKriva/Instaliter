@@ -63,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/hint_text"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="50dp"
+            android:id="@+id/addTitle">
         </EditText>
 
     </LinearLayout>

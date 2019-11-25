@@ -3,7 +3,7 @@
     <string name="zero_number" textSize="28sp">0</string>
     <string name="new_post">New Post</string>
     <string name="share">Share</string>
-    <string name="hint_text">Write an title …</string>
+    <string name="hint_text">Write a title …</string>
     <string name="login_text">Login</string>
     <string name="username_text">Username</string>
     <string name="email_text">Email</string>
