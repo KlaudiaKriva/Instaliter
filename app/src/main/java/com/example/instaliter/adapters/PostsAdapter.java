@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ public class PostsAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<Post> arrayList;
+    CheckBox heart;
 
     public PostsAdapter(Context context, ArrayList<Post> arrayList) {
         this.context = context;
@@ -67,9 +70,20 @@ public class PostsAdapter extends BaseAdapter {
         System.out.println("path je: "+ path);
         postImage.setImageURI(Uri.parse(path));
 
+        heart = convertView.findViewById(R.id.heart);
+        heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    heart.setBackground(buttonView.getResources().getDrawable(R.drawable.icon_heart2));
+                else
+                    heart.setBackground(buttonView.getResources().getDrawable(R.drawable.heart_icon));
+            }
+        });
+
         //heart a bubble aku budu mat funkcionalitu, treba zahrnut tu pravdepodobne
 
-        TextView peoples_likes = convertView.findViewById(R.id.peoples_likes);
+//        TextView peoples_likes = convertView.findViewById(R.id.peoples_likes);
         //peoples likes cez service
 
         TextView post_text = convertView.findViewById(R.id.post_text);
