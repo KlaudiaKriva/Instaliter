@@ -67,13 +67,12 @@ public class CameraActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        Uri path = getImageUri(getApplicationContext(),bitmap);
-        pathImage = path.getPath();
+        pathImage = getImageUri(getApplicationContext(),bitmap);
         System.out.println("path image "+pathImage);
         imageView.setImageBitmap(bitmap);
     }
 
-    public void insertNewPost(View view){
+    public void insertPost(View view){
         if(!(textView.getText().toString().equals(""))){
             boolean result = databaseHelper.insertNewPost(RegisterActivity.userID,pathImage,textView.getText().toString());
             if (result){
@@ -88,10 +87,10 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
+    public String getImageUri(Context inContext, Bitmap inImage) {
         Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000,true);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), OutImage, "Title", null);
-        return Uri.parse(path);
+        return path;
     }
 }
 

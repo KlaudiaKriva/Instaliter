@@ -18,7 +18,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText register_username;
     EditText register_email;
     EditText register_password;
-    public static long userID = 0;
+    public static long userID;
+    public static String userName = "";
 
 
     @Override
@@ -57,6 +58,8 @@ public class RegisterActivity extends AppCompatActivity {
                 System.out.println(result + " result vracia");
                 //nastavit staticuser ako result
                 userID = result;
+                userName = register_username.getText().toString();
+
             }
             else {
                 Toast.makeText(v.getContext(), "User not inserted",Toast.LENGTH_LONG).show();
