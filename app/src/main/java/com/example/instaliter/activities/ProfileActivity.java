@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,11 +33,13 @@ public class ProfileActivity extends AppCompatActivity {
     ArrayList<Post> arrayList;
     DatabaseHelper databaseHelper;
     ListView listView;
+    TextView profile_number_of_posts;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
+        profile_number_of_posts = findViewById(R.id.profile_number_of_posts);
 
         databaseHelper = new DatabaseHelper(this);
         arrayList = new ArrayList<>();
@@ -84,11 +88,31 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
 
-
+            profile_number_of_posts.setText(String.valueOf(arrayList.size()));
             postsAdapter.notifyDataSetChanged();
         }
         catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public void likePost(final View view){
+        int position = listView.getPositionForView(view);
+        Post post = (Post) postsAdapter.getItem(position);
+
+        CheckBox heart = findViewById(R.id.heart);
+
+
+//        heart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                System.out.println("klikkkk");
+//                view.setBackground(getResources().getDrawable(R.drawable.icon_heart2));
+//            }
+//        });
+
+
+
+
     }
 }

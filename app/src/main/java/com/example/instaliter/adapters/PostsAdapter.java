@@ -53,15 +53,10 @@ public class PostsAdapter extends BaseAdapter {
         Post post = arrayList.get(position);
         System.out.println("arrayl je: " + arrayList.size());
         System.out.println(post.getId() + post.getPost_text());
-        
-//        ImageView profileImage = convertView.findViewById(R.id.profileImage);
-//        profileImage.setImageURI(Uri.parse(post.getProfileImage()));
+
 
         TextView userName = convertView.findViewById(R.id.userName);
         userName.setText(String.valueOf(post.getId()));
-
-//        TextView place = convertView.findViewById(R.id.place);
-//        place.setText(post.getPlace());
 
         ImageView postImage = convertView.findViewById(R.id.postImage);
         System.out.println(postImage + "imageview");
@@ -74,17 +69,15 @@ public class PostsAdapter extends BaseAdapter {
         heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    heart.setBackground(buttonView.getResources().getDrawable(R.drawable.icon_heart2));
+                if (isChecked) {
+                    System.out.println("klikkkk");
+                    buttonView.setBackground(context.getResources().getDrawable(R.drawable.icon_heart2));
+                }
                 else
-                    heart.setBackground(buttonView.getResources().getDrawable(R.drawable.heart_icon));
+                    buttonView.setBackground(context.getResources().getDrawable(R.drawable.heart_icon));
             }
+
         });
-
-        //heart a bubble aku budu mat funkcionalitu, treba zahrnut tu pravdepodobne
-
-//        TextView peoples_likes = convertView.findViewById(R.id.peoples_likes);
-        //peoples likes cez service
 
         TextView post_text = convertView.findViewById(R.id.post_text);
         post_text.setText(post.getPost_text());
