@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,14 +13,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.instaliter.MainActivity;
 import com.example.instaliter.R;
+import com.example.instaliter.RegisterActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    TextView profile_username;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
 
+        profile_username = findViewById(R.id.profile_username);
+        profile_username.setText(String.valueOf(RegisterActivity.userID));
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
