@@ -1,82 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/pn_post"
-        android:layout_width="410dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="431dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:orientation="vertical">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:cardCornerRadius="60dp">
-            <ImageView
-                android:layout_width="match_parent"
-                android:id="@+id/profileImage"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/profile_photo"/>
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Name"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            tools:layout_editor_absoluteX="80dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <TextView
-            android:id="@+id/place"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Place"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            tools:layout_editor_absoluteX="80dp"
-            tools:layout_editor_absoluteY="39dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/postImage"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="80dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:id="@+id/pn_post"
+            android:layout_width="410dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="431dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                app:cardCornerRadius="60dp"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/profile_photo" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Name"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="80dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/postImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="65dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="340dp">
+            android:layout_marginTop="310dp">
 
             <CheckBox
                 android:id="@+id/heart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:button="@null"
                 android:layout_marginStart="160dp"
-                android:background="@drawable/heart_icon">
-            </CheckBox>
+                android:background="@drawable/heart_icon"
+                android:button="@null"></CheckBox>
 
             <Button
                 android:id="@+id/bubble"
@@ -89,26 +85,22 @@
             </Button>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="380dp">
-
-        <TextView
-            android:id="@+id/peoples_likes"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:text="paci sa mi to"/>
-
-        <TextView
-            android:id="@+id/post_text"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="teeeext" />
+            android:layout_marginTop="330dp">
+
+            <TextView
+                android:id="@+id/post_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:text="teeeext" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>
