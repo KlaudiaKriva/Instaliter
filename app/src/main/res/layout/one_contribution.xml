@@ -7,8 +7,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15dp">
+        android:layout_height="421dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <LinearLayout
             android:id="@+id/pn_post"
@@ -61,42 +63,42 @@
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="310dp">
+            android:layout_marginTop="320dp"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/heart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="160dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/heart_icon"
-                android:button="@null"></CheckBox>
+                android:button="@null" />
 
             <Button
                 android:id="@+id/bubble"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="220dp"
-                android:layout_marginTop="5dp"
                 android:background="@drawable/comment_icon">
 
             </Button>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="330dp">
+            android:layout_marginTop="335dp">
 
             <TextView
                 android:id="@+id/post_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="30dp"
                 android:text="teeeext" />
 
         </RelativeLayout>
