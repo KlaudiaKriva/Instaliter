@@ -2,6 +2,7 @@ package com.example.instaliter;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -89,6 +90,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     } //na zaklade id
     public boolean selectAllPosts(){return false;}
     public boolean selectMyPosts(){return false;}
+
+    public boolean loginUser(String email, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT email, password FROM User WHERE idu ="+RegisterActivity.userID, null);
+        String pass = "";
+        String mail= "";
+        while (cursor.moveToNext()){
+            mail = cursor.getString(0);
+            pass = cursor.getString(1);
+        }
+
+        if(email.equals(mail) && password.equals(pass)){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 
 

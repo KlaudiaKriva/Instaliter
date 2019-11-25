@@ -63,6 +63,7 @@
                         android:textColor="@color/colorText" />
 
                     <EditText
+                        android:id="@+id/login_email"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:textSize="15sp"
@@ -90,6 +91,7 @@
                         android:textColor="@color/colorText" />
 
                     <EditText
+                        android:id="@+id/login_pass"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:textSize="15sp"
@@ -103,6 +105,7 @@
             </LinearLayout>
 
             <Button
+                android:onClick="getLoginUser"
                 android:id="@+id/btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
