@@ -48,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertNewPost(int idU, String path, String description) {
+    public boolean insertNewPost(long idU, String path, String description) {
         if (path.equals("")) return false;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
