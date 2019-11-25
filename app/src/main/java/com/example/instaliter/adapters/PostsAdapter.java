@@ -46,19 +46,26 @@ public class PostsAdapter extends BaseAdapter {
         LayoutInflater li = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = li.inflate(R.layout.one_contribution, null);
 
+        System.out.println("convertview: "+ convertView);
         Post post = arrayList.get(position);
+        System.out.println("arrayl je: " + arrayList.size());
+        System.out.println(post.getId() + post.getPost_text());
         
-        ImageView profileImage = convertView.findViewById(R.id.profileImage);
-        profileImage.setImageURI(Uri.parse(post.getProfileImage())); //rozhodnut sa ci v Post.java bude Uri alebo String
+//        ImageView profileImage = convertView.findViewById(R.id.profileImage);
+//        profileImage.setImageURI(Uri.parse(post.getProfileImage()));
 
         TextView userName = convertView.findViewById(R.id.userName);
-        userName.setText(post.getUserName());
+        userName.setText(String.valueOf(post.getId()));
 
 //        TextView place = convertView.findViewById(R.id.place);
 //        place.setText(post.getPlace());
 
         ImageView postImage = convertView.findViewById(R.id.postImage);
-        postImage.setImageURI(Uri.parse(post.getPostImage()));
+        System.out.println(postImage + "imageview");
+        System.out.println("uri je " +post.getPostImage());
+        String path = post.getPostImage();
+        System.out.println("path je: "+ path);
+        postImage.setImageURI(Uri.parse(path));
 
         //heart a bubble aku budu mat funkcionalitu, treba zahrnut tu pravdepodobne
 
@@ -69,6 +76,7 @@ public class PostsAdapter extends BaseAdapter {
         post_text.setText(post.getPost_text());
 
 
+        System.out.println("som v getview postsadapter " + post_text);
         return convertView;
     }
 }
