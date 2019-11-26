@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.instaliter.DatabaseHelper;
+import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
@@ -34,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     ListView listView;
     TextView profile_number_of_posts;
+    ImageView imageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +49,15 @@ public class ProfileActivity extends AppCompatActivity {
         profile_username = findViewById(R.id.profile_username);
         profile_username.setText(databaseHelper.selectUserNameFromID((int)RegisterActivity.userID));
         listView = findViewById(R.id.myPosts);
+        imageView = findViewById(R.id.profile_picture);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout(v);
+            }
+        });
+
 
         loadDataInListview();
 
@@ -114,5 +126,10 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void logout(View view){
+        Intent intent_lg = new Intent(ProfileActivity.this, LoginActivity.class);
+        startActivity(intent_lg);
     }
 }
