@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.instaliter.DatabaseHelper;
@@ -30,12 +31,13 @@ import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView profile_username;
     PostsAdapter postsAdapter;
-    ArrayList<Post> arrayList;
+    ArrayList<Post> arrayList = new ArrayList<>();;
     DatabaseHelper databaseHelper;
-    ListView listView;
+    RecyclerView recyclerView;
+
     TextView profile_number_of_posts;
+    TextView profile_username;
     ImageView imageView;
 
     @Override
@@ -43,13 +45,19 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
         profile_number_of_posts = findViewById(R.id.profile_number_of_posts);
+        profile_username = findViewById(R.id.profile_username);
+        imageView = findViewById(R.id.profile_picture);
 
         databaseHelper = new DatabaseHelper(this);
-        arrayList = new ArrayList<>();
-        profile_username = findViewById(R.id.profile_username);
-        profile_username.setText(databaseHelper.selectUserNameFromID((int)RegisterActivity.userID));
-        listView = findViewById(R.id.myPosts);
-        imageView = findViewById(R.id.profile_picture);
+        profile_username.setText(databaseHelper.selectUserNameFromID((int) RegisterActivity.userID));
+        recyclerView = findViewById(R.id.myPosts);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        loadDataInListview();
+        postsAdapter = new PostsAdapter(this,arrayList);
+        recyclerView.setAdapter(postsAdapter);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +67,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-        loadDataInListview();
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);
@@ -68,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.nav_home:
                         Intent intent1 = new Intent(ProfileActivity.this, MainActivity.class);
                         startActivity(intent1);
@@ -87,32 +93,42 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    public void loadDataInListview() throws NullPointerException{
+    public void loadDataInListview() throws NullPointerException {
+//        try {
+//            arrayList = databaseHelper.selectMyPosts();
+//            postsAdapter = new PostsAdapter(this, arrayList);
+//
+//            listView.setAdapter(postsAdapter);
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    System.out.println("a");
+//                }
+//            });
+//
+//            profile_number_of_posts.setText(String.valueOf(arrayList.size()));
+//            postsAdapter.notifyDataSetChanged();
+//        } catch (NullPointerException e) {
+//            System.out.println(e.getMessage());
         try {
             arrayList = databaseHelper.selectMyPosts();
-            postsAdapter = new PostsAdapter(this, arrayList);
-
-            listView.setAdapter(postsAdapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    System.out.println("a");
-                }
-            });
-
+            System.out.println("naplnuje sa arr list na profile");
             profile_number_of_posts.setText(String.valueOf(arrayList.size()));
             postsAdapter.notifyDataSetChanged();
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
+
+
+//        }
     }
 
-    public void likePost(final View view){
-        int position = listView.getPositionForView(view);
-        Post post = (Post) postsAdapter.getItem(position);
-
-        CheckBox heart = findViewById(R.id.heart);
+//    public void likePost(final View view){
+//        int position = listView.getPositionForView(view);
+//        Post post = (Post) postsAdapter.getItem(position);
+//
+//        CheckBox heart = findViewById(R.id.heart);
+//        }
 
 
 //        heart.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +142,6 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    }
 
     public void logout(View view){
         Intent intent_lg = new Intent(ProfileActivity.this, LoginActivity.class);
