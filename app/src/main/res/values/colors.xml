@@ -9,4 +9,8 @@
     <color name="colorText">#000000</color>
     <color name="colorText2">#727272</color>
     <color name="transparent">#00000000</color>
+    <color name="light_grey">#4e4e4e</color>
+    <color name="grey">#8b8b8b</color>
+    <color name="dark_grey">#696969</color>
+    <color name="white">#ffffff</color>
 </resources>

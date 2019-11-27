@@ -17,17 +17,18 @@
     </TextView>
 
     <View
+        android:id="@+id/line"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorText2"/>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_posts"
         android:layout_width="match_parent"
-        android:layout_height="627dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="54dp" />
+        android:layout_height="626dp"
+        android:layout_below="@id/line"
+        android:background="@color/grey" />
 
     <RelativeLayout
         android:layout_width="match_parent"
