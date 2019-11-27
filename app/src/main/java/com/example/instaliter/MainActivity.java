@@ -20,6 +20,7 @@ import com.example.instaliter.activities.CameraActivity;
 import com.example.instaliter.activities.ProfileActivity;
 import com.example.instaliter.adapters.PostsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadAllPosts();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
