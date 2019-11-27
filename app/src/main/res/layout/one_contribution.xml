@@ -1,113 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_height="wrap_content"
+<RelativeLayout android:layout_height="wrap_content"
     android:layout_width="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
+        android:id="@id/rellay1"
         android:layout_width="match_parent"
-        android:layout_height="421dp"
-        android:paddingTop="15dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_onProfPic"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:cardCornerRadius="26dp"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/profile_pic" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:id="@+id/pn_post"
-            android:layout_width="410dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="431dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                app:cardCornerRadius="37dp"
-                tools:ignore="MissingConstraints">
-
-                <ImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/profile_pic" />
-            </androidx.cardview.widget.CardView>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/card_onProfPic"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/userName"
-                android:layout_width="330dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif"
-                android:text="Name"
-                android:layout_marginTop="15dp"
                 android:textColor="@color/colorText"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="80dp"
-                tools:layout_editor_absoluteY="0dp" />
+                android:textSize="17sp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Name"/>
 
-
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif"
+                android:text="time"/>
         </LinearLayout>
+    </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/postImage"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="65dp"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <ImageView
+        android:id="@+id/postImage"
+        android:layout_width="match_parent"
+        android:layout_below="@id/rellay1"
+        android:layout_height="250dp"
+        android:layout_marginTop="5dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="320dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/heart"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/heart_icon"
-                android:button="@null" />
-
-            <Button
-                android:id="@+id/bubble"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/comment_icon">
-
-            </Button>
-
-
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linley1"
+        android:layout_below="@id/postImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="335dp">
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/heart"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/heart_icon"
+                    android:button="@null" />
+
+                <Button
+                    android:id="@+id/bubble"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/comment_icon">
+                </Button>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@id/rellay2"
+        android:layout_below="@id/linley1"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/post_text"
-                android:layout_width="match_parent"
+                android:id="@+id/number_ofLikes"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:textSize="17sp"
-                android:text="teeeext" />
+                android:text="15"
+                android:textSize="13sp"
+                android:textColor="@color/colorText">
+            </TextView>
 
-        </RelativeLayout>
-
+            <TextView
+                android:id="@+id/peoplesLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="peoples like"
+                android:textSize="13sp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/colorText">
+            </TextView>
+        </LinearLayout>
     </RelativeLayout>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/post_text"
+        android:layout_below="@id/rellay2"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        android:text="teeeext" />
+
+
+</RelativeLayout>
