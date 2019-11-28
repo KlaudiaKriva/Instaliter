@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 
 import com.example.instaliter.activities.CameraActivity;
 import com.example.instaliter.activities.ProfileActivity;
+import com.example.instaliter.activities.SearchActivity;
 import com.example.instaliter.adapters.PostsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -57,13 +58,17 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         break;
                     case R.id.nav_camera:
-                            Intent intent2 = new Intent(MainActivity.this, CameraActivity.class);
-                            startActivity(intent2);
-                            break;
+                        Intent intent2 = new Intent(MainActivity.this, CameraActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case R.id.nav_search:
+                        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                        startActivity(intent);
+                        break;
                     case R.id.nav_profile:
-                            Intent intent3 = new Intent(MainActivity.this, ProfileActivity.class);
-                            startActivity(intent3);
-                            break;
+                        Intent intent3 = new Intent(MainActivity.this, ProfileActivity.class);
+                        startActivity(intent3);
+                        break;
                 }
 
                 return false;

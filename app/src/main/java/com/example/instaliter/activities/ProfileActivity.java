@@ -46,6 +46,11 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.profile_layout);
         profile_number_of_posts = findViewById(R.id.profile_number_of_posts);
         profile_username = findViewById(R.id.profile_username);
+//
+//        profile_username.setText(databaseHelper.selectUserNameFromID((int)RegisterActivity.userID));
+//        RegisterActivity.userName = profile_username.getText().toString();
+//        listView = findViewById(R.id.myPosts);
+//
         imageView = findViewById(R.id.profile_picture);
 
         databaseHelper = new DatabaseHelper(this);
@@ -67,9 +72,14 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
+
+//
+//        loadDataInListview();
+//
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(2);
+        MenuItem menuItem = menu.getItem(3);
         menuItem.setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -82,6 +92,10 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.nav_camera:
                         Intent intent3 = new Intent(ProfileActivity.this, CameraActivity.class);
                         startActivity(intent3);
+                        break;
+                    case R.id.nav_search:
+                        Intent intent = new Intent(ProfileActivity.this, SearchActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.nav_profile:
                         break;
@@ -144,6 +158,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void logout(View view){
+        RegisterActivity.userID = 0;
+        RegisterActivity.userName = "";
         Intent intent_lg = new Intent(ProfileActivity.this, LoginActivity.class);
         startActivity(intent_lg);
     }

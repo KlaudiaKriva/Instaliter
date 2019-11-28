@@ -8,105 +8,130 @@
     <RelativeLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:padding="20dp">
+        android:layout_height="160dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/imageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:cardCornerRadius="43dp">
-
-            <ImageView
-                android:id="@+id/profile_picture"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/profile_pic" />
-        </androidx.cardview.widget.CardView>
-
-
-        <TextView
-            android:id="@+id/profile_username"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:textColor="@color/colorText"
-            android:textSize="17sp"
-            android:layout_alignStart="@+id/imageView"
-            android:text="User name" />
+            android:background="@drawable/grad_bg2">
 
-        <TextView
-            android:id="@+id/profile_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="22dp"
-            android:text="About me..." />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/circle_photo_frame">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginStart="114dp"
-            android:layout_marginTop="-33dp"
-            android:text="Posts" />
+                <ImageView
+                    android:id="@+id/profile_picture"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="9dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:padding="3dp"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/profile_pic" />
 
-        <TextView
-            android:id="@+id/profile_number_of_posts"
-            android:layout_width="21dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginStart="123dp"
-            android:layout_marginTop="-81dp"
-            android:text="@string/zero_number"
-            android:textSize="28sp" />
+            </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginStart="189dp"
-            android:layout_marginTop="-33dp"
-            android:text="Followers" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/profile_number_followers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginStart="212dp"
-            android:layout_marginTop="-82dp"
-            android:text="@string/zero_number"
-            android:textSize="28sp" />
+        <!--<androidx.cardview.widget.CardView-->
+            <!--android:id="@+id/imageView"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--app:cardCornerRadius="43dp">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/profile_picture"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:src="@drawable/profile_pic" />-->
+        <!--</androidx.cardview.widget.CardView>-->
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginStart="280dp"
-            android:layout_marginTop="-34dp"
-            android:text="Following" />
+        <!--<TextView-->
+            <!--android:id="@+id/profile_username"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView"-->
+            <!--android:textColor="@color/colorText"-->
+            <!--android:textSize="17sp"-->
+            <!--android:layout_alignStart="@+id/imageView"-->
+            <!--android:text="User name" />-->
 
-        <TextView
-            android:id="@+id/profile_number_following"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginStart="303dp"
-            android:layout_marginTop="-83dp"
-            android:text="@string/zero_number"
-            android:textSize="28sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/profile_description"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView"-->
+            <!--android:layout_alignStart="@+id/imageView"-->
+            <!--android:layout_marginStart="2dp"-->
+            <!--android:layout_marginTop="22dp"-->
+            <!--android:text="About me..." />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView"-->
+            <!--android:layout_alignStart="@+id/imageView"-->
+            <!--android:layout_marginStart="114dp"-->
+            <!--android:layout_marginTop="-33dp"-->
+            <!--android:text="Posts" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/profile_number_of_posts"-->
+            <!--android:layout_width="21dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView"-->
+            <!--android:layout_alignStart="@+id/imageView"-->
+            <!--android:layout_marginStart="123dp"-->
+            <!--android:layout_marginTop="-81dp"-->
+            <!--android:text="@string/zero_number"-->
+            <!--android:textSize="28sp" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView"-->
+            <!--android:layout_alignStart="@+id/imageView"-->
+            <!--android:layout_marginStart="189dp"-->
+            <!--android:layout_marginTop="-33dp"-->
+            <!--android:text="Followers" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/profile_number_followers"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView"-->
+            <!--android:layout_alignStart="@+id/imageView"-->
+            <!--android:layout_marginStart="212dp"-->
+            <!--android:layout_marginTop="-82dp"-->
+            <!--android:text="@string/zero_number"-->
+            <!--android:textSize="28sp" />-->
+
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView"-->
+            <!--android:layout_alignStart="@+id/imageView"-->
+            <!--android:layout_marginStart="280dp"-->
+            <!--android:layout_marginTop="-34dp"-->
+            <!--android:text="Following" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/profile_number_following"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageView"-->
+            <!--android:layout_alignStart="@+id/imageView"-->
+            <!--android:layout_marginStart="303dp"-->
+            <!--android:layout_marginTop="-83dp"-->
+            <!--android:text="@string/zero_number"-->
+            <!--android:textSize="28sp" />-->
 
 
     </RelativeLayout>
