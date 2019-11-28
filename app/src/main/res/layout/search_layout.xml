@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:padding="20dp">
+
+
+
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myPosts"
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
+        android:layout_below="@+id/topPanel"
+        android:layout_alignBottom="@id/rellay3"
+        android:layout_marginBottom="56dp" />
+
+    <RelativeLayout
+        android:id="@+id/rellay3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        >
+        <FrameLayout
+            android:id="@+id/fragment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_navigation"
+            />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            app:itemIconTint="@drawable/selector_bottombar_text"
+            app:itemTextColor="@drawable/selector_bottombar_text"
+            app:itemHorizontalTranslationEnabled="true"
+            app:menu="@menu/bottom_nav" />
+    </RelativeLayout>
+
+</RelativeLayout>
