@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.instaliter.activities.CameraActivity;
 import com.example.instaliter.activities.ProfileActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
     RelativeLayout rellay1, rellay2;
@@ -56,24 +59,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        button2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //send data to server and check them
-//                // after checking -> main page
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
-
-
     }
 
     public void getLoginUser(View view){
+        ServerSingleton serverSingleton = ServerSingleton.getInstance();
         if(!(login_email.getText().toString().equals("") && (login_email.getText().toString().equals("")))){
-            boolean result = databaseHelper.loginUser(login_email.getText().toString(), login_pass.getText().toString());
-            if(result){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("email", login_email.getText().toString());
+            params.put("password", login_pass.getText().toString());
+            Map<String, String> result = new HashMap<>();
+
+            result = serverSingleton.loginUser(params, LoginActivity.this);
+
+//            boolean result = serverSingleton.loginUser(params, LoginActivity.this);
+
+            boolean isEmpty = result.isEmpty();
+//            LoggedUser loggedUser = LoggedUser.getInstance();
+//            System.out.println("result log user je: "+ loggedUser.getId() + " sdv " + loggedUser.getToken());
+            if(!isEmpty){
                 Toast.makeText(view.getContext(), "Login inserted successfully",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 System.out.println("loginactivity som "+ RegisterActivity.userID);
