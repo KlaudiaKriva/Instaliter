@@ -10,6 +10,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class RegisterActivity extends AppCompatActivity {
 
     Button button;
@@ -20,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText register_password;
     public static long userID;
     public static String userName = "";
+
 
 
     @Override
@@ -42,27 +55,32 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+
+
+
     }
 
     public void insertNewUser(View v){
         if(!(register_name.getText().toString().equals("") && register_username.getText().toString().equals("")
-        && register_email.getText().toString().equals("") && register_password.getText().toString().equals(""))){
-            long result = databaseHelper.insertNewUser(register_name.getText().toString(), register_username.getText().toString(),
-                    register_email.getText().toString(), register_password.getText().toString());
-            if (result != -1){
-                Toast.makeText(v.getContext(), "User inserted successfully",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                startActivity(intent);
-                System.out.println(result + " result vracia");
-                //nastavit staticuser ako result
-                userID = result;
-                userName = register_username.getText().toString();
+        && register_email.getText().toString().equals("") && register_password.getText().toString().equals(""))) {
 
+            HashMap<String, String> params = new HashMap<String, String>();
+
+            params.put("name", register_name.getText().toString());
+            params.put("instaName", register_username.getText().toString());
+            params.put("email", register_email.getText().toString());
+            params.put("password", register_password.getText().toString());
+
+            ServerSingleton serverSingleton = ServerSingleton.getInstance();
+            boolean response = serverSingleton.registerUser(params, RegisterActivity.this);
+            if(response){
+                Toast.makeText(getApplicationContext(), "User inserted successfully", Toast.LENGTH_LONG).show();
+                Intent intent1 = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent1);
             }
             else {
-                Toast.makeText(v.getContext(), "User not inserted",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "User not inserted", Toast.LENGTH_LONG).show();
             }
-
 
         }
 

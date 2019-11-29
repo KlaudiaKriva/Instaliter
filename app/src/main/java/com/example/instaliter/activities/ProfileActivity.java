@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         profile_username = findViewById(R.id.profile_username);
 //
 //        profile_username.setText(databaseHelper.selectUserNameFromID((int)RegisterActivity.userID));
-//        RegisterActivity.userName = profile_username.getText().toString();
+        RegisterActivity.userName = profile_username.getText().toString();
 //        listView = findViewById(R.id.myPosts);
 //
         imageView = findViewById(R.id.profile_picture);
@@ -59,11 +59,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
+//
         loadDataInListview();
         postsAdapter = new PostsAdapter(this,arrayList);
         recyclerView.setAdapter(postsAdapter);
-
+//
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
