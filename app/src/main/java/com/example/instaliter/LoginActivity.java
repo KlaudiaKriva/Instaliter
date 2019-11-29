@@ -73,8 +73,10 @@ public class LoginActivity extends AppCompatActivity {
     Map<String, String> responseMap;
     String token = "";
     String id = "";
+    String username="";
+//    String instaname="";
 
-    public void getLoginUser(final View view){
+    public void getLoginUser(View view){
         if(!(login_email.getText().toString().equals("") && (login_email.getText().toString().equals("")))){
             HashMap<String, String> params = new HashMap<>();
             params.put("email", login_email.getText().toString());
@@ -93,18 +95,20 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 token = response.getString("Token");
                                 id = String.valueOf(response.getInt("ID"));
+                                username = response.getString("Name");
                                 System.out.println("vypisujem id a token" + token + " id je: " + id);
                                 responseMap.put("id", id);
                                 responseMap.put("token", token);
                                 if (!responseMap.isEmpty()){
-                                    Toast.makeText(getApplicationContext(), "Login inserted successfully",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getBaseContext(), "Login inserted successfully",Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     RegisterActivity.userID = Long.parseLong(id);
+                                    RegisterActivity.userName = username;
                                     System.out.println("loginactivity som "+ RegisterActivity.userID);
                                     startActivity(intent);
                                 }
                                 else {
-                                    Toast.makeText(getApplicationContext(), "Login not inserted",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getBaseContext(), "Login not inserted",Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("vykresluje sa prva screena + " + RegisterActivity.userID);
+        System.out.println("vykresluje sa prva screena + " + RegisterActivity.userID + " a zaroven  name: "+ RegisterActivity.userName);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
