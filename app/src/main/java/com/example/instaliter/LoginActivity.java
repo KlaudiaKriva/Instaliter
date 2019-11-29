@@ -13,8 +13,17 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.instaliter.activities.CameraActivity;
 import com.example.instaliter.activities.ProfileActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,30 +70,65 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void getLoginUser(View view){
-        ServerSingleton serverSingleton = ServerSingleton.getInstance();
+    Map<String, String> responseMap;
+    String token = "";
+    String id = "";
+
+    public void getLoginUser(final View view){
         if(!(login_email.getText().toString().equals("") && (login_email.getText().toString().equals("")))){
             HashMap<String, String> params = new HashMap<>();
             params.put("email", login_email.getText().toString());
             params.put("password", login_pass.getText().toString());
             Map<String, String> result = new HashMap<>();
 
-            result = serverSingleton.loginUser(params, LoginActivity.this);
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String registerurl = "http://192.168.1.123:5005/login";
 
-//            boolean result = serverSingleton.loginUser(params, LoginActivity.this);
+            responseMap = new HashMap<>();
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, registerurl,
+                    new JSONObject(params),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                token = response.getString("Token");
+                                id = String.valueOf(response.getInt("ID"));
+                                System.out.println("vypisujem id a token" + token + " id je: " + id);
+                                responseMap.put("id", id);
+                                responseMap.put("token", token);
+                                if (!responseMap.isEmpty()){
+                                    Toast.makeText(getApplicationContext(), "Login inserted successfully",Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    RegisterActivity.userID = Long.parseLong(id);
+                                    System.out.println("loginactivity som "+ RegisterActivity.userID);
+                                    startActivity(intent);
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Login not inserted",Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
-            boolean isEmpty = result.isEmpty();
-//            LoggedUser loggedUser = LoggedUser.getInstance();
-//            System.out.println("result log user je: "+ loggedUser.getId() + " sdv " + loggedUser.getToken());
-            if(!isEmpty){
-                Toast.makeText(view.getContext(), "Login inserted successfully",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                System.out.println("loginactivity som "+ RegisterActivity.userID);
-                startActivity(intent);
-                System.out.println(result + " result vracia");
-            } else {
-                Toast.makeText(view.getContext(), "Login not inserted",Toast.LENGTH_LONG).show();
-            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> paramas = new HashMap<String, String>();
+                    paramas.put("id", id);
+                    paramas.put("token", token);
+                    responseMap = paramas;
+                    return paramas;
+                }
+            };
+
+            queue.add(jsObjRequest);
         }
     }
 }
