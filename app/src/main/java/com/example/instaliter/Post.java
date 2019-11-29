@@ -6,7 +6,6 @@ public class Post {
     String datum;
     String postImage;
     String post_text;
-    String user;
 
 
     public Post(int id, int userID, String datum, String postImage, String post_text) {
@@ -16,6 +15,7 @@ public class Post {
         this.postImage = postImage;
         this.post_text = post_text;
     }
+
 
     public void setId(int id) {
         this.id = id;
