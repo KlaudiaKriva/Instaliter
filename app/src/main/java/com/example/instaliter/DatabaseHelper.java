@@ -94,6 +94,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     } //na zaklade id
 
+    public ArrayList<User> selectAllUsers(){
+        System.out.println("selectAllUsers");
+        ArrayList<User> arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select User.id, User.name, UserInfo.profilePhoto from User inner join UserInfo on User.id = UserInfo.idU where idU is not " + RegisterActivity.userID, null);
+        System.out.println("idem do whilu"); // vypise sa
+        System.out.println("cursor " + cursor.toString()); // 'void com.example.instaliter.adapters.PostsAdapter.notifyDataSetChanged()' on a null object reference
+
+        while(cursor.moveToNext()){ // cele sa preskoci
+            System.out.println("zacinam while");
+            int id = cursor.getInt(0);
+            String instaName = selectUserNameFromID(id);
+            String userName = cursor.getString(1);
+            String image = cursor.getString(2);
+            User user = new User(id,instaName, userName, image);
+            System.out.println("vypisujem selectallusers " + image + instaName + userName);
+            arrayList.add(user);
+        }
+        return arrayList;
+    }
+
     public ArrayList<Post> selectAllPosts(){
         ArrayList<Post> arrayList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
