@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             Map<String, String> result = new HashMap<>();
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String registerurl = "http://192.168.0.101:5005/login";
+            String registerurl = "http://192.168.1.123:5005/login";
 
             responseMap = new HashMap<>();
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, registerurl,
