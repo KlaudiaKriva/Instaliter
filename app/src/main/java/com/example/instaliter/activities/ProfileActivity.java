@@ -70,7 +70,11 @@ public class ProfileActivity extends AppCompatActivity {
         imageView = findViewById(R.id.profile_picture);
         recyclerView = findViewById(R.id.myPosts);
 
-        getUserInfo();
+        try {
+            getUserInfo();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //        RegisterActivity.userName = profile_username.getText().toString();
 //        profile_username.setText(String.valueOf(RegisterActivity.userID));
 //
@@ -128,31 +132,31 @@ public class ProfileActivity extends AppCompatActivity {
     String instaname="";
     String email= "";
     String profileDescription="";
-    int idI=0;
+    String idI="";
     String imagePath="";
     String imageDate= "";
     String thumbnailPath="";
     String description;
 
 
-    public void getUserInfo(){
+    public void getUserInfo() throws JSONException {
         System.out.println("tahaju sa data zo servera o userovi");
         if(!(token.equals(""))){
 //            HashMap<String, String> params = new HashMap<>();
 //            params.put("id", String.valueOf(RegisterActivity.userID));
 //            params.put("token", token);
 //            Map<String, String> result = new HashMap<>();
-            String params = String.valueOf(userID);
-
+//            String params = String.valueOf(userID);
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", String.valueOf(userID));
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String registerurl = "http://192.168.0.101:5005/userInfo";
+            String registerurl = "http://192.168.1.123:5005/userInfo";
 
             responseMap = new HashMap<>();
             final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                     Request.Method.POST,
-                    registerurl,
-                    "",
+                    registerurl, new JSONObject(params),
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response1) {
@@ -169,15 +173,18 @@ public class ProfileActivity extends AppCompatActivity {
                             // tento response je [{object}]
                             System.out.println("response userInfo "+response);
                             try {
-                                username = response.getString("Name");
-                                instaname = response.getString("Instaname");
-                                email = response.getString("Email");
-                                profileDescription = response.getString("ProfileDescription");
-                                idI = Integer.parseInt(response.getString("IdI"));
-                                imagePath = response.getString("ImahgePath");
-                                imageDate = response.getString("ImageDate");
-                                thumbnailPath = response.getString("ThumbnailPath");
-                                description= response.getString("Description");
+                                //tu si mala velke pismena Name, InstaName- taky response nepride, pridu male pismenka
+                                username = response.getString("name");
+                                instaname = response.getString("instaName");
+                                email = response.getString("email");
+                                profileDescription = response.getString("profileDescription");
+//                                idI = Integer.parseInt(response.getString("idI"));
+                                //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
+                                idI = response.getString("idI");
+                                imagePath = response.getString("imagePath");
+                                imageDate = response.getString("imageDate");
+                                thumbnailPath = response.getString("thumbnailPath");
+                                description= response.getString("description");
 
                                 responseMap.put("id", String.valueOf(userID));
                                 responseMap.put("name", username);
