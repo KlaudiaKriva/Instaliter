@@ -77,14 +77,14 @@ public class LoginActivity extends AppCompatActivity {
 //    String instaname="";
 
     public void getLoginUser(View view){
-        if(!(login_email.getText().toString().equals("") && (login_email.getText().toString().equals("")))){
+        if(!(login_email.getText().toString().equals("") && (login_pass.getText().toString().equals("")))){
             HashMap<String, String> params = new HashMap<>();
             params.put("email", login_email.getText().toString());
             params.put("password", login_pass.getText().toString());
             Map<String, String> result = new HashMap<>();
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String registerurl = "http://192.168.1.123:5005/login";
+            String registerurl = "http://192.168.0.101:5005/login";
 
             responseMap = new HashMap<>();
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, registerurl,
@@ -93,9 +93,10 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                token = response.getString("Token");
-                                id = String.valueOf(response.getInt("ID"));
-                                username = response.getString("Name");
+                                System.out.println("response "+response);
+                                token = response.getString("token");
+                                id = String.valueOf(response.getInt("id"));
+                                username = response.getString("name");
                                 System.out.println("vypisujem id a token" + token + " id je: " + id);
                                 responseMap.put("id", id);
                                 responseMap.put("token", token);
@@ -104,7 +105,8 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     RegisterActivity.userID = Long.parseLong(id);
                                     RegisterActivity.userName = username;
-                                    System.out.println("loginactivity som "+ RegisterActivity.userID);
+                                    RegisterActivity.token = token;
+                                    System.out.println("loginactivity som "+ RegisterActivity.userID + "meno moje je "+ RegisterActivity.userName + "a moj token je "+ RegisterActivity.token);
                                     startActivity(intent);
                                 }
                                 else {
