@@ -34,13 +34,18 @@ import com.example.instaliter.DatabaseHelper;
 import com.example.instaliter.MainActivity;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
+import com.example.instaliter.ServerSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -118,7 +123,34 @@ public class CameraActivity extends AppCompatActivity {
 
     public void insertPost(View view){
         if(!(textView.getText().toString().equals(""))){
-            boolean result = databaseHelper.insertNewPost(RegisterActivity.userID,pathImage,textView.getText().toString());
+//            boolean result = databaseHelper.insertNewPost(RegisterActivity.userID,pathImage,textView.getText().toString());
+            ArrayList<String> tags = new ArrayList<>();
+//            tags.add("");
+
+            String text = textView.getText().toString();
+            String regexPattern = "(#\\w+)";
+
+            Pattern p = Pattern.compile(regexPattern);
+            Matcher m = p.matcher(text);
+            while (m.find()) {
+                String hashTag = m.group(1);
+                String novyhashTag = "\"" + hashTag + "\"";
+                tags.add(novyhashTag);
+            }
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", String.valueOf(RegisterActivity.userID));
+            params.put("imageDescription", textView.getText().toString());
+            params.put("type", String.valueOf(1));
+            params.put("tag", String.valueOf(tags));
+
+            System.out.println("hashtagy su: " + String.valueOf(tags));
+
+
+//            HashMap<String, String> paramsToSend = new HashMap<>();
+//            paramsToSend.put("recfile", pathImage);
+//            paramsToSend.put("details", String.valueOf(params));
+            boolean result = ServerSingleton.getInstance().uploadNewPost(params, pathImage, this);
             if (result){
                 Toast.makeText(view.getContext(), "Post inserted successfully",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(CameraActivity.this, ProfileActivity.class);
