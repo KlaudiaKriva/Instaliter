@@ -2,6 +2,7 @@ package com.example.instaliter.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.instaliter.DatabaseHelper;
 import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
@@ -27,7 +37,17 @@ import com.example.instaliter.RegisterActivity;
 import com.example.instaliter.adapters.PostsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.instaliter.RegisterActivity.token;
+import static com.example.instaliter.RegisterActivity.userID;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -44,26 +64,27 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
+
         profile_number_of_posts = findViewById(R.id.profile_number_of_posts);
         profile_username = findViewById(R.id.profile_username);
-//
-//        profile_username.setText(databaseHelper.selectUserNameFromID((int)RegisterActivity.userID));
-        RegisterActivity.userName = profile_username.getText().toString();
-//        listView = findViewById(R.id.myPosts);
-//
         imageView = findViewById(R.id.profile_picture);
-
-        databaseHelper = new DatabaseHelper(this);
-        profile_username.setText(databaseHelper.selectUserNameFromID((int) RegisterActivity.userID));
         recyclerView = findViewById(R.id.myPosts);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        getUserInfo();
+//        RegisterActivity.userName = profile_username.getText().toString();
+//        profile_username.setText(String.valueOf(RegisterActivity.userID));
 //
-        loadDataInListview();
-        postsAdapter = new PostsAdapter(this,arrayList);
-        recyclerView.setAdapter(postsAdapter);
+//        profile_username.setText(databaseHelper.selectUserNameFromID((int)RegisterActivity.userID));
+//        listView = findViewById(R.id.myPosts);
+//        databaseHelper = new DatabaseHelper(this);
+
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
 //
+//        loadDataInListview();
+//        postsAdapter = new PostsAdapter(this,arrayList);
+//        recyclerView.setAdapter(postsAdapter);
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,11 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
-
-//
 //        loadDataInListview();
-//
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
@@ -106,36 +123,157 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    Map<String, String> responseMap;
+    String username="";
+    String instaname="";
+    String email= "";
+    String profileDescription="";
+    int idI=0;
+    String imagePath="";
+    String imageDate= "";
+    String thumbnailPath="";
+    String description;
 
-    public void loadDataInListview() throws NullPointerException {
+
+    public void getUserInfo(){
+        System.out.println("tahaju sa data zo servera o userovi");
+        if(!(token.equals(""))){
+//            HashMap<String, String> params = new HashMap<>();
+//            params.put("id", String.valueOf(RegisterActivity.userID));
+//            params.put("token", token);
+//            Map<String, String> result = new HashMap<>();
+            String params = String.valueOf(userID);
+
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String registerurl = "http://192.168.0.101:5005/userInfo";
+
+            responseMap = new HashMap<>();
+            final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.POST,
+                    registerurl,
+                    "",
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response1) {
+                            System.out.println("co vrati server "+ response1);
+                            JSONObject response = null;
+                            try {
+                                for (int i = 0; i< response1.length(); i++){
+                                    response = response1.getJSONObject(i);
+                                    System.out.println("response spravy uz "+response);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            // tento response je [{object}]
+                            System.out.println("response userInfo "+response);
+                            try {
+                                username = response.getString("Name");
+                                instaname = response.getString("Instaname");
+                                email = response.getString("Email");
+                                profileDescription = response.getString("ProfileDescription");
+                                idI = Integer.parseInt(response.getString("IdI"));
+                                imagePath = response.getString("ImahgePath");
+                                imageDate = response.getString("ImageDate");
+                                thumbnailPath = response.getString("ThumbnailPath");
+                                description= response.getString("Description");
+
+                                responseMap.put("id", String.valueOf(userID));
+                                responseMap.put("name", username);
+                                responseMap.put("instaName", instaname);
+                                responseMap.put("email", email);
+                                responseMap.put("profileDescription", profileDescription);
+                                responseMap.put("idI", String.valueOf(idI));
+                                responseMap.put("imagePath", imagePath);
+                                responseMap.put("imageDate", imageDate);
+                                responseMap.put("thumbnailPath", thumbnailPath);
+                                responseMap.put("description", description);
+
+                                if (!responseMap.isEmpty()){
+                                    Toast.makeText(getBaseContext(), "User authentificed",Toast.LENGTH_LONG).show();
+//                                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                                    RegisterActivity.userName = username;
+                                    profile_username.setText(username);
+                                    System.out.println("profile activity som "+ RegisterActivity.userID);
+                                }
+                                else {
+                                    Toast.makeText(getBaseContext(), "User not authentificed",Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> paramas = new HashMap<String, String>();
+                    paramas.put("id", String.valueOf(userID));
+                    paramas.put("name", username);
+                    paramas.put("instaName", instaname);
+                    paramas.put("email", email);
+                    paramas.put("profileDescription", profileDescription);
+                    paramas.put("idI", String.valueOf(idI));
+                    paramas.put("imagePath", imagePath);
+                    paramas.put("imageDate", imageDate);
+                    paramas.put("description", description);
+                    return paramas;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+
+
+            queue.add(jsonArrayRequest);
+        } else {
+            System.out.println("token je prazdny "+token);
+        }
+    }
+
+
+//    public void loadDataInListview() throws NullPointerException {
+////        try {
+////            arrayList = databaseHelper.selectMyPosts();
+////            postsAdapter = new PostsAdapter(this, arrayList);
+////
+////            listView.setAdapter(postsAdapter);
+////            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+////                @Override
+////                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                    System.out.println("a");
+////                }
+////            });
+////
+////            profile_number_of_posts.setText(String.valueOf(arrayList.size()));
+////            postsAdapter.notifyDataSetChanged();
+////        } catch (NullPointerException e) {
+////            System.out.println(e.getMessage());
 //        try {
 //            arrayList = databaseHelper.selectMyPosts();
-//            postsAdapter = new PostsAdapter(this, arrayList);
-//
-//            listView.setAdapter(postsAdapter);
-//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    System.out.println("a");
-//                }
-//            });
-//
+//            System.out.println("naplnuje sa arr list na profile");
 //            profile_number_of_posts.setText(String.valueOf(arrayList.size()));
 //            postsAdapter.notifyDataSetChanged();
-//        } catch (NullPointerException e) {
+//        } catch (NullPointerException e){
 //            System.out.println(e.getMessage());
-        try {
-            arrayList = databaseHelper.selectMyPosts();
-            System.out.println("naplnuje sa arr list na profile");
-            profile_number_of_posts.setText(String.valueOf(arrayList.size()));
-            postsAdapter.notifyDataSetChanged();
-        } catch (NullPointerException e){
-            System.out.println(e.getMessage());
-        }
-
-
 //        }
-    }
+//
+//
+////        }
+//    }
 
 //    public void likePost(final View view){
 //        int position = listView.getPositionForView(view);

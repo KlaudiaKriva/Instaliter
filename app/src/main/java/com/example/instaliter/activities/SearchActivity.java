@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,14 +26,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity  implements UsersAdapter.UsersAdapterListener {
 
+    private static final String TAG = SearchActivity.class.getSimpleName();
     ArrayList<User> arrayList = new ArrayList<>();
     UsersAdapter adapter;
     DatabaseHelper databaseHelper;
     RecyclerView recyclerView;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private static final String URL = "https://192.168.0.102:5005";
+
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +49,13 @@ public class SearchActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
         recyclerView = findViewById(R.id.users);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
+        arrayList = new ArrayList<>();
         loadAllUsers();
-        adapter = new UsersAdapter(arrayList);
+        adapter = new UsersAdapter(this,arrayList,this);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
 
@@ -113,6 +118,11 @@ public class SearchActivity extends AppCompatActivity {
         } catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void onUserSelected(User user) {
+
     }
 
 //    private void setUpRecyclerView() {
