@@ -1,6 +1,7 @@
 package com.example.instaliter.adapters;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.bumptech.glide.RequestManager;
 import com.example.instaliter.DatabaseHelper;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
+import com.example.instaliter.RegisterActivity;
 
 import java.util.ArrayList;
 
@@ -117,13 +119,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         final Post post = postArrayList.get(position);
-        DatabaseHelper databaseHelper = new DatabaseHelper(context);
 
-        holder.userName.setText(databaseHelper.selectUserNameFromPost(post.getId()));
-        holder.time.setText(post.getDatum());
+        holder.userName.setText(RegisterActivity.userName);
+        holder.time.setText(post.getDate());
         holder.post_text.setText(post.getPost_text());
-
-        glide.load(post.getPostImage()).into(holder.postImage);
+        String path ="http://192.168.0.101:5005/"+post.getPostImage();
+        System.out.println("path "+path);
+        glide.load(path).into(holder.postImage);
 
         holder.heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

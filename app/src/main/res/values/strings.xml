@@ -10,6 +10,9 @@
     <string name="pass_text">Password</string>
     <string name="sing_up">Sign up</string>
     <string name="name_text">Name</string>
-
-
+    <string name="edit_profile">Edit profile</string>
+    <string name="edit_done">Done</string>
+    <string name="change_pic">Change profile picture</string>
+    <string name="desc_text">Description</string>
+    <string name="per_info">Personal information</string>
 </resources>
