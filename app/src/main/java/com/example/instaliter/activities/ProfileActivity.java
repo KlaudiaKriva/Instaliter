@@ -59,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
     Button button;
 
     TextView profile_number_of_posts;
-    TextView profile_username;
+    TextView profile_username, profile_desc;
     ImageView imageView;
 
     @Override
@@ -72,6 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
         imageView = findViewById(R.id.profile_picture);
         recyclerView = findViewById(R.id.myPosts);
         button = findViewById(R.id.editProfile);
+        profile_desc = findViewById(R.id.profile_description);
 
         try {
             getUserInfo();
@@ -79,17 +80,10 @@ public class ProfileActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        RegisterActivity.userName = profile_username.getText().toString();
-//        profile_username.setText(String.valueOf(RegisterActivity.userID));
-//
-//        profile_username.setText(databaseHelper.selectUserNameFromID((int)RegisterActivity.userID));
-//        listView = findViewById(R.id.myPosts);
-//        databaseHelper = new DatabaseHelper(this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-//
-//        loadDataInListview();
+
         postsAdapter = new PostsAdapter(this,arrayList);
         recyclerView.setAdapter(postsAdapter);
 
@@ -106,8 +100,6 @@ public class ProfileActivity extends AppCompatActivity {
                 logout(v);
             }
         });
-
-//        loadDataInListview();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
@@ -205,8 +197,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 if (!responseMap.isEmpty()){
                                     Toast.makeText(getBaseContext(), "User authentificed",Toast.LENGTH_LONG).show();
-//                                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                                     RegisterActivity.userName = username;
+                                    profile_desc.setText(profileDescription);
                                     profile_username.setText(username);
                                     System.out.println("profile activity som "+ RegisterActivity.userID);
                                 }
@@ -360,40 +352,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-//    public void loadDataInListview() throws NullPointerException {
-////        try {
-////            arrayList = databaseHelper.selectMyPosts();
-////            postsAdapter = new PostsAdapter(this, arrayList);
-////
-////            listView.setAdapter(postsAdapter);
-////            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-////                @Override
-////                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                    System.out.println("a");
-////                }
-////            });
-////
-////            profile_number_of_posts.setText(String.valueOf(arrayList.size()));
-////            postsAdapter.notifyDataSetChanged();
-////        } catch (NullPointerException e) {
-////            System.out.println(e.getMessage());
-//        try {
-//            arrayList = databaseHelper.selectMyPosts();
-//            System.out.println("naplnuje sa arr list na profile");
-//            profile_number_of_posts.setText(String.valueOf(arrayList.size()));
-//            postsAdapter.notifyDataSetChanged();
-//        } catch (NullPointerException e){
-//            System.out.println(e.getMessage());
-//        }
-//
-//
-////        }
-//    }
 
 //    public void likePost(final View view){
 //        int position = listView.getPositionForView(view);
