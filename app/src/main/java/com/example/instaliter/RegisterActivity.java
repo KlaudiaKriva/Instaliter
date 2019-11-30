@@ -31,7 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText register_email;
     EditText register_password;
     public static long userID;
-    public static String userName = "";
+    public static String userName;
+    public static String token;
 
 
 
