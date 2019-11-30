@@ -1,35 +1,53 @@
 package com.example.instaliter;
 
 public class Post {
-    int id;
+    String idI;
     int userName;
-    String datum;
     String postImage;
+    String thumbnailPath;
     String post_text;
+    String date;
 
 
-    public Post(int id, int userID, String datum, String postImage, String post_text) {
-        this.id = id;
+    public Post(int userID, String idI, String postImage, String thumbnailPath, String post_text, String date) {
         this.userName = userID;
-        this.datum = datum;
+        this.idI = idI;
         this.postImage = postImage;
+        this.thumbnailPath = thumbnailPath;
         this.post_text = post_text;
+        this.date = date;
     }
 
-
-    public void setId(int id) {
-        this.id = id;
+    public String getDate() {
+        return date;
     }
 
-
-
-
-    public String getDatum() {
-        return datum;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setDatum(String datum) {
-        this.datum = datum;
+    public int getUserName() {
+        return userName;
+    }
+
+    public void setUserName(int userName) {
+        this.userName = userName;
+    }
+
+    public String getIdI() {
+        return idI;
+    }
+
+    public void setIdI(String idI) {
+        this.idI = idI;
+    }
+
+    public String getThumbnailPath() {
+        return thumbnailPath;
+    }
+
+    public void setThumbnailPath(String thumbnailPath) {
+        this.thumbnailPath = thumbnailPath;
     }
 
     public void setPostImage(String postImage) {
@@ -49,7 +67,5 @@ public class Post {
         return post_text;
     }
 
-    public int getId() {
-        return id;
-    }
+
 }

@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 //            System.out.println(e.getMessage());
 
         try {
-            arrayList = databaseHelper.selectAllPosts();
+//            arrayList = databaseHelper.selectAllPosts();
             System.out.println("naplnuje sa arraylist");
             postsAdapter.notifyDataSetChanged();
         } catch (NullPointerException e){

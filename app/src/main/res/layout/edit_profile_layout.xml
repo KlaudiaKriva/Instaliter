@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linley1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_cancel">
+            </Button>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/edit_profile"
+                android:layout_gravity="center"
+                android:textColor="@color/colorText"
+                android:textSize="20sp">
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_share"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:text="@string/edit_done"
+                android:onClick="insertPost"
+                android:textSize="20sp"
+                android:textColor="@color/colorText2"
+                android:background="@drawable/border">
+            </Button>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_below="@id/linley1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorText2"/>
+
+    <RelativeLayout
+        android:id="@+id/rellay"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/imgUser"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/circle_photo_frame">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="0dp"
+
+            app:cardMaxElevation="0dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardCornerRadius="55dp">
+
+            <ImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="match_parent"
+                android:padding="1dp"
+                android:layout_margin="3dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/profile_photo" />
+        </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <Button
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/imgUser"
+        android:id="@+id/btn_changePic"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+        android:text="@string/change_pic"
+        android:onClick="insertPost"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorText2"
+        android:background="@drawable/border">
+    </Button>
+
+        <View
+        android:id="@+id/line2"
+        android:layout_below="@id/btn_changePic"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorText2"/>
+
+        <LinearLayout
+        android:id="@+id/ley_name"
+        android:layout_below="@id/line2"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_text"
+                android:textColor="@color/colorText2"
+                android:textSize="20sp">
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_marginStart="35dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:id="@+id/addTitle">
+            </EditText>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+        <View
+        android:id="@+id/line3"
+        android:layout_below="@id/ley_name"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorText2"/>
+
+        <LinearLayout
+        android:id="@+id/ley_instaName"
+        android:layout_below="@id/line3"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username_text"
+                android:textColor="@color/colorText2"
+                android:textSize="20sp">
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:id="@+id/change_instaName">
+            </EditText>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+        <View
+        android:id="@+id/line4"
+        android:layout_below="@id/ley_instaName"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorText2"/>
+
+        <LinearLayout
+        android:id="@+id/ley_desc"
+        android:layout_below="@id/line4"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/desc_text"
+                android:textColor="@color/colorText2"
+                android:textSize="20sp">
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:id="@+id/change_desc">
+            </EditText>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+        <View
+        android:id="@+id/line5"
+        android:layout_below="@id/ley_desc"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorText2"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/rellay"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/personaliInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/per_info"
+            android:layout_gravity="center"
+            android:textColor="@color/colorText"
+            android:textSize="17sp">
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/ley_email"
+            android:layout_below="@id/personaliInfo"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_text"
+                    android:textColor="@color/colorText2"
+                    android:textSize="20sp">
+                </TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:gravity="end"
+                android:layout_weight="8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:id="@+id/change_email">
+                </EditText>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
