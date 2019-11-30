@@ -58,14 +58,25 @@
                 android:textColor="@color/colorText"/>
 
             <TextView
+                android:layout_below="@+id/profile_username"
                 android:layout_width="wrap_content"
                 android:id="@+id/profile_description"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_username"
                 android:layout_centerHorizontal="true"
                 android:text="About me..."
                 android:textSize="14sp"
                 android:textColor="@color/grey"/>
+
+            <Button
+                android:layout_below="@id/profile_description"
+                android:id="@+id/editProfile"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/icon_editprofile">
+            </Button>
+
+
 
         </RelativeLayout>
 

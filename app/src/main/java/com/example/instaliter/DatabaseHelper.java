@@ -125,9 +125,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String path = cursor.getString(2);
             String ctime = cursor.getString(3);
             String description = cursor.getString(4);
-            Post post = new Post(id, (int) RegisterActivity.userID, ctime, path, description);
+//            Post post = new Post(id, (int) RegisterActivity.userID, ctime, path, description);
             System.out.println("vypisujem selectallposts "+ id + path + description);
-            arrayList.add(post);
+//            arrayList.add(post);
 
         }
         return arrayList;
@@ -167,9 +167,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String path = cursor.getString(2);
             String ctime = cursor.getString(3);
             String description = cursor.getString(4);
-            Post post = new Post(id, (int) RegisterActivity.userID, ctime, path, description);
+//            Post post = new Post(id, (int) RegisterActivity.userID, ctime, path, description);
             System.out.println("vypisujem selectmyposts "+ id + path + description);
-            arrayList.add(post);
+//            arrayList.add(post);
 
         }
         return arrayList;

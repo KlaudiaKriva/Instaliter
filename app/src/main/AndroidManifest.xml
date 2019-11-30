@@ -29,6 +29,7 @@
         <activity android:name=".activities.SearchActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".activities.EditProfileActivity" />
 
         <provider
             android:authorities="${applicationId}.provider"

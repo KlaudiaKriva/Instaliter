@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -52,9 +53,10 @@ import static com.example.instaliter.RegisterActivity.userID;
 public class ProfileActivity extends AppCompatActivity {
 
     PostsAdapter postsAdapter;
-    ArrayList<Post> arrayList = new ArrayList<>();;
+
     DatabaseHelper databaseHelper;
     RecyclerView recyclerView;
+    Button button;
 
     TextView profile_number_of_posts;
     TextView profile_username;
@@ -69,9 +71,11 @@ public class ProfileActivity extends AppCompatActivity {
         profile_username = findViewById(R.id.profile_username);
         imageView = findViewById(R.id.profile_picture);
         recyclerView = findViewById(R.id.myPosts);
+        button = findViewById(R.id.editProfile);
 
         try {
             getUserInfo();
+            getUserPosts();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -82,13 +86,20 @@ public class ProfileActivity extends AppCompatActivity {
 //        listView = findViewById(R.id.myPosts);
 //        databaseHelper = new DatabaseHelper(this);
 
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 //
 //        loadDataInListview();
-//        postsAdapter = new PostsAdapter(this,arrayList);
-//        recyclerView.setAdapter(postsAdapter);
+        postsAdapter = new PostsAdapter(this,arrayList);
+        recyclerView.setAdapter(postsAdapter);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this,EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,16 +153,11 @@ public class ProfileActivity extends AppCompatActivity {
     public void getUserInfo() throws JSONException {
         System.out.println("tahaju sa data zo servera o userovi");
         if(!(token.equals(""))){
-//            HashMap<String, String> params = new HashMap<>();
-//            params.put("id", String.valueOf(RegisterActivity.userID));
-//            params.put("token", token);
-//            Map<String, String> result = new HashMap<>();
-//            String params = String.valueOf(userID);
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(userID));
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String registerurl = "http://192.168.1.123:5005/userInfo";
+            String registerurl = "http://192.168.0.101:5005/userInfo";
 
             responseMap = new HashMap<>();
             final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -250,6 +256,113 @@ public class ProfileActivity extends AppCompatActivity {
             System.out.println("token je prazdny "+token);
         }
     }
+
+    Map<String, String> responseMapPosts;
+    String idI_posts="";
+    String path_posts="";
+    String thumbnailPath_posts="";
+    String description_posts="";
+    String date_posts;
+    ArrayList<Post> arrayList = new ArrayList<>();
+
+
+
+    public void getUserPosts() throws JSONException {
+        System.out.println("tahaju sa posty usera zo servera");
+        if(!(token.equals(""))){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", String.valueOf(userID));
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String registerurl = "http://192.168.0.101:5005/getUserImages";
+
+            responseMapPosts = new HashMap<>();
+            final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.POST,
+                    registerurl, new JSONObject(params),
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response1) {
+                            System.out.println("co vrati server "+ response1);
+                            JSONObject response = null;
+                            try {
+                                for (int i = 0; i< response1.length(); i++){
+                                    response = response1.getJSONObject(i);
+                                    System.out.println("response spravny uz "+response);
+//                                idI = Integer.parseInt(response.getString("idI"));
+                                    //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
+                                    idI_posts = response.getString("idI");
+                                    path_posts = response.getString("path");
+                                    path_posts =path_posts.substring(0,6)+"/"+path_posts.substring(7);
+                                    System.out.println("image cesta "+path_posts);
+                                    thumbnailPath_posts = response.getString("thumbnailPath");
+                                    thumbnailPath_posts =thumbnailPath_posts.substring(0,10)+"/"+thumbnailPath_posts.substring(11);
+                                    System.out.println("image cesta "+thumbnailPath_posts);
+                                    description_posts= response.getString("description");
+                                    date_posts = response.getString("imageDate");
+
+                                    responseMapPosts.put("id", String.valueOf(userID));
+                                    responseMapPosts.put("idI", String.valueOf(idI_posts));
+                                    responseMapPosts.put("imagePath", path_posts);
+                                    responseMapPosts.put("thumbnailPath", thumbnailPath_posts);
+                                    responseMapPosts.put("description", description_posts);
+                                    responseMapPosts.put("imageDate", date_posts);
+
+                                    Post post = new Post( (int) RegisterActivity.userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts);
+                                    arrayList.add(post);
+                                    postsAdapter.notifyDataSetChanged();
+
+                                    if (!responseMapPosts.isEmpty()){
+                                        Toast.makeText(getBaseContext(), "User posts loaded",Toast.LENGTH_LONG).show();
+                                        System.out.println("profile activity som "+ RegisterActivity.userID);
+                                    }
+                                    else {
+                                        Toast.makeText(getBaseContext(), "User posts not loaded",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> paramas = new HashMap<String, String>();
+                    paramas.put("id", String.valueOf(userID));
+                    paramas.put("idI", String.valueOf(idI_posts));
+                    paramas.put("imagePath", path_posts);
+                    paramas.put("thumbnailPath", thumbnailPath_posts);
+                    paramas.put("description", description_posts);
+                    paramas.put("imageDate", date_posts);
+                    return paramas;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            queue.add(jsonArrayRequest);
+
+        } else {
+            System.out.println("token je prazdny "+token);
+        }
+    }
+
+
+
+
+
 
 
 //    public void loadDataInListview() throws NullPointerException {
