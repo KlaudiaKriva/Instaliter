@@ -2,16 +2,11 @@ package com.example.instaliter.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +22,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.example.instaliter.DatabaseHelper;
 import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
@@ -77,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
         profile_desc = findViewById(R.id.profile_description);
         button = findViewById(R.id.editProfile1);
 
+        glide = Glide.with(getApplicationContext());
 
         try {
             getUserInfo();
@@ -146,6 +143,7 @@ public class ProfileActivity extends AppCompatActivity {
     String description;
 
 
+    RequestManager glide;
     public void getUserInfo() throws JSONException {
         System.out.println("tahaju sa data zo servera o userovi");
         if(!(token.equals(""))){
@@ -205,6 +203,11 @@ public class ProfileActivity extends AppCompatActivity {
                                     RegisterActivity.userName = username;
                                     profile_desc.setText(profileDescription);
                                     profile_username.setText(username);
+                                    System.out.println("tu by som chcela nastavit imagepath: "+ registerurl + imagePath);
+
+                                    glide.load(registerurl + imagePath).into(imageView);
+//                                    imageView.setImageURI(imagePath);
+
                                     System.out.println("profile activity som "+ RegisterActivity.userID);
                                 }
                                 else {
