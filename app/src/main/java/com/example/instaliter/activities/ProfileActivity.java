@@ -43,6 +43,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.instaliter.RegisterActivity.profileimage;
 import static com.example.instaliter.RegisterActivity.registerurl;
 import static com.example.instaliter.RegisterActivity.token;
 import static com.example.instaliter.RegisterActivity.userID;
@@ -72,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         profile_desc = findViewById(R.id.profile_description);
         button = findViewById(R.id.editProfile1);
+
 
         glide = Glide.with(getApplicationContext());
 
@@ -203,10 +205,20 @@ public class ProfileActivity extends AppCompatActivity {
                                     RegisterActivity.userName = username;
                                     profile_desc.setText(profileDescription);
                                     profile_username.setText(username);
+                                    if(profileDescription.equals("null")){
+                                        profile_desc.setText(R.string.about_me);
+                                    } else {
+                                        profile_desc.setText(profileDescription);
+                                    }
+
                                     System.out.println("tu by som chcela nastavit imagepath: "+ registerurl + imagePath);
 
-                                    glide.load(registerurl + imagePath).into(imageView);
-//                                    imageView.setImageURI(imagePath);
+                                    if((registerurl+imagePath).equals(registerurl+"null")){
+                                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.profile_pic));
+                                    }else {
+                                        profileimage = registerurl+imagePath;
+                                        glide.load(registerurl + imagePath).into(imageView);
+                                    }
 
                                     System.out.println("profile activity som "+ RegisterActivity.userID);
                                 }
@@ -289,6 +301,7 @@ public class ProfileActivity extends AppCompatActivity {
                             System.out.println("co vrati server "+ response1);
                             JSONObject response = null;
                             try {
+
                                 for (int i = 0; i< response1.length(); i++){
                                     response = response1.getJSONObject(i);
                                     System.out.println("response spravny uz "+response);

@@ -34,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     public static String userName;
     public static String token;
     public static String registerurl = "http://192.168.1.123:5005/";
+    public static String profileimage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,8 +62,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void insertNewUser(View v){
-        if(!(register_name.getText().toString().equals("") && register_username.getText().toString().equals("")
-        && register_email.getText().toString().equals("") && register_password.getText().toString().equals(""))) {
+        if(!(register_name.getText().toString().equals("") || register_username.getText().toString().equals("")
+        || register_email.getText().toString().equals("") || register_password.getText().toString().equals(""))) {
 
             HashMap<String, String> params = new HashMap<String, String>();
 
