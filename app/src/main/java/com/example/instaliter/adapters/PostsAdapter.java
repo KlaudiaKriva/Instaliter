@@ -11,10 +11,19 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.instaliter.DatabaseHelper;
@@ -22,8 +31,17 @@ import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.example.instaliter.RegisterActivity.registerurl;
+import static com.example.instaliter.RegisterActivity.token;
+import static com.example.instaliter.RegisterActivity.userID;
 
 //public class PostsAdapter extends BaseAdapter {
 //
@@ -118,7 +136,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+    public long getItemId(int position) {
+        return Long.parseLong(postArrayList.get(position).getIdI());
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Post post = postArrayList.get(position);
 
         holder.userName.setText(RegisterActivity.userName);
@@ -128,15 +151,142 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         System.out.println("path "+pathPath);
         glide.load(pathPath).into(holder.postImage);
 
+        final int[] active = new int[1];
+
+        //request na ziskanie ci je lajknuty obrazok, ak sa vrati active 1- je ak active 0- nie je
+        //na zaklade toho sa nastavi ci je checked
+
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(userID));
+        params.put("idI", String.valueOf(getItemId(position)));
+        String url = registerurl + "checkUserLike";
+        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.POST, url,
+                new JSONObject(params),
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response1) {
+                        System.out.println("co vrati server "+ response1);
+                        JSONObject response = null;
+                        try {
+                            for (int i = 0; i< response1.length(); i++){
+                                response = response1.getJSONObject(i);
+                                System.out.println("response spravy uz "+response);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // tento response je [{object}]
+                        System.out.println("response checkUserLike "+response);
+                        try {
+                            active[0] = response.getInt("active");
+
+                            if (active[0] == 1){
+                                holder.heart.setChecked(true);
+                            }
+                            else {
+                                holder.heart.setChecked(false);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                System.out.println(error.getMessage());
+            }
+
+        }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers= new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        queue.add(jsObjRequest);
+
+
         holder.heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                RequestQueue queue = Volley.newRequestQueue(context);
+                HashMap<String, String> params = new HashMap<>();
+                params.put("id", String.valueOf(userID));
+                params.put("idI", String.valueOf(getItemId(position)));
+
                 if (isChecked) {
+                    post.setLiked(true);
                     System.out.println("klikkkk");
                     buttonView.setBackground(context.getResources().getDrawable(R.drawable.icon_heart2));
+                    System.out.println(getItemId(position) + " som zvedava ake id to vybralo");
+
+
+                    String url = registerurl + "setUserLike";
+                    JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
+                            new JSONObject(params),
+                            new Response.Listener<JSONObject>() {
+
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println(error);
+                            System.out.println(error.getMessage());
+                        }
+
+                    }
+                    ) {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String> headers= new HashMap<String, String>();
+                            headers.put("Accept", "application/json");
+                            headers.put("Authorization", "Bearer " + token);
+                            return headers;
+                        }
+                    };
+                    queue.add(jsObjRequest);
                 }
-                else
+                else {
+                    post.setLiked(false);
+                    System.out.println(getItemId(position) + " som zvedava ake id to vybralo v dislike");
                     buttonView.setBackground(context.getResources().getDrawable(R.drawable.heart_icon));
+                    String url = registerurl + "setUserDislike";
+                    JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
+                            new JSONObject(params),
+                            new Response.Listener<JSONObject>() {
+
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println(error);
+                            System.out.println(error.getMessage());
+                        }
+
+                    }
+                    ) {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String> headers= new HashMap<String, String>();
+                            headers.put("Accept", "application/json");
+                            headers.put("Authorization", "Bearer " + token);
+                            return headers;
+                        }
+                    };
+                    queue.add(jsObjRequest);
+
+                }
             }
 
         });

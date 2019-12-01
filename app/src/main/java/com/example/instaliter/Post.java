@@ -7,15 +7,25 @@ public class Post {
     String thumbnailPath;
     String post_text;
     String date;
+    boolean isLiked;
 
 
-    public Post(int userID, String idI, String postImage, String thumbnailPath, String post_text, String date) {
+    public Post(int userID, String idI, String postImage, String thumbnailPath, String post_text, String date, boolean isLiked) {
         this.userName = userID;
         this.idI = idI;
         this.postImage = postImage;
         this.thumbnailPath = thumbnailPath;
         this.post_text = post_text;
         this.date = date;
+        this.isLiked = false;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 
     public String getDate() {
