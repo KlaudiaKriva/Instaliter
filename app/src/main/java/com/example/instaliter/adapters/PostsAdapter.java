@@ -128,6 +128,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         System.out.println("path "+pathPath);
         glide.load(pathPath).into(holder.postImage);
 
+        int type = post.getType();
+        if(type == 1){
+            glide.load(pathPath).into(holder.profileImage);
+        }
+
         holder.heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

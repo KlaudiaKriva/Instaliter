@@ -261,6 +261,7 @@ public class ProfileActivity extends AppCompatActivity {
     String description_posts="";
     String date_posts;
     ArrayList<Post> arrayList = new ArrayList<>();
+    int type_posts =0;
 
 
 
@@ -299,6 +300,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     System.out.println("image cesta "+thumbnailPath_posts);
                                     description_posts= response.getString("description");
                                     date_posts = response.getString("imageDate");
+                                    type_posts = response.getInt("type");
 
                                     responseMapPosts.put("id", String.valueOf(userID));
                                     responseMapPosts.put("idI", String.valueOf(idI_posts));
@@ -306,8 +308,9 @@ public class ProfileActivity extends AppCompatActivity {
                                     responseMapPosts.put("thumbnailPath", thumbnailPath_posts);
                                     responseMapPosts.put("description", description_posts);
                                     responseMapPosts.put("imageDate", date_posts);
+                                    responseMapPosts.put("type", String.valueOf(type_posts));
 
-                                    Post post = new Post( (int) RegisterActivity.userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts);
+                                    Post post = new Post( (int) RegisterActivity.userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts);
                                     arrayList.add(post);
                                     postsAdapter.notifyDataSetChanged();
 
@@ -339,6 +342,7 @@ public class ProfileActivity extends AppCompatActivity {
                     paramas.put("thumbnailPath", thumbnailPath_posts);
                     paramas.put("description", description_posts);
                     paramas.put("imageDate", date_posts);
+                    paramas.put("type", String.valueOf(type_posts));
                     return paramas;
                 }
 

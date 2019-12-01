@@ -7,15 +7,17 @@ public class Post {
     String thumbnailPath;
     String post_text;
     String date;
+    int type;
 
 
-    public Post(int userID, String idI, String postImage, String thumbnailPath, String post_text, String date) {
+    public Post(int userID, String idI, String postImage, String thumbnailPath, String post_text, String date, int type) {
         this.userName = userID;
         this.idI = idI;
         this.postImage = postImage;
         this.thumbnailPath = thumbnailPath;
         this.post_text = post_text;
         this.date = date;
+        this.type = type;
     }
 
     public String getDate() {
@@ -67,5 +69,11 @@ public class Post {
         return post_text;
     }
 
+    public int getType() {
+        return type;
+    }
 
+    public void setType(int type) {
+        this.type = type;
+    }
 }
