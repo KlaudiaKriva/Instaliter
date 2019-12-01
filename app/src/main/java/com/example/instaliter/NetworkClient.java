@@ -8,7 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.instaliter.RegisterActivity.registerurl;
 
 public class NetworkClient {
+
     private static final String BASE_URL = registerurl + "uploadImage/";
+
     private static Retrofit retrofit;
     public static Retrofit getRetrofitClient(Context context) {
         if (retrofit == null) {

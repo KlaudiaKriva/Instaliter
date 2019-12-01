@@ -153,6 +153,7 @@ public class ProfileActivity extends AppCompatActivity {
             params.put("id", String.valueOf(userID));
 
             RequestQueue queue = Volley.newRequestQueue(this);
+
             String url = registerurl + "userInfo";
 
             responseMap = new HashMap<>();
@@ -270,7 +271,9 @@ public class ProfileActivity extends AppCompatActivity {
             params.put("id", String.valueOf(userID));
 
             RequestQueue queue = Volley.newRequestQueue(this);
+
             String url = registerurl + "getUserImages";
+
 
             responseMapPosts = new HashMap<>();
             final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
