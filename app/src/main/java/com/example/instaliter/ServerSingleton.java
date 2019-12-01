@@ -52,7 +52,7 @@ public class ServerSingleton {
     public boolean registerUser(HashMap<String, String> params, final Context context){
         final boolean[] responseFromMethod = {false};
         RequestQueue queue = Volley.newRequestQueue(context);
-        String registerurl = "http://192.168.1.123:5005/register";
+        String registerurl = "http://192.168.0.102:5005/register";
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, registerurl,
                 new JSONObject(params),
@@ -82,60 +82,6 @@ public class ServerSingleton {
         return responseFromMethod[0];
     }
 
-//    public boolean uploadNewPost(final HashMap<String, String> params, final String pathImage, final Context context){
-//        final boolean[] responseFromMethod = {false};
-//        RequestQueue queue = Volley.newRequestQueue(context);
-//        String registerurl = "http://192.168.1.123:5005/uploadImage";
-//
-//        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, registerurl,
-////                new JSONObject(params),
-//                new Response.Listener<JSONObject>() {
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            System.out.println(response);
-//                            responseFromMethod[0] =true;
-//
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                            responseFromMethod[0]=false;
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                System.out.println(error);
-//                System.out.println(error.getMessage());
-//                responseFromMethod[0]=false;
-//            }
-//        })
-//        {
-////
-//            @Override
-//            public String getBodyContentType() {
-//                return ("multipart/form-data;boundary=") + boundary;
-//            }
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                HashMap<String, String> headers = new HashMap<String, String>();
-////                headers.put("Content-Type", "multipart/form-data;boundary=" + boundary);
-//                headers.put("Authorization", "Bearer " + token);
-//                return headers;
-//            }
-//
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String,String> params1 = new HashMap<String, String>();
-//                params1.put("recfile", pathImage);
-//                params1.put("details", String.valueOf(params));
-//                return params1;
-//            }
-//        };
-//        queue.add(jsObjRequest);
-//        return responseFromMethod[0];
-//    }
 
 
 }

@@ -55,11 +55,10 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_share"
+                android:id="@+id/btn_done"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:text="@string/edit_done"
-                android:onClick="insertPost"
                 android:textSize="20sp"
                 android:textColor="@color/colorText2"
                 android:background="@drawable/border">
@@ -126,7 +125,6 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
         android:text="@string/change_pic"
-        android:onClick="insertPost"
         android:textSize="18sp"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorText2"
