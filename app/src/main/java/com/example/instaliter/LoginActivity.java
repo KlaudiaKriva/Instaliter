@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             Map<String, String> result = new HashMap<>();
 
             RequestQueue queue = Volley.newRequestQueue(this);
+
             String url = registerurl + "login";
 
             responseMap = new HashMap<>();

@@ -82,7 +82,6 @@ public class CameraActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     String pathImage;
     File photoFile;
-    public static final String userToken =  token;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
