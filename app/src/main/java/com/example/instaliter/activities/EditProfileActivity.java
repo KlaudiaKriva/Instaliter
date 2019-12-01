@@ -214,23 +214,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             System.out.println("dostal som sa aspon tu");
                             //zakomentovane veci lebo na onresponse sa nikdy nedostane :D pise chybu: nemoze sparsovat string na jsonobject
-//                            try {
-//                                JSONObject jsonObject = new JSONObject(response.toString());
-//                                String m = jsonObject.get("success").toString();
-//                                if(m != null){
-//                                    System.out.println("response z edit user description je: "+response.get("message"));
-//                                    isItOk= response.getString("");
-//                                    System.out.println();
-//                                    Toast.makeText(getBaseContext(), "Description changed",Toast.LENGTH_LONG).show();
-//
-//                                    Intent intent = new Intent(EditProfileActivity.this,ProfileActivity.class);
-//                                    startActivity(intent);
-//                                }
-////
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-
+                            //on response sa nevykona, who knows why :D
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -246,13 +230,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     headers.put("Authorization", "Bearer " + token);
                     return headers;
                 }
-//                @Override
-//                protected Map<String, String> getParams() {
-//                    Map<String, String> paramas = new HashMap<String, String>();
-//                    paramas.put("", isItOk);
-//                    responseMap = paramas;
-//                    return paramas;
-//                }
             };
 
             queue.add(jsObjRequest);

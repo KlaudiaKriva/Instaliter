@@ -1,51 +1,29 @@
 package com.example.instaliter.activities;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import com.example.instaliter.DatabaseHelper;
-import com.example.instaliter.MainActivity;
 import com.example.instaliter.NetworkClient;
 import com.example.instaliter.R;
-import com.example.instaliter.RegisterActivity;
-import com.example.instaliter.ServerSingleton;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,29 +35,23 @@ import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 import static com.example.instaliter.RegisterActivity.*;
-import static com.example.instaliter.RegisterActivity.token;
 
 public class CameraActivity extends AppCompatActivity {
 
     ImageView imageView;
     Button button, button2;
     TextView textView;
-    DatabaseHelper databaseHelper;
     String pathImage;
     File photoFile;
 
@@ -94,7 +66,6 @@ public class CameraActivity extends AppCompatActivity {
         textView = findViewById(R.id.addTitle);
         button2 = findViewById(R.id.btn_share);
 
-        databaseHelper = new DatabaseHelper(this);
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 200);
         }
@@ -147,18 +118,11 @@ public class CameraActivity extends AppCompatActivity {
         }
 
 
-//         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-//         pathImage = getImageUri(getApplicationContext(),bitmap);
-//         System.out.println("path image "+pathImage);
-//         imageView.setImageBitmap(bitmap);
-
     }
 
     public void insertPost(){
         if(!(textView.getText().toString().equals(""))){
-//            boolean result = databaseHelper.insertNewPost(RegisterActivity.userID,pathImage,textView.getText().toString());
             ArrayList<String> tags = new ArrayList<>();
-//            tags.add("");
 
             String text = textView.getText().toString();
             String regexPattern = "(#\\w+)";
@@ -179,21 +143,12 @@ public class CameraActivity extends AppCompatActivity {
 
             System.out.println("hashtagy su: " + String.valueOf(tags));
 
-
-//            HashMap<String, String> paramsToSend = new HashMap<>();
-//            paramsToSend.put("recfile", pathImage);
-//            paramsToSend.put("details", String.valueOf(params));
-//            uploadFile(pathImage);
             uploadToServer(pathImage);
             boolean result = true;
             if (result){
-//                Toast.makeText(view.getContext(), "Post inserted successfully",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(CameraActivity.this, ProfileActivity.class);
                 startActivity(intent);
                 System.out.println(result + " result vracia");
-            }
-            else {
-//                Toast.makeText(view.getContext(), "Post not inserted",Toast.LENGTH_LONG).show();
             }
         }
     }

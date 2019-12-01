@@ -25,7 +25,6 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
     Button button;
-    DatabaseHelper databaseHelper;
     EditText register_name;
     EditText register_username;
     EditText register_email;
@@ -33,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     public static long userID;
     public static String userName;
     public static String token;
-    public static String registerurl = "http://192.168.1.123:5005/";
+    public static String registerurl = "http://192.168.0.102:5005/";
     public static String profileimage;
 
     @Override
@@ -45,8 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
         register_email = findViewById(R.id.register_email);
         register_password = findViewById(R.id.register_password);
 
-        databaseHelper = new DatabaseHelper(this);
-
         button = findViewById(R.id.back_button);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -55,10 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
-
-
     }
 
     public void insertNewUser(View v){
@@ -84,8 +77,5 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
         }
-
-
-
     }
 }
