@@ -2,6 +2,7 @@ package com.example.instaliter.adapters;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.instaliter.RegisterActivity.profileimage;
 import static com.example.instaliter.RegisterActivity.registerurl;
 import static com.example.instaliter.RegisterActivity.token;
 import static com.example.instaliter.RegisterActivity.userID;
@@ -150,12 +152,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         String pathPath = registerurl +post.getPostImage();
         System.out.println("path "+pathPath);
         glide.load(pathPath).into(holder.postImage);
-      
-         int type = post.getType();
-        if(type == 1){
-            glide.load(pathPath).into(holder.profileImage);
-        }
 
+        //pozor profileimage je staticka z registeractivity a profileImage je tu holder.profileImage
+        if(profileimage != null){
+            glide.load(profileimage).into(holder.profileImage);
+        }
 
         final int[] active = new int[1];
 
