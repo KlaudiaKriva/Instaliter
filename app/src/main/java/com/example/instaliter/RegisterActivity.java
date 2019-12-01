@@ -34,8 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
     public static String userName;
     public static String token;
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
