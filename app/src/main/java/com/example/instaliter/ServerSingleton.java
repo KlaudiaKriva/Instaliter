@@ -37,6 +37,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 import static com.example.instaliter.RegisterActivity.token;
+import static com.example.instaliter.RegisterActivity.registerurl;
+
 
 public class ServerSingleton {
 
@@ -52,9 +54,9 @@ public class ServerSingleton {
     public boolean registerUser(HashMap<String, String> params, final Context context){
         final boolean[] responseFromMethod = {false};
         RequestQueue queue = Volley.newRequestQueue(context);
-        String registerurl = "http://192.168.1.123:5005/register";
+        String url = registerurl + "register";
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, registerurl,
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
                 new JSONObject(params),
                 new Response.Listener<JSONObject>() {
 
