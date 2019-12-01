@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity  implements UsersAdapter.U
     DatabaseHelper databaseHelper;
     RecyclerView recyclerView;
 
-    private static final String URL = "https://192.168.0.102:5005";
+//    private static final String URL = "https://192.168.0.102:5005";
 
 //    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override

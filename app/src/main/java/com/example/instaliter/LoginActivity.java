@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.instaliter.RegisterActivity.registerurl;
+
 public class LoginActivity extends AppCompatActivity {
 
     RelativeLayout rellay1, rellay2;
@@ -84,10 +86,11 @@ public class LoginActivity extends AppCompatActivity {
             Map<String, String> result = new HashMap<>();
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String registerurl = "http://192.168.0.102:5005/login";
+
+            String url = registerurl + "login";
 
             responseMap = new HashMap<>();
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, registerurl,
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
                     new JSONObject(params),
                     new Response.Listener<JSONObject>() {
                         @Override

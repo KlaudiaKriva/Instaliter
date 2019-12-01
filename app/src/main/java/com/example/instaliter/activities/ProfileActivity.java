@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.instaliter.RegisterActivity.registerurl;
 import static com.example.instaliter.RegisterActivity.token;
 import static com.example.instaliter.RegisterActivity.userID;
 
@@ -71,8 +72,11 @@ public class ProfileActivity extends AppCompatActivity {
         profile_username = findViewById(R.id.profile_username);
         imageView = findViewById(R.id.profile_picture);
         recyclerView = findViewById(R.id.myPosts);
-        button = findViewById(R.id.editProfile);
+//        button = findViewById(R.id.editProfile); //tu mamerozdiel
+
         profile_desc = findViewById(R.id.profile_description);
+        button = findViewById(R.id.editProfile1);
+
 
         try {
             getUserInfo();
@@ -149,12 +153,13 @@ public class ProfileActivity extends AppCompatActivity {
             params.put("id", String.valueOf(userID));
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String registerurl = "http://192.168.0.102:5005/userInfo";
+
+            String url = registerurl + "userInfo";
 
             responseMap = new HashMap<>();
             final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                     Request.Method.POST,
-                    registerurl, new JSONObject(params),
+                    url, new JSONObject(params),
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response1) {
@@ -266,12 +271,14 @@ public class ProfileActivity extends AppCompatActivity {
             params.put("id", String.valueOf(userID));
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String registerurl = "http://192.168.0.102:5005/getUserImages";
+
+            String url = registerurl + "getUserImages";
+
 
             responseMapPosts = new HashMap<>();
             final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                     Request.Method.POST,
-                    registerurl, new JSONObject(params),
+                    url, new JSONObject(params),
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response1) {
