@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -60,6 +61,8 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
+import static com.example.instaliter.RegisterActivity.registerurl;
+import static com.example.instaliter.RegisterActivity.token;
 import static com.example.instaliter.RegisterActivity.userID;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -209,30 +212,32 @@ public class EditProfileActivity extends AppCompatActivity {
             Map<String, String> result = new HashMap<>();
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String registerurl = "http://192.168.0.102:5005/setProfileDescription";
+            String url = registerurl + "setProfileDescription";
 
             responseMap = new HashMap<>();
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, registerurl,
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
                     new JSONObject(params),
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            try {
-                                System.out.println("response "+response);
-                                isItOk= response.getString("");
-                                responseMap.put("", isItOk);
-                                if (!responseMap.isEmpty()){
-                                    Toast.makeText(getBaseContext(), "Description changes",Toast.LENGTH_LONG).show();
-
-                                    Intent intent = new Intent(EditProfileActivity.this,ProfileActivity.class);
-                                    startActivity(intent);
-                                }
-                                else {
-                                    Toast.makeText(getBaseContext(), "Description dont changed",Toast.LENGTH_LONG).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            System.out.println("dostal som sa aspon tu");
+                            //zakomentovane veci lebo na onresponse sa nikdy nedostane :D pise chybu: nemoze sparsovat string na jsonobject
+//                            try {
+//                                JSONObject jsonObject = new JSONObject(response.toString());
+//                                String m = jsonObject.get("success").toString();
+//                                if(m != null){
+//                                    System.out.println("response z edit user description je: "+response.get("message"));
+//                                    isItOk= response.getString("");
+//                                    System.out.println();
+//                                    Toast.makeText(getBaseContext(), "Description changed",Toast.LENGTH_LONG).show();
+//
+//                                    Intent intent = new Intent(EditProfileActivity.this,ProfileActivity.class);
+//                                    startActivity(intent);
+//                                }
+////
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
 
                         }
                     }, new Response.ErrorListener() {
@@ -243,15 +248,26 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }) {
                 @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> paramas = new HashMap<String, String>();
-                    paramas.put("", isItOk);
-                    responseMap = paramas;
-                    return paramas;
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
                 }
+//                @Override
+//                protected Map<String, String> getParams() {
+//                    Map<String, String> paramas = new HashMap<String, String>();
+//                    paramas.put("", isItOk);
+//                    responseMap = paramas;
+//                    return paramas;
+//                }
             };
 
             queue.add(jsObjRequest);
+            Toast.makeText(getBaseContext(), "Description changed",Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(EditProfileActivity.this,ProfileActivity.class);
+            startActivity(intent);
         }
     }
 
