@@ -310,7 +310,8 @@ public class ProfileActivity extends AppCompatActivity {
                                     responseMapPosts.put("imageDate", date_posts);
                                     responseMapPosts.put("type", String.valueOf(type_posts));
 
-                                    Post post = new Post( (int) RegisterActivity.userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts);
+                                    Post post = new Post( (int) RegisterActivity.userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
+
                                     arrayList.add(post);
                                     postsAdapter.notifyDataSetChanged();
 
@@ -361,6 +362,7 @@ public class ProfileActivity extends AppCompatActivity {
             System.out.println("token je prazdny "+token);
         }
     }
+
 
 
 

@@ -8,9 +8,9 @@ public class Post {
     String post_text;
     String date;
     int type;
+    boolean isLiked;
 
-
-    public Post(int userID, String idI, String postImage, String thumbnailPath, String post_text, String date, int type) {
+    public Post(int userID, String idI, String postImage, String thumbnailPath, String post_text, String date, int type,boolean isLiked) {
         this.userName = userID;
         this.idI = idI;
         this.postImage = postImage;
@@ -18,6 +18,18 @@ public class Post {
         this.post_text = post_text;
         this.date = date;
         this.type = type;
+        this.isLiked = false;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+
+        
+
     }
 
     public String getDate() {
