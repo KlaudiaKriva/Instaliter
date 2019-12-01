@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     public static long userID;
     public static String userName;
     public static String token;
+    public static String registerurl = "http://192.168.1.123:5005/";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

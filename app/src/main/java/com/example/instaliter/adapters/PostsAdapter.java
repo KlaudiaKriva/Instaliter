@@ -23,6 +23,7 @@ import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
 
 import java.util.ArrayList;
+import static com.example.instaliter.RegisterActivity.registerurl;
 
 //public class PostsAdapter extends BaseAdapter {
 //
@@ -123,9 +124,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         holder.userName.setText(RegisterActivity.userName);
         holder.time.setText(post.getDate());
         holder.post_text.setText(post.getPost_text());
-        String path ="http://192.168.0.101:5005/"+post.getPostImage();
-        System.out.println("path "+path);
-        glide.load(path).into(holder.postImage);
+        String pathPath = registerurl +post.getPostImage();
+        System.out.println("path "+pathPath);
+        glide.load(pathPath).into(holder.postImage);
 
         holder.heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
