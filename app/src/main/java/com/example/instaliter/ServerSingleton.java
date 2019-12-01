@@ -45,7 +45,6 @@ public class ServerSingleton {
     private static ServerSingleton instance = new ServerSingleton();
 
     private ServerSingleton(){}
-    private final String boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW";
 
     public static ServerSingleton getInstance(){
         return instance;

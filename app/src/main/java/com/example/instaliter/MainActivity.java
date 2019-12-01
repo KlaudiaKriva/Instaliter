@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     PostsAdapter postsAdapter;
     ArrayList<Post> arrayList = new ArrayList<>();
-    DatabaseHelper databaseHelper;
     RecyclerView recyclerView;
 
 
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        databaseHelper = new DatabaseHelper(this);
         recyclerView = findViewById(R.id.list_posts);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -43,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         loadAllPosts();
         postsAdapter = new PostsAdapter(this,arrayList);
         recyclerView.setAdapter(postsAdapter);
-
-
 
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
@@ -77,38 +73,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadAllPosts() throws NullPointerException{
-//        try {
-//            arrayList = databaseHelper.selectAllPosts();
-//            postsAdapter = new PostsAdapter(this, arrayList);
-//
-//            recyclerView.setAdapter(postsAdapter);
-//            recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    System.out.println("uz");
-//                }
-//            });
-//
-//
-//            postsAdapter.notifyDataSetChanged();
-//        }
-//        catch (NullPointerException e){
-//            System.out.println(e.getMessage());
-
         try {
-//            arrayList = databaseHelper.selectAllPosts();
             System.out.println("naplnuje sa arraylist");
             postsAdapter.notifyDataSetChanged();
         } catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
-
-
-        }
-
-
-
     }
+}
 
 
 

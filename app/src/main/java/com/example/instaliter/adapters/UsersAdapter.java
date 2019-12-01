@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHolder>  implements Filterable {
 
     private Context context;
-//    private ArrayList<User> arrayList;
     private ArrayList<User> fullArrayList;
     private ArrayList<User> filteredArrayList;
     private UsersAdapterListener listener;
@@ -53,10 +52,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
         this.listener = listener;
     }
 
-//    public UsersAdapter(ArrayList<User> arrayList){
-//        this.arrayList = arrayList;
-//        fullArrayList = new ArrayList<>(arrayList);
-//    }
 
     @Override
     public UsersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
