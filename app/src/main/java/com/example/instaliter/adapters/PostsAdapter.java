@@ -150,6 +150,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         String pathPath = registerurl +post.getPostImage();
         System.out.println("path "+pathPath);
         glide.load(pathPath).into(holder.postImage);
+      
+         int type = post.getType();
+        if(type == 1){
+            glide.load(pathPath).into(holder.profileImage);
+        }
+
 
         final int[] active = new int[1];
 
@@ -210,7 +216,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             }
         };
         queue.add(jsObjRequest);
-
 
         holder.heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
