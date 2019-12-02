@@ -16,4 +16,6 @@
     <string name="change_pic">Change profile picture</string>
     <string name="desc_text">Description</string>
     <string name="per_info">Personal information</string>
+    <string name="showComm">Show all comments</string>
+    <string name="timeComm">Time of comment</string>
 </resources>
