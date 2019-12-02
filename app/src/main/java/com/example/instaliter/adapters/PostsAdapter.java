@@ -309,7 +309,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                     String numString = String.valueOf(newNum);
                     System.out.println("string nove cislo "+numString);
                     holder.number.setText(numString);
-                    queue.add(jsObjRequest);
+//                    queue.add(jsObjRequest);
                     queue.add(jsObjRequest);
 
                 }

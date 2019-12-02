@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                             System.out.println("co vrati server "+ response1);
                             JSONObject response = null;
                             try {
+                                arrayList.clear();
                                 for (int i = 0; i< response1.length(); i++){
                                     response = response1.getJSONObject(i);
                                     System.out.println("response spravny uz "+response);
@@ -161,7 +162,10 @@ public class MainActivity extends AppCompatActivity {
 
                                     Post post = new Post(idcko, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
 
+                                    //tu osetrit ci je alebo nie je followerom nakoniec, ci je 0 alebo 1- pri type to nefunguje- to len oznacuje ci to je alebo nie je profilova fotka
                                     arrayList.add(post);
+
+
                                     postsAdapter.notifyDataSetChanged();
 
                                     if (!responseMapPosts.isEmpty()){

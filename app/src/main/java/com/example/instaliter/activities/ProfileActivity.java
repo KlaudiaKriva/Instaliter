@@ -309,6 +309,7 @@ public class ProfileActivity extends AppCompatActivity {
                             JSONObject response = null;
                             try {
 
+                                arrayList.clear();
                                 for (int i = 0; i< response1.length(); i++){
                                     response = response1.getJSONObject(i);
                                     System.out.println("response spravny uz "+response);
