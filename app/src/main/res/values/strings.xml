@@ -18,4 +18,5 @@
     <string name="per_info">Personal information</string>
     <string name="showComm">Show all comments</string>
     <string name="timeComm">Time of comment</string>
+    <string name="no_posts">No posts to show, no followers</string>
 </resources>

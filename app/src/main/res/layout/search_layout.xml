@@ -11,8 +11,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:background="@drawable/icon_search"
+                    android:layout_height="40dp">
+                </ImageView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_toEndOf="@id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_marginStart="5dp"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:id="@+id/findUser">
+                </EditText>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
 
     <androidx.recyclerview.widget.RecyclerView
