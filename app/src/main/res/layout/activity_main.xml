@@ -35,15 +35,24 @@
         android:textSize="15sp">
     </TextView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_posts"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/no_posts"
-        android:background="@color/white" />
+        android:layout_below="@id/line"
+        android:layout_above="@+id/tu_nie"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_posts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white" />
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/tu_nie"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         >

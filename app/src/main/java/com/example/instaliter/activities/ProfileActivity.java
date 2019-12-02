@@ -1,5 +1,6 @@
 package com.example.instaliter.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,11 +26,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.example.instaliter.Comment;
 import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
+import com.example.instaliter.adapters.CommentAdapter;
 import com.example.instaliter.adapters.PostsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -46,11 +49,18 @@ import static com.example.instaliter.RegisterActivity.registerurl;
 import static com.example.instaliter.RegisterActivity.token;
 import static com.example.instaliter.RegisterActivity.userID;
 
+
+
+
 public class ProfileActivity extends AppCompatActivity {
+
 
     PostsAdapter postsAdapter;
     RecyclerView recyclerView;
     Button button;
+
+
+
 
     TextView profile_number_of_posts;
     TextView profile_username, profile_desc;
@@ -65,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         profile_username = findViewById(R.id.profile_username);
         imageView = findViewById(R.id.profile_picture);
         recyclerView = findViewById(R.id.myPosts);
+//        recyclerViewComments = findViewById(R.id.all_comments);
 //        button = findViewById(R.id.editProfile); //tu mamerozdiel, jak to ??? nerozumieeeem preco .. kukneme zajtra kod :D
 
         profile_desc = findViewById(R.id.profile_description);
@@ -76,15 +87,16 @@ public class ProfileActivity extends AppCompatActivity {
         try {
             getUserInfo();
             getUserPosts();
+//            getUserComments();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         postsAdapter = new PostsAdapter(this,arrayList);
         recyclerView.setAdapter(postsAdapter);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,6 +283,7 @@ public class ProfileActivity extends AppCompatActivity {
     String date_posts;
     ArrayList<Post> arrayList = new ArrayList<>();
     int type_posts =0;
+    String idUsera="";
 
 
 
@@ -296,11 +309,15 @@ public class ProfileActivity extends AppCompatActivity {
                             JSONObject response = null;
                             try {
 
+                                arrayList.clear();
                                 for (int i = 0; i< response1.length(); i++){
                                     response = response1.getJSONObject(i);
                                     System.out.println("response spravny uz "+response);
+                                    idUsera = response.getString("id");
+                                    int iddd = Integer.parseInt(idUsera);
                                     //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
                                     idI_posts = response.getString("idI");
+                                    getUserComments(Integer.parseInt(idI_posts));
                                     path_posts = response.getString("path");
                                     path_posts =path_posts.substring(0,6)+"/"+path_posts.substring(7);
                                     System.out.println("image cesta "+path_posts);
@@ -308,10 +325,12 @@ public class ProfileActivity extends AppCompatActivity {
                                     thumbnailPath_posts =thumbnailPath_posts.substring(0,10)+"/"+thumbnailPath_posts.substring(11);
                                     System.out.println("image cesta "+thumbnailPath_posts);
                                     description_posts= response.getString("description");
+
                                     date_posts = response.getString("imageDate");
+
                                     type_posts = response.getInt("type");
 
-                                    responseMapPosts.put("id", String.valueOf(userID));
+                                    responseMapPosts.put("id", String.valueOf(idUsera));
                                     responseMapPosts.put("idI", String.valueOf(idI_posts));
                                     responseMapPosts.put("imagePath", path_posts);
                                     responseMapPosts.put("thumbnailPath", thumbnailPath_posts);
@@ -319,7 +338,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     responseMapPosts.put("imageDate", date_posts);
                                     responseMapPosts.put("type", String.valueOf(type_posts));
 
-                                    Post post = new Post( (int) RegisterActivity.userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
+                                    Post post = new Post(iddd, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
 
                                     arrayList.add(post);
                                     postsAdapter.notifyDataSetChanged();
@@ -376,6 +395,93 @@ public class ProfileActivity extends AppCompatActivity {
             System.out.println("token je prazdny "+token);
         }
     }
+
+
+
+    ArrayList<Comment> commentArray = new ArrayList<>();
+
+    String usernameComment;
+    String commentText;
+    String commentTime;
+
+    public void getUserComments(int idImage) {
+        System.out.println("tahaju sa posty usera zo servera");
+        if(!(token.equals(""))){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("idI", String.valueOf(idImage));
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            String url = registerurl + "getImageComments";
+
+
+            responseMapPosts = new HashMap<>();
+            final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.POST,
+                    url, new JSONObject(params),
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response1) {
+                            System.out.println("co vrati server "+ response1);
+                            JSONObject response = null;
+                            try {
+
+                                for (int i = 0; i< response1.length(); i++){
+                                    response = response1.getJSONObject(i);
+                                    System.out.println("response spravny uz "+response);
+                                    //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
+                                    usernameComment = response.getString("name");
+                                    commentTime = response.getString("cTime");
+                                    commentText= response.getString("commentText");
+
+                                    Comment comment = new Comment(usernameComment, Integer.parseInt(idI_posts), commentTime, commentText);
+
+                                    commentArray.add(comment);
+//                                    commentAdapter.notifyDataSetChanged();
+
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+//                @Override
+//                protected Map<String, String> getParams() {
+//                    Map<String, String> paramas = new HashMap<String, String>();
+//                    paramas.put("id", String.valueOf(userID));
+//                    paramas.put("idI", String.valueOf(idI_posts));
+//                    paramas.put("imagePath", path_posts);
+//                    paramas.put("thumbnailPath", thumbnailPath_posts);
+//                    paramas.put("description", description_posts);
+//                    paramas.put("imageDate", date_posts);
+//                    paramas.put("type", String.valueOf(type_posts));
+//                    return paramas;
+//                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            queue.add(jsonArrayRequest);
+
+        } else {
+            System.out.println("token je prazdny "+token);
+        }
+    }
+
+
 
     public void logout(View view){
         RegisterActivity.userID = 0;
