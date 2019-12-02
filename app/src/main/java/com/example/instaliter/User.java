@@ -1,32 +1,28 @@
 package com.example.instaliter;
 
 public class User {
-    int id;
-    String instaName;
+    String id;
     String userName;
+    String instaName;
+    String idI;
     String profileImage;
+    String thumbnailPath;
 
-    public User(int id, String instaName, String userName, String profileImage) {
+    public User(String id, String userName, String instaName, String idI, String profileImage, String thumbnailPath) {
         this.id = id;
-        this.instaName = instaName;
         this.userName = userName;
+        this.instaName = instaName;
+        this.idI = idI;
         this.profileImage = profileImage;
+        this.thumbnailPath = thumbnailPath;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getInstaName() {
-        return instaName;
-    }
-
-    public void setInstaName(String instaName) {
-        this.instaName = instaName;
     }
 
     public String getUserName() {
@@ -37,11 +33,35 @@ public class User {
         this.userName = userName;
     }
 
+    public String getInstaName() {
+        return instaName;
+    }
+
+    public void setInstaName(String instaName) {
+        this.instaName = instaName;
+    }
+
+    public String getIdI() {
+        return idI;
+    }
+
+    public void setIdI(String idI) {
+        this.idI = idI;
+    }
+
     public String getProfileImage() {
         return profileImage;
     }
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public String getThumbnailPath() {
+        return thumbnailPath;
+    }
+
+    public void setThumbnailPath(String thumbnailPath) {
+        this.thumbnailPath = thumbnailPath;
     }
 }
