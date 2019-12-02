@@ -2,7 +2,6 @@ package com.example.instaliter.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,13 +10,11 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.instaliter.DatabaseHelper;
 import com.example.instaliter.MainActivity;
 import com.example.instaliter.R;
 import com.example.instaliter.User;
@@ -31,7 +28,6 @@ public class SearchActivity extends AppCompatActivity  implements UsersAdapter.U
     private static final String TAG = SearchActivity.class.getSimpleName();
     ArrayList<User> arrayList = new ArrayList<>();
     UsersAdapter adapter;
-    DatabaseHelper databaseHelper;
     RecyclerView recyclerView;
 
 //    private static final String URL = "https://192.168.0.102:5005";
@@ -47,7 +43,6 @@ public class SearchActivity extends AppCompatActivity  implements UsersAdapter.U
         getSupportActionBar().setTitle("User Search");
         toolbar.setTitleTextColor(Color.parseColor("#000000"));
 
-        databaseHelper = new DatabaseHelper(this);
         recyclerView = findViewById(R.id.users);
         arrayList = new ArrayList<>();
         loadAllUsers();
@@ -112,7 +107,6 @@ public class SearchActivity extends AppCompatActivity  implements UsersAdapter.U
 
     public void loadAllUsers() throws NullPointerException{
         try {
-            arrayList = databaseHelper.selectAllUsers();
             System.out.println("naplnuje sa arraylist");
             adapter.notifyDataSetChanged();
         } catch (NullPointerException e){

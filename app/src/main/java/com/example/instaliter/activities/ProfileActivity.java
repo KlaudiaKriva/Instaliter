@@ -25,7 +25,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.example.instaliter.DatabaseHelper;
 import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
 import com.example.instaliter.Post;
@@ -39,7 +38,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,8 +49,6 @@ import static com.example.instaliter.RegisterActivity.userID;
 public class ProfileActivity extends AppCompatActivity {
 
     PostsAdapter postsAdapter;
-
-    DatabaseHelper databaseHelper;
     RecyclerView recyclerView;
     Button button;
 
@@ -69,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
         profile_username = findViewById(R.id.profile_username);
         imageView = findViewById(R.id.profile_picture);
         recyclerView = findViewById(R.id.myPosts);
-//        button = findViewById(R.id.editProfile); //tu mamerozdiel
+//        button = findViewById(R.id.editProfile); //tu mamerozdiel, jak to ??? nerozumieeeem preco .. kukneme zajtra kod :D
 
         profile_desc = findViewById(R.id.profile_description);
         button = findViewById(R.id.editProfile1);
@@ -181,8 +177,6 @@ public class ProfileActivity extends AppCompatActivity {
                                 instaname = response.getString("instaName");
                                 email = response.getString("email");
                                 profileDescription = response.getString("profileDescription");
-//                                idI = Integer.parseInt(response.getString("idI"));
-                                //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
                                 idI = response.getString("idI");
                                 imagePath = response.getString("imagePath");
                                 imageDate = response.getString("imageDate");
@@ -305,7 +299,6 @@ public class ProfileActivity extends AppCompatActivity {
                                 for (int i = 0; i< response1.length(); i++){
                                     response = response1.getJSONObject(i);
                                     System.out.println("response spravny uz "+response);
-//                                idI = Integer.parseInt(response.getString("idI"));
                                     //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
                                     idI_posts = response.getString("idI");
                                     path_posts = response.getString("path");
@@ -378,29 +371,6 @@ public class ProfileActivity extends AppCompatActivity {
             System.out.println("token je prazdny "+token);
         }
     }
-
-
-
-
-//    public void likePost(final View view){
-//        int position = listView.getPositionForView(view);
-//        Post post = (Post) postsAdapter.getItem(position);
-//
-//        CheckBox heart = findViewById(R.id.heart);
-//        }
-
-
-//        heart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println("klikkkk");
-//                view.setBackground(getResources().getDrawable(R.drawable.icon_heart2));
-//            }
-//        });
-
-
-
-
 
     public void logout(View view){
         RegisterActivity.userID = 0;

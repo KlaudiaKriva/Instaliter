@@ -43,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
     EditText login_email, login_pass;
-    DatabaseHelper databaseHelper;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,9 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         button2 = findViewById(R.id.btn_login);
         login_email = findViewById(R.id.login_email);
         login_pass = findViewById(R.id.login_pass);
-
-        databaseHelper = new DatabaseHelper(this);
-
 
         handler.postDelayed(runnable,4000);
 
@@ -76,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
     String token = "";
     String id = "";
     String username="";
-//    String instaname="";
 
     public void getLoginUser(View view){
         if(!(login_email.getText().toString().equals("") && (login_pass.getText().toString().equals("")))){
