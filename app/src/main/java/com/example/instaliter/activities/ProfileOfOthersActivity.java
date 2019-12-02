@@ -56,7 +56,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
     TextView profile_username, profile_desc;
     ImageView imageView;
     ArrayList<Post> arrayList = new ArrayList<>();
-    Button button;
+    Button button, unfollow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +70,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.myPosts);
         profile_desc = findViewById(R.id.profile_description);
         button = findViewById(R.id.followUser);
+        unfollow = findViewById(R.id.unfollowUser);
 
         glide = Glide.with(getApplicationContext());
 
@@ -91,6 +92,13 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 followUser();
+            }
+        });
+
+        unfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unfollowUser();
             }
         });
 
@@ -314,7 +322,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                                     responseMapPosts.put("imageDate", date_posts);
                                     responseMapPosts.put("type", String.valueOf(type_posts));
 
-                                    Post post = new Post( (int) RegisterActivity.userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
+                                    Post post = new Post(otherUserID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
                                     arrayList.add(post);
                                     postsAdapter.notifyDataSetChanged();
 
@@ -381,6 +389,44 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "setUserFollow";
+
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
+                    new JSONObject(params),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            queue.add(jsObjRequest);
+        }
+    }
+
+    public void unfollowUser(){
+        if(!(token.equals(""))){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", String.valueOf(userID));
+            params.put("idF", String.valueOf(otherUserID));
+            Map<String, String> result = new HashMap<>();
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            String url = registerurl + "setUserUnFollow";
 
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
                     new JSONObject(params),

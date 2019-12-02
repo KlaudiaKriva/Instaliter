@@ -11,10 +11,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -28,11 +30,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.example.instaliter.Comment;
 import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
+import com.example.instaliter.activities.ProfileActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,9 +53,16 @@ import static com.example.instaliter.RegisterActivity.userID;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder>{
 
+
     Context context;
     ArrayList<Post> postArrayList = new ArrayList<>();
     RequestManager glide;
+
+    CommentAdapter commentAdapter;
+    RecyclerView recyclerViewComments;
+    RecyclerView.LayoutManager layoutManager1;
+
+
 
     public PostsAdapter(Context context, ArrayList<Post> arrayList){
         this.context = context;
@@ -63,7 +74,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_contribution, parent,false);
+
         return new MyViewHolder(view);
+
+
     }
 
     @Override
@@ -75,7 +89,59 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Post post = postArrayList.get(position);
 
-        holder.userName.setText(RegisterActivity.userName);
+
+        HashMap<String, String> params111 = new HashMap<>();
+        params111.put("id", String.valueOf(post.getUserName()));
+
+        RequestQueue queue111 = Volley.newRequestQueue(context);
+        String url111 = registerurl + "userInfo";
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.POST,
+                url111, new JSONObject(params111),
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response1) {
+                        System.out.println("co vrati server "+ response1);
+                        JSONObject response = null;
+                        try {
+                            for (int i = 0; i< response1.length(); i++){
+                                response = response1.getJSONObject(i);
+                                System.out.println("response spravy uz "+response);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // tento response je [{object}]
+                        System.out.println("response userInfo "+response);
+                        try {
+
+                            String instaname = response.getString("instaName");
+
+                            holder.userName.setText(instaname);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                System.out.println(error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers= new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        queue111.add(jsonArrayRequest);
+
+//        holder.userName.setText(RegisterActivity.userName); //tu sa nastavuje usrname postovv na prvej screene
         holder.time.setText(post.getDate());
         holder.post_text.setText(post.getPost_text());
         String pathPath = registerurl +post.getPostImage();
@@ -251,12 +317,63 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
         });
 
+
+        //tu urobit array naplnenie
+
+
         holder.comment.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View v) {
-                holder.linearLayoutComment.setVisibility(View.VISIBLE);
+                if(holder.count == 0) {
+                    holder.show_comments.setVisibility(View.VISIBLE);
+                    holder.show_commentsLeyout.setVisibility(View.VISIBLE);
+                    holder.linearLayoutComment.setVisibility(View.VISIBLE);
+                    holder.count = 1;
+
+                }
+                else {
+                    holder.show_comments.setVisibility(View.GONE);
+                    holder.show_commentsLeyout.setVisibility(View.GONE);
+                    holder.linearLayoutComment.setVisibility(View.GONE);
+                    holder.count = 0;
+                }
             }
         });
+
+        layoutManager1 = new LinearLayoutManager(holder.postImage.getContext());
+        holder.show_comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                System.out.println("klikkkkkkkkkshfkajfbldkwbv");
+                System.out.println(getItemImageID(position));
+                holder.all_comments.setVisibility(View.VISIBLE);
+                layoutManager1 = new LinearLayoutManager(holder.postImage.getContext());
+                System.out.println("laout manager je: " + holder.postImage.getContext());
+                recyclerViewComments.setLayoutManager(layoutManager1);
+                commentAdapter = new CommentAdapter(v.getContext(), holder.commentArrayList);
+                recyclerViewComments.setAdapter(commentAdapter);
+//                public void getAllComments(int imageID){
+//
+//                }
+//                getAllComments(getItemImageID(position));
+
+
+
+
+//                holder.all_comments.setVisibility(View.VISIBLE);
+////                CommentAdapter commentAdapter = new CommentAdapter(context, commentArrayList);
+//                holder.all_comments.setAdapter(commentAdapter);
+//
+//                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(new ProfileActivity().getBaseContext());
+//                holder.all_comments.setLayoutManager(layoutManager);
+
+            }
+        });
+
 
 
         holder.btn_share.setOnClickListener(new View.OnClickListener() {
@@ -280,7 +397,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-
+                                    holder.addComment.setText("");
                                 }
                             }, new Response.ErrorListener() {
                         @Override
@@ -300,30 +417,46 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
                     queue.add(jsObjRequest);
                 }
+
             }
         });
 
+
     }
 
+
+
+    public int getItemImageID(int position){
+        return Integer.parseInt(postArrayList.get(position).getIdI());
+    }
 
     @Override
     public int getItemCount() {
         return postArrayList.size();
     }
 
+
+//    CommentAdapter commentAdapter;
+
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView userName, time, number, post_text;
         ImageView profileImage, postImage, commentUser;
         CheckBox heart;
-        Button comment, btn_share;
+        Button comment, btn_share, show_comments;
         EditText addComment;
         LinearLayout linearLayoutComment;
+        RecyclerView all_comments;
+        RelativeLayout show_commentsLeyout;
+        int count;
+        RecyclerView recyclerViewComments;
+        ArrayList<Comment> commentArrayList;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            commentArrayList = new ArrayList<>();
             profileImage = itemView.findViewById(R.id.profileImage);
             postImage = itemView.findViewById(R.id.postImage);
 
@@ -331,14 +464,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             time = itemView.findViewById(R.id.time);
             number = itemView.findViewById(R.id.number_ofLikes);
             post_text = itemView.findViewById(R.id.post_text);
-
+            count = 0;
             heart = itemView.findViewById(R.id.heart);
             comment = itemView.findViewById(R.id.bubble);
             commentUser = itemView.findViewById(R.id.profileImageAU);
             addComment = itemView.findViewById(R.id.addComment);
             linearLayoutComment = itemView.findViewById(R.id.comment_lay);
             btn_share = itemView.findViewById(R.id.btn_shareComment);
+            show_comments = itemView.findViewById(R.id.show_comments);
+            all_comments = itemView.findViewById(R.id.all_comments);
+            show_commentsLeyout = itemView.findViewById(R.id.show_commentsLeyout);
 
+
+            recyclerViewComments = itemView.findViewById(R.id.all_comments);
         }
     }
 }

@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
+                    case R.id.nav_home:
                          break;
                     case R.id.nav_camera:
                         Intent intent2 = new Intent(MainActivity.this, CameraActivity.class);
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     Map<String, String> responseMapPosts;
+    String idUsera;
     String idI_posts="";
     String path_posts="";
     String thumbnailPath_posts="";
@@ -135,18 +137,21 @@ public class MainActivity extends AppCompatActivity {
                                     response = response1.getJSONObject(i);
                                     System.out.println("response spravny uz "+response);
                                     //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
+
+                                    idUsera = response.getString("id");
+                                    int idcko = Integer.parseInt(idUsera);
                                     idI_posts = response.getString("idI");
                                     path_posts = response.getString("path");
                                     path_posts =path_posts.substring(0,6)+"/"+path_posts.substring(7);
                                     System.out.println("image cesta "+path_posts);
-                                    thumbnailPath_posts = response.getString("thumbnailPath");
+                                    thumbnailPath_posts = response.getString("thumbnailpath");
                                     thumbnailPath_posts =thumbnailPath_posts.substring(0,10)+"/"+thumbnailPath_posts.substring(11);
                                     System.out.println("image cesta "+thumbnailPath_posts);
                                     description_posts= response.getString("description");
-                                    date_posts = response.getString("imageDate");
+                                    date_posts = response.getString("ctime");
                                     type_posts = response.getInt("type");
 
-                                    responseMapPosts.put("id", String.valueOf(userID));
+                                    responseMapPosts.put("id", String.valueOf(idUsera));
                                     responseMapPosts.put("idI", String.valueOf(idI_posts));
                                     responseMapPosts.put("imagePath", path_posts);
                                     responseMapPosts.put("thumbnailPath", thumbnailPath_posts);
@@ -154,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                                     responseMapPosts.put("imageDate", date_posts);
                                     responseMapPosts.put("type", String.valueOf(type_posts));
 
-                                    Post post = new Post( (int) RegisterActivity.userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
+                                    Post post = new Post(idcko, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
 
                                     arrayList.add(post);
                                     postsAdapter.notifyDataSetChanged();
@@ -186,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> paramas = new HashMap<String, String>();
-                    paramas.put("id", String.valueOf(userID));
+                    paramas.put("id", String.valueOf(idUsera));
                     paramas.put("idI", String.valueOf(idI_posts));
                     paramas.put("imagePath", path_posts);
                     paramas.put("thumbnailPath", thumbnailPath_posts);

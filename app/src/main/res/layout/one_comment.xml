@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="4dp"
     app:cardCornerRadius="4dp">
@@ -22,15 +22,15 @@
                 android:id="@+id/profileImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/profile_pic" />
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textview"
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -42,11 +42,11 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textview2"
+            android:id="@+id/text_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/textview"
+            android:layout_toEndOf="@+id/username"
             android:text="@string/desc_text"
             android:textSize="17sp" />
 
@@ -56,10 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/card_onProfPic"
             android:layout_marginStart="8dp"
-            android:layout_below="@+id/textview"
+            android:layout_below="@+id/username"
             android:text="@string/timeComm"
             android:textSize="12sp" />
 
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>

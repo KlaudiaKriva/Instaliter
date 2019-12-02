@@ -227,7 +227,7 @@
         android:gravity="center"
         android:layout_weight="1"
         android:visibility="gone"
-        android:id="@+id/show_commentsLey"
+        android:id="@+id/show_commentsLeyout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -247,10 +247,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/all_comments"
-        android:visibility="gone"
-        android:layout_below="@id/show_commentsLey"
+        android:layout_below="@id/show_commentsLeyout"
         android:layout_height="wrap_content">
-
     </androidx.recyclerview.widget.RecyclerView>
 
 
