@@ -259,9 +259,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         });
 
 
-        holder.addComment.setOnClickListener(new View.OnClickListener() {
+        holder.btn_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                System.out.println("vypisujem addcoment: "+ holder.addComment.getText().toString());
                 if(!(holder.addComment.getText().toString().equals(""))){
                     HashMap<String, String> params = new HashMap<>();
                     params.put("id", String.valueOf(userID));
@@ -271,7 +273,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
                     RequestQueue queue = Volley.newRequestQueue(context);
 
-                    String url = registerurl + "setImageContent";
+                    String url = registerurl + "setImageComment";
 
                     JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
                             new JSONObject(params),
@@ -314,9 +316,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         TextView userName, time, number, post_text;
         ImageView profileImage, postImage, commentUser;
         CheckBox heart;
-        Button comment;
+        Button comment, btn_share;
         EditText addComment;
         LinearLayout linearLayoutComment;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -334,6 +337,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             commentUser = itemView.findViewById(R.id.profileImageAU);
             addComment = itemView.findViewById(R.id.addComment);
             linearLayoutComment = itemView.findViewById(R.id.comment_lay);
+            btn_share = itemView.findViewById(R.id.btn_shareComment);
 
         }
     }
