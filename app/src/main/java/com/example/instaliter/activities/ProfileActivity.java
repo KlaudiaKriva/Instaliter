@@ -331,7 +331,12 @@ public class ProfileActivity extends AppCompatActivity {
                                     else {
                                         Toast.makeText(getBaseContext(), "User posts not loaded",Toast.LENGTH_LONG).show();
                                     }
+
+
                                 }
+                                System.out.println("tu vypisujem size arau: " + arrayList.size());
+                                profile_number_of_posts.setText(String.valueOf(arrayList.size()));
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
