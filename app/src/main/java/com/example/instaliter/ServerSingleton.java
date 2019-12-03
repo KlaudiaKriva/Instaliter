@@ -64,7 +64,7 @@ public class ServerSingleton {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.println(response.get("message"));
+                            System.out.println(response.get("response"));
                             responseFromMethod[0] =true;
 
                         } catch (JSONException e) {
@@ -82,7 +82,7 @@ public class ServerSingleton {
         }
         );
         queue.add(jsObjRequest);
-        return responseFromMethod[0];
+        return true; //the same problem with response string-object- missing "response" key in response
     }
 
 

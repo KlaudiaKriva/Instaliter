@@ -309,7 +309,7 @@ public class ProfileActivity extends AppCompatActivity {
                             JSONObject response = null;
                             try {
 
-                                arrayList.clear();
+//                                arrayList.clear();
                                 for (int i = 0; i< response1.length(); i++){
                                     response = response1.getJSONObject(i);
                                     System.out.println("response spravny uz "+response);
@@ -338,7 +338,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     responseMapPosts.put("imageDate", date_posts);
                                     responseMapPosts.put("type", String.valueOf(type_posts));
 
-                                    Post post = new Post(iddd, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
+                                    Post post = new Post((int)userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
 
                                     arrayList.add(post);
                                     postsAdapter.notifyDataSetChanged();

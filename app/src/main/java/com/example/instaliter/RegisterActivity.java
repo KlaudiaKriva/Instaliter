@@ -69,14 +69,17 @@ public class RegisterActivity extends AppCompatActivity {
             ServerSingleton serverSingleton = ServerSingleton.getInstance();
             boolean response = serverSingleton.registerUser(params, RegisterActivity.this);
             if(response){
-                Toast.makeText(getApplicationContext(), "User inserted successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_LONG).show();
                 Intent intent1 = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent1);
             }
             else {
-                Toast.makeText(getApplicationContext(), "User not inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "User not registered", Toast.LENGTH_LONG).show();
             }
 
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Please enter all values", Toast.LENGTH_LONG).show();
         }
     }
 }
