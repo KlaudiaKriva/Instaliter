@@ -90,7 +90,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         final Post post = postArrayList.get(position);
 
 
-        HashMap<String, String> params111 = new HashMap<>();
+        final HashMap<String, String> params111 = new HashMap<>();
         params111.put("id", String.valueOf(post.getUserName()));
 
         RequestQueue queue111 = Volley.newRequestQueue(context);
@@ -117,6 +117,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
                             String instaname = response.getString("instaName");
 
+                            String path = response.getString("imagePath");
+//                            if (path )
+//                            holder.profileImage
                             holder.userName.setText(instaname);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -144,11 +147,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 //        holder.userName.setText(RegisterActivity.userName); //tu sa nastavuje usrname postovv na prvej screene
         holder.time.setText(post.getDate());
         holder.post_text.setText(post.getPost_text());
+
         String pathPath = registerurl +post.getPostImage();
         System.out.println("path "+pathPath);
+
         glide.load(pathPath).into(holder.postImage);
 
         //pozor profileimage je staticka z registeractivity a profileImage je tu holder.profileImage
+
         if(profileimage != null){
             glide.load(profileimage).into(holder.profileImage);
             glide.load(profileimage).into(holder.commentUser);
