@@ -62,76 +62,81 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final CommentAdapter.MyViewHolder holder, int position) {
-//        final Comment comment = commentArrayList.get(position);
+        final Comment comment = commentArrayList.get(position);
 
-        RequestQueue queue = Volley.newRequestQueue(context);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("idI", String.valueOf(getItemId(position)));
-        String url = registerurl + "getImageComments";
-        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.POST, url,
-                new JSONObject(params),
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response1) {
-                        System.out.println("co vrati server "+ response1);
-                        JSONObject response = null;
-                        try {
-                            for (int i = 0; i< response1.length(); i++){
-                                response = response1.getJSONObject(i);
-                                System.out.println("response spravy uz "+response);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        // tento response je [{object}]
-                        System.out.println("response checkUserLike "+response);
-                        try {
-                            String userName = response.getString("name");
-                            holder.username.setText(userName);
-                            String time = response.getString("cTime");
-                            holder.time_comment.setText(time);
-                            String text = response.getString("commentText");
-                            holder.text_comment.setText(text);
+        System.out.println("user naaaaaaaaame "+comment.getName());
 
-                            int idProfilePhoto = response.getInt("idI");
-
-                            Comment comment1 = new Comment(userName, idProfilePhoto, time, text);
-                            commentArrayList.add(comment1);
-
-                            System.out.println("id profilovky je: "+ idProfilePhoto);
-                            loadProfileImage(idProfilePhoto, holder);
-
-//                            commentArrayList.add()
-//                            glide.load(tu cesta).into(holder.profileImage);
-                            //show comments visible  show_comments a onclick all_comments visible
-
-                            //
-                        } catch (JSONException e) {
-
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof ServerError){
-                }
-                System.out.println(error);
-                System.out.println(error.getMessage());
-            }
-
-        }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers= new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer " + token);
-                return headers;
-            }
-        };
-        queue.add(jsObjRequest);
-
+        holder.username.setText(comment.getName());
+        holder.text_comment.setText(comment.getCommenttext());
+//
+//        RequestQueue queue = Volley.newRequestQueue(context);
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("idI", String.valueOf(getItemId(position)));
+//        String url = registerurl + "getImageComments";
+//        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.POST, url,
+//                new JSONObject(params),
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response1) {
+//                        System.out.println("co vrati server "+ response1);
+//                        JSONObject response = null;
+//                        try {
+//                            for (int i = 0; i< response1.length(); i++){
+//                                response = response1.getJSONObject(i);
+//                                System.out.println("response spravy uz "+response);
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        // tento response je [{object}]
+//                        System.out.println("response checkUserLike "+response);
+//                        try {
+//                            String userName = response.getString("name");
+//                            holder.username.setText(userName);
+//                            String time = response.getString("cTime");
+//                            holder.time_comment.setText(time);
+//                            String text = response.getString("commentText");
+//                            holder.text_comment.setText(text);
+//
+//                            int idProfilePhoto = response.getInt("idI");
+//
+//                            Comment comment1 = new Comment(userName, idProfilePhoto, time, text);
+//                            commentArrayList.add(comment1);
+//
+//                            System.out.println("id profilovky je: "+ idProfilePhoto);
+//                            loadProfileImage(idProfilePhoto, holder);
+//
+////                            commentArrayList.add()
+////                            glide.load(tu cesta).into(holder.profileImage);
+//                            //show comments visible  show_comments a onclick all_comments visible
+//
+//                            //
+//                        } catch (JSONException e) {
+//
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                if (error instanceof ServerError){
+//                }
+//                System.out.println(error);
+//                System.out.println(error.getMessage());
+//            }
+//
+//        }
+//        ) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> headers= new HashMap<String, String>();
+//                headers.put("Accept", "application/json");
+//                headers.put("Authorization", "Bearer " + token);
+//                return headers;
+//            }
+//        };
+//        queue.add(jsObjRequest);
+//
 
     }
 
@@ -206,7 +211,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
         TextView username, text_comment, time_comment;
         ImageView profileImage;
-//        LinearLayout all_comments;
         int count;
 
 
@@ -216,7 +220,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             username = itemView.findViewById(R.id.username);
             time_comment = itemView.findViewById(R.id.time_comment);
             text_comment = itemView.findViewById(R.id.text_comment);
-//            all_comments = itemView.findViewById(R.id.all_comments);
+
         }
     }
 }

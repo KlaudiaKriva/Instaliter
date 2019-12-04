@@ -60,8 +60,6 @@ public class ProfileActivity extends AppCompatActivity {
     Button button;
 
 
-
-
     TextView profile_number_of_posts;
     TextView profile_username, profile_desc;
     ImageView imageView;
@@ -87,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
         try {
             getUserInfo();
             getUserPosts();
-//            getUserComments();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -317,7 +315,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     int iddd = Integer.parseInt(idUsera);
                                     //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
                                     idI_posts = response.getString("idI");
-                                    getUserComments(Integer.parseInt(idI_posts));
+
                                     path_posts = response.getString("path");
                                     path_posts =path_posts.substring(0,6)+"/"+path_posts.substring(7);
                                     System.out.println("image cesta "+path_posts);
@@ -337,6 +335,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     responseMapPosts.put("description", description_posts);
                                     responseMapPosts.put("imageDate", date_posts);
                                     responseMapPosts.put("type", String.valueOf(type_posts));
+
 
                                     Post post = new Post((int)userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
 
@@ -398,94 +397,11 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    ArrayList<Comment> commentArray = new ArrayList<>();
-
-    String usernameComment;
-    String commentText;
-    String commentTime;
-
-    public void getUserComments(int idImage) {
-        System.out.println("tahaju sa posty usera zo servera");
-        if(!(token.equals(""))){
-            HashMap<String, String> params = new HashMap<>();
-            params.put("idI", String.valueOf(idImage));
-
-            RequestQueue queue = Volley.newRequestQueue(this);
-
-            String url = registerurl + "getImageComments";
-
-
-            responseMapPosts = new HashMap<>();
-            final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                    Request.Method.POST,
-                    url, new JSONObject(params),
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response1) {
-                            System.out.println("co vrati server "+ response1);
-                            JSONObject response = null;
-                            try {
-
-                                for (int i = 0; i< response1.length(); i++){
-                                    response = response1.getJSONObject(i);
-                                    System.out.println("response spravny uz "+response);
-                                    //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
-                                    usernameComment = response.getString("name");
-                                    commentTime = response.getString("cTime");
-                                    commentText= response.getString("commentText");
-
-                                    Comment comment = new Comment(usernameComment, Integer.parseInt(idI_posts), commentTime, commentText);
-
-                                    commentArray.add(comment);
-//                                    commentAdapter.notifyDataSetChanged();
-
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println(error);
-                    System.out.println(error.getMessage());
-                }
-            }) {
-//                @Override
-//                protected Map<String, String> getParams() {
-//                    Map<String, String> paramas = new HashMap<String, String>();
-//                    paramas.put("id", String.valueOf(userID));
-//                    paramas.put("idI", String.valueOf(idI_posts));
-//                    paramas.put("imagePath", path_posts);
-//                    paramas.put("thumbnailPath", thumbnailPath_posts);
-//                    paramas.put("description", description_posts);
-//                    paramas.put("imageDate", date_posts);
-//                    paramas.put("type", String.valueOf(type_posts));
-//                    return paramas;
-//                }
-
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> headers= new HashMap<String, String>();
-                    headers.put("Accept", "application/json");
-                    headers.put("Authorization", "Bearer " + token);
-                    return headers;
-                }
-            };
-
-            queue.add(jsonArrayRequest);
-
-        } else {
-            System.out.println("token je prazdny "+token);
-        }
-    }
-
-
 
     public void logout(View view){
         RegisterActivity.userID = 0;
         RegisterActivity.userName = "";
+        token="";
         Intent intent_lg = new Intent(ProfileActivity.this, LoginActivity.class);
         startActivity(intent_lg);
     }
