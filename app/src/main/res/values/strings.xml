@@ -19,4 +19,6 @@
     <string name="showComm">Show all comments</string>
     <string name="timeComm">Time of comment</string>
     <string name="no_posts">No posts to show, no followers</string>
+    <string name="comm">Comments</string>
+    <string name="no_comm">No comments</string>
 </resources>

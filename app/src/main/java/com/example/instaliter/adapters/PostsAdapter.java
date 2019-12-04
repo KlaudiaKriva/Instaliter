@@ -2,6 +2,7 @@ package com.example.instaliter.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import com.example.instaliter.MainActivity;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
+import com.example.instaliter.activities.CommentsActivity;
 import com.example.instaliter.activities.ProfileActivity;
 
 import org.json.JSONArray;
@@ -118,6 +120,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                             String instaname = response.getString("instaName");
 
                             String path = response.getString("imagePath");
+                            System.out.println("co je totototototot za fotkuuuuuuuuuuuu "+path);
 //                            if (path )
 //                            holder.profileImage
                             holder.userName.setText(instaname);
@@ -156,6 +159,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         //pozor profileimage je staticka z registeractivity a profileImage je tu holder.profileImage
 
         if(profileimage != null){
+            System.out.println("ta ja neviem totot co ej  "+profileimage);
             glide.load(profileimage).into(holder.profileImage);
             glide.load(profileimage).into(holder.commentUser);
         }
@@ -353,30 +357,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         holder.show_comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 System.out.println("klikkkkkkkkkshfkajfbldkwbv");
-                System.out.println(getItemImageID(position));
-                holder.all_comments.setVisibility(View.VISIBLE);
-                layoutManager1 = new LinearLayoutManager(holder.postImage.getContext());
-                System.out.println("laout manager je: " + holder.postImage.getContext());
-                recyclerViewComments.setLayoutManager(layoutManager1);
-                commentAdapter = new CommentAdapter(v.getContext(), holder.commentArrayList);
-                recyclerViewComments.setAdapter(commentAdapter);
-//                public void getAllComments(int imageID){
-//
-//                }
-//                getAllComments(getItemImageID(position));
-
-
-
-
-//                holder.all_comments.setVisibility(View.VISIBLE);
-////                CommentAdapter commentAdapter = new CommentAdapter(context, commentArrayList);
-//                holder.all_comments.setAdapter(commentAdapter);
-//
-//                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(new ProfileActivity().getBaseContext());
-//                holder.all_comments.setLayoutManager(layoutManager);
-
+                Intent intent = new Intent(context, CommentsActivity.class);
+                intent.putExtra("idI", getItemImageID(position));
+                context.startActivity(intent);
             }
         });
 
@@ -480,8 +464,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             show_comments = itemView.findViewById(R.id.show_comments);
             all_comments = itemView.findViewById(R.id.all_comments);
             show_commentsLeyout = itemView.findViewById(R.id.show_commentsLeyout);
-
-
             recyclerViewComments = itemView.findViewById(R.id.all_comments);
         }
     }

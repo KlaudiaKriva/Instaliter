@@ -92,6 +92,8 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 followUser();
+                Toast.makeText(getBaseContext(), "Follow",Toast.LENGTH_LONG).show();
+                button.setVisibility(View.GONE);
             }
         });
 
