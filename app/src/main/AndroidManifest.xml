@@ -31,6 +31,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".activities.EditProfileActivity" />
+        <activity android:name=".activities.CommentsActivity" />
 
         <provider
             android:authorities="${applicationId}.provider"
