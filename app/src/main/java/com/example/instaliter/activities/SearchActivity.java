@@ -52,9 +52,16 @@ public class SearchActivity extends AppCompatActivity{
     UsersAdapter adapter;
     RecyclerView recyclerView;
     EditText findUser;
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
 

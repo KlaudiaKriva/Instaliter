@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="?attr/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,7 +28,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:elevation="0dp"
-
                     app:cardMaxElevation="0dp"
                     app:cardPreventCornerOverlap="false"
                     app:cardCornerRadius="55dp">
@@ -55,7 +55,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="-"
                 android:textSize="32sp"
-                android:textColor="@color/colorText"/>
+                android:textColor="?attr/colorText"/>
 
             <TextView
                 android:layout_below="@+id/profile_username"
@@ -65,7 +65,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="About me..."
                 android:textSize="14sp"
-                android:textColor="@color/grey"/>
+                android:textColor="?attr/grey"/>
 
             <Button
                 android:layout_below="@id/profile_description"
@@ -85,8 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rellay1"
         android:orientation="horizontal"
-        android:id="@+id/rellay2"
-        >
+        android:id="@+id/rellay2">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -96,7 +95,7 @@
             android:paddingBottom="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@color/colorAccent">
+            android:background="?attr/colorAccent">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -107,6 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorText2"
                     android:text="0"
                     android:id="@+id/profile_number_of_posts"
                     android:textSize="24sp"/>
@@ -114,6 +114,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorText2"
                     android:text="Posts"
                     android:textAllCaps="true"
                     android:textSize="13sp"/>
@@ -142,6 +143,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorText2"
                     android:text="0"
                     android:id="@+id/profile_number_followers"
                     android:textSize="24sp"/>
@@ -149,6 +151,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorText2"
                     android:text="Followers"
                     android:textAllCaps="true"
                     android:textSize="13sp"/>
@@ -164,7 +167,7 @@
             android:paddingBottom="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@color/colorAccent">
+            android:background="?attr/colorAccent">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -176,6 +179,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorText2"
                     android:text="0"
                     android:id="@+id/profile_number_following"
                     android:textSize="24sp"/>
@@ -183,6 +187,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorText2"
                     android:text="Following"
                     android:textAllCaps="true"
                     android:textSize="13sp"/>
@@ -208,15 +213,6 @@
             android:layout_marginBottom="56dp" />
     </LinearLayout>
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-        <!---->
-        <!---->
-    <!--</RelativeLayout>-->
-
-
-
     <RelativeLayout
         android:id="@+id/rellay3"
         android:layout_width="match_parent"
@@ -235,7 +231,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark"
+            android:background="?attr/colorPrimaryDark"
             app:itemIconTint="@drawable/selector_bottombar_text"
             app:itemTextColor="@drawable/selector_bottombar_text"
             app:itemHorizontalTranslationEnabled="true"

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="?attr/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -42,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/edit_profile"
                 android:layout_gravity="center"
-                android:textColor="@color/colorText"
+                android:textColor="?attr/colorText"
                 android:textSize="20sp">
             </TextView>
 
@@ -60,7 +61,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/edit_done"
                 android:textSize="20sp"
-                android:textColor="@color/colorText2"
+                android:textColor="?attr/colorText2"
                 android:background="@drawable/border">
             </Button>
 
@@ -72,7 +73,7 @@
         android:layout_below="@id/linley1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorText2"/>
+        android:background="?attr/colorText2"/>
 
     <RelativeLayout
         android:id="@+id/rellay"
@@ -95,7 +96,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="0dp"
-
             app:cardMaxElevation="0dp"
             app:cardPreventCornerOverlap="false"
             app:cardCornerRadius="55dp">
@@ -127,7 +127,7 @@
         android:text="@string/change_pic"
         android:textSize="18sp"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/colorText2"
+        android:textColor="?attr/colorText2"
         android:background="@drawable/border">
     </Button>
 
@@ -136,10 +136,11 @@
         android:layout_below="@id/btn_changePic"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorText2"/>
+        android:background="?attr/colorText2"/>
+
 
         <LinearLayout
-        android:id="@+id/ley_name"
+        android:id="@+id/ley_desc"
         android:layout_below="@id/line2"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
@@ -156,107 +157,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name_text"
-                android:textColor="@color/colorText2"
-                android:textSize="20sp">
-            </TextView>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_marginStart="35dp"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:id="@+id/addTitle">
-            </EditText>
-
-        </RelativeLayout>
-    </LinearLayout>
-
-        <View
-        android:id="@+id/line3"
-        android:layout_below="@id/ley_name"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorText2"/>
-
-        <LinearLayout
-        android:id="@+id/ley_instaName"
-        android:layout_below="@id/line3"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/username_text"
-                android:textColor="@color/colorText2"
-                android:textSize="20sp">
-            </TextView>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:id="@+id/change_instaName">
-            </EditText>
-
-        </RelativeLayout>
-    </LinearLayout>
-
-        <View
-        android:id="@+id/line4"
-        android:layout_below="@id/ley_instaName"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorText2"/>
-
-        <LinearLayout
-        android:id="@+id/ley_desc"
-        android:layout_below="@id/line4"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/desc_text"
-                android:textColor="@color/colorText2"
+                android:textColor="?attr/colorText2"
                 android:textSize="20sp">
             </TextView>
 
@@ -280,33 +182,15 @@
     </LinearLayout>
 
         <View
-        android:id="@+id/line5"
+        android:id="@+id/line3"
         android:layout_below="@id/ley_desc"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorText2"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_below="@id/rellay"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/personaliInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/per_info"
-            android:layout_gravity="center"
-            android:textColor="@color/colorText"
-            android:textSize="17sp">
-        </TextView>
+        android:background="?attr/colorText2"/>
 
         <LinearLayout
-            android:id="@+id/ley_email"
-            android:layout_below="@id/personaliInfo"
             android:layout_width="match_parent"
+            android:layout_below="@id/line3"
             android:layout_margin="10dp"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content">
@@ -321,35 +205,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/email_text"
-                    android:textColor="@color/colorText2"
+                    android:text="@string/dark_mode"
+                    android:textColor="?attr/colorText2"
                     android:textSize="20sp">
                 </TextView>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_gravity="center"
-                android:gravity="end"
-                android:layout_weight="8"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <Switch
+                    android:id="@+id/simpleSwitch"
                     android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:id="@+id/change_email">
-                </EditText>
+                    android:layout_height="wrap_content"/>
 
             </RelativeLayout>
+
         </LinearLayout>
 
-
-
     </RelativeLayout>
-
-
-
 
 </RelativeLayout>

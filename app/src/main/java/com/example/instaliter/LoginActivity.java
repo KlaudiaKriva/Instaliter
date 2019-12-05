@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.instaliter.activities.CameraActivity;
+import com.example.instaliter.activities.DarkModeActivity;
 import com.example.instaliter.activities.ProfileActivity;
 
 import org.json.JSONException;
@@ -43,9 +44,16 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
     EditText login_email, login_pass;
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
         rellay1 = findViewById(R.id.rellay1);
