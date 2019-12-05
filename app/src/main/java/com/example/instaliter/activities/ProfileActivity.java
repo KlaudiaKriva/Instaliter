@@ -398,6 +398,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+
     public void logout(View view){
         RegisterActivity.userID = 0;
         RegisterActivity.userName = "";
