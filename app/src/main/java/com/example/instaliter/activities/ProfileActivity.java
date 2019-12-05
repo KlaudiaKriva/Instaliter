@@ -41,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
     Button button;
 
 
-    TextView profile_number_of_posts;
+    TextView profile_number_of_posts, profile_number_of_followers, profile_number_following;
     TextView profile_username, profile_desc;
     ImageView imageView;
 
@@ -70,6 +71,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.profile_layout);
 
         profile_number_of_posts = findViewById(R.id.profile_number_of_posts);
+        profile_number_of_followers = findViewById(R.id.profile_number_followers);
+        profile_number_following = findViewById(R.id.profile_number_following);
         profile_username = findViewById(R.id.profile_username);
         imageView = findViewById(R.id.profile_picture);
         recyclerView = findViewById(R.id.myPosts);
@@ -85,6 +88,8 @@ public class ProfileActivity extends AppCompatActivity {
         try {
             getUserInfo();
             getUserPosts();
+            getUsersFollowers();
+            getUserFollowing();
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -340,6 +345,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     Post post = new Post((int)userID, idI_posts , path_posts, thumbnailPath_posts, description_posts,date_posts, type_posts,false);
 
                                     arrayList.add(post);
+                                    Collections.reverse(arrayList);
                                     postsAdapter.notifyDataSetChanged();
 
                                     if (!responseMapPosts.isEmpty()){
@@ -396,6 +402,105 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
+    public void getUsersFollowers() {
+            System.out.println("tahaju sa posty usera zo servera");
+            if(!(token.equals(""))){
+                HashMap<String, String> params = new HashMap<>();
+                params.put("id", String.valueOf(userID));
+
+                RequestQueue queue = Volley.newRequestQueue(this);
+
+                String url = registerurl + "getUsersFollowers";
+                responseMapPosts = new HashMap<>();
+                final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                        Request.Method.POST,
+                        url, new JSONObject(params),
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response1) {
+                                System.out.println("co vrati server "+ response1);
+                                JSONObject response = null;
+                                profile_number_of_followers.setText(String.valueOf(response1.length()));
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                        System.out.println(error.getMessage());
+                    }
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> headers= new HashMap<String, String>();
+                        headers.put("Accept", "application/json");
+                        headers.put("Authorization", "Bearer " + token);
+                        return headers;
+                    }
+                };
+
+                queue.add(jsonArrayRequest);
+
+            } else {
+                System.out.println("token je prazdny "+token);
+            }
+
+    }
+
+    public void getUserFollowing(){
+        System.out.println("tahaju sa posty usera zo servera");
+        if(!(token.equals(""))){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", String.valueOf(userID));
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            String url = registerurl + "getUserFollowers";
+            responseMapPosts = new HashMap<>();
+            final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.POST,
+                    url, new JSONObject(params),
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response1) {
+                            System.out.println("co vrati server "+ response1);
+                            JSONObject response = null;
+                            profile_number_following.setText(String.valueOf(response1.length()));
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            queue.add(jsonArrayRequest);
+
+        } else {
+            System.out.println("token je prazdny "+token);
+        }
+    }
+
+
+    public void openFollowers(View view){
+        Intent intent = new Intent(ProfileActivity.this, FollowersActivity.class);
+        view.getContext().startActivity(intent);
+    }
+
+    public void openFollowing(View view){
+        Intent intent = new Intent(ProfileActivity.this, FollowingActivity.class);
+        view.getContext().startActivity(intent);
+    }
 
 
     public void logout(View view){
