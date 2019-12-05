@@ -226,7 +226,6 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_weight="1"
-        android:visibility="gone"
         android:id="@+id/show_commentsLeyout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -237,7 +236,6 @@
             android:paddingStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/showComm"
             android:textSize="13sp"
             android:textColor="@color/colorText2"
             android:background="@color/transparent">

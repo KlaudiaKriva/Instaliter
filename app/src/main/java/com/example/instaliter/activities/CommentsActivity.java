@@ -100,7 +100,7 @@ public class CommentsActivity extends AppCompatActivity {
                                     Comment comment = new Comment(usernameComment, idI, commentTime, commentText);
 
                                     commentArray.add(comment);
-//                                    commentAdapter.notifyDataSetChanged();
+                                    commentAdapter.notifyDataSetChanged();
 
                                 }
 
