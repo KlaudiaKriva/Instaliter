@@ -69,7 +69,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     public void onBindViewHolder(@NonNull UsersViewHolder holder, final int position) {
         final User currentUser = fullArrayList.get(position);
 
-        if(!(currentUser.getProfileImage() == null || currentUser.getProfileImage().equals("null"))) {
+        if(!(currentUser.getProfileImage() == null || currentUser.getProfileImage().equals("null") || currentUser.getProfileImage().equals(""))) {
             System.out.println("vypis mi currentuser pfoileimage: " + currentUser.getProfileImage());
             glide.load(currentUser.getProfileImage()).into(holder.iv_profileImage);
 //            holder.iv_profileImage.setImageResource(Integer.parseInt(currentUser.getProfileImage()));

@@ -335,14 +335,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 if(holder.count == 0) {
-                    holder.show_comments.setVisibility(View.VISIBLE);
-                    holder.show_commentsLeyout.setVisibility(View.VISIBLE);
+//                    holder.show_comments.setVisibility(View.VISIBLE);
+//                    holder.show_commentsLeyout.setVisibility(View.VISIBLE);
                     holder.linearLayoutComment.setVisibility(View.VISIBLE);
                     holder.count = 1;
                 }
                 else {
-                    holder.show_comments.setVisibility(View.GONE);
-                    holder.show_commentsLeyout.setVisibility(View.GONE);
+//                    holder.show_comments.setVisibility(View.GONE);
+//                    holder.show_commentsLeyout.setVisibility(View.GONE);
                     holder.linearLayoutComment.setVisibility(View.GONE);
                     holder.count = 0;
                 }
@@ -363,6 +363,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
 
 
+        checkNumberOfComments(holder.show_comments, position);
         holder.btn_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -403,12 +404,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                     };
 
                     queue.add(jsObjRequest);
+                    holder.linearLayoutComment.setVisibility(View.GONE);
+                    //tu pride nazov metody
+
                 }
+                checkNumberOfComments(holder.show_comments, position);
 
             }
         });
 
 
+
+
+
+    }
+
+    public void checkNumberOfComments(final Button holder, int position){
         final Map<String, String> responseMapComments;
         final ArrayList<Comment> commentArray = new ArrayList<>();
 
@@ -419,84 +430,83 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
         //tu cislo komentarov
 
-            System.out.println("tahaju sa comenty obrazka zo servera");
-            if(!(token.equals(""))){
-                HashMap<String, String> params222 = new HashMap<>();
-                params222.put("idI", String.valueOf(getItemImageID(position)));
+        System.out.println("tahaju sa comenty obrazka zo servera");
+        if(!(token.equals(""))){
+            HashMap<String, String> params222 = new HashMap<>();
+            params222.put("idI", String.valueOf(getItemImageID(position)));
 
-                RequestQueue queue222 = Volley.newRequestQueue(context);
+            RequestQueue queue222 = Volley.newRequestQueue(context);
 
-                String url222 = registerurl + "getImageComments";
-                responseMapComments = new HashMap<>();
-                final JsonArrayRequest jsonArrayRequest222 = new JsonArrayRequest(
-                        Request.Method.POST,
-                        url222, new JSONObject(params),
-                        new Response.Listener<JSONArray>() {
-                            @Override
-                            public void onResponse(JSONArray response1) {
-                                System.out.println("co vrati server "+ response1);
-                                JSONObject response = null;
-                                try {
+            String url222 = registerurl + "getImageComments";
+            responseMapComments = new HashMap<>();
+            final JsonArrayRequest jsonArrayRequest222 = new JsonArrayRequest(
+                    Request.Method.POST,
+                    url222, new JSONObject(params222),
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response1) {
+                            System.out.println("co vrati server "+ response1);
+                            JSONObject response = null;
+                            try {
 
-                                    for (int i = 0; i< response1.length(); i++){
-                                        response = response1.getJSONObject(i);
-                                        System.out.println("response spravny uz "+response);
-                                        //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
-                                        usernameComment[0] = response.getString("name");
-                                        commentTime[0] = response.getString("cTime");
-                                        commentText[0] = response.getString("commentText");
-
-
-
-                                        responseMapComments.put("name", usernameComment[0]);
-                                        responseMapComments.put("cTime", commentTime[0]);
-                                        responseMapComments.put("commentText", commentText[0]);
+                                for (int i = 0; i< response1.length(); i++){
+                                    response = response1.getJSONObject(i);
+                                    System.out.println("response spravny uz "+response);
+                                    //toto je zakomentovane, lebo je tam exception, int nemoze byt null, zaroven som zmenila idI hroe na "" a nie na int=0
+                                    usernameComment[0] = response.getString("name");
+                                    commentTime[0] = response.getString("cTime");
+                                    commentText[0] = response.getString("commentText");
 
 
-                                    }
 
-                                    String mytext = "Show comments ("+response1.length()+")";
-                                    holder.show_comments.setText(mytext);
+                                    responseMapComments.put("name", usernameComment[0]);
+                                    responseMapComments.put("cTime", commentTime[0]);
+                                    responseMapComments.put("commentText", commentText[0]);
 
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+
                                 }
+
+                                String mytext = "Show comments ("+response1.length()+")";
+                                holder.setText(mytext);
+//                                notifyDataSetChanged();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if(error instanceof ServerError){
-                            System.out.println("ziadne komenty nema obrazok");
                         }
-                        System.out.println(error);
-                        System.out.println(error.getMessage());
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error instanceof ServerError){
+                        System.out.println("ziadne komenty nema obrazok");
                     }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> paramas = new HashMap<String, String>();
-                        paramas.put("name", usernameComment[0]);
-                        paramas.put("cTime", commentTime[0]);
-                        paramas.put("commentText", commentText[0]);
-                        return paramas;
-                    }
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> paramas = new HashMap<String, String>();
+                    paramas.put("name", usernameComment[0]);
+                    paramas.put("cTime", commentTime[0]);
+                    paramas.put("commentText", commentText[0]);
+                    return paramas;
+                }
 
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> headers= new HashMap<String, String>();
-                        headers.put("Accept", "application/json");
-                        headers.put("Authorization", "Bearer " + token);
-                        return headers;
-                    }
-                };
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
 
-                queue222.add(jsonArrayRequest222);
+            queue222.add(jsonArrayRequest222);
 
-            } else {
-                System.out.println("token je prazdny "+token);
-            }
-
-
+        } else {
+            System.out.println("token je prazdny "+token);
+        }
     }
 
 
