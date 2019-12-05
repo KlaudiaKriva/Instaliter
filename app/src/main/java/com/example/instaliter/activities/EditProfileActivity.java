@@ -13,8 +13,10 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -70,9 +72,18 @@ public class EditProfileActivity extends AppCompatActivity {
     Button button, button2, button3;
     ImageView profilePic;
     EditText changeDesc;
+    Switch switchDarkMode;
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile_layout);
 
@@ -100,6 +111,27 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 changePorfilePic();
+            }
+        });
+
+        modSharedPrefs = new DarkModeActivity(this);
+
+        switchDarkMode = findViewById(R.id.simpleSwitch);
+        if(modSharedPrefs.loadDarkModeState()){
+            switchDarkMode.setChecked(true);
+        }
+        switchDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    modSharedPrefs.setDarkModeState(true);
+                    Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+                    startActivity(i);
+                }else{
+                    modSharedPrefs.setDarkModeState(false);
+                    Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+                    startActivity(i);
+                }
             }
         });
     }

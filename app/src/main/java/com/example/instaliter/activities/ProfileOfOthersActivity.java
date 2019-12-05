@@ -57,9 +57,16 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
     ImageView imageView;
     ArrayList<Post> arrayList = new ArrayList<>();
     Button button, unfollow;
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_others);
         System.out.println("moje id je " + otherUserID);

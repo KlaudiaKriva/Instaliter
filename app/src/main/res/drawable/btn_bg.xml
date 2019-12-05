@@ -9,11 +9,8 @@
 
     <stroke
         android:width="1dp"
-        android:color="@color/colorText"/>
+        android:color="?attr/colorText"/>
 
-    <solid android:color="@color/colorLight"/>
-
-
-
+    <solid android:color="?attr/colorLight"/>
 
 </shape>
