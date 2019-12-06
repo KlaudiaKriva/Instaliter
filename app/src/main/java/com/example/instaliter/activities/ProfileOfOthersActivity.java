@@ -58,6 +58,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
     ArrayList<Post> arrayList = new ArrayList<>();
     Button button, unfollow;
     DarkModeActivity modSharedPrefs;
+    TextView profile_user_followers, profile_user_following;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,12 +79,16 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
         profile_desc = findViewById(R.id.profile_description);
         button = findViewById(R.id.followUser);
         unfollow = findViewById(R.id.unfollowUser);
+        profile_user_followers = findViewById(R.id.profile_number_followers);
+        profile_user_following = findViewById(R.id.profile_number_following);
 
         glide = Glide.with(getApplicationContext());
 
         try {
             getUserInfo();
             getUserPosts();
+            getUsersFollowers();
+            getUserFollowing();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -404,7 +409,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-
+                            getUsersFollowers();
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -442,7 +447,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-
+                            getUsersFollowers();
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -462,5 +467,109 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
 
             queue.add(jsObjRequest);
         }
+    }
+
+    public void getUsersFollowers() {
+        System.out.println("tahaju sa posty usera zo servera");
+        if(!(token.equals(""))){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", String.valueOf(otherUserID));
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            String url = registerurl + "getUsersFollowers";
+            responseMapPosts = new HashMap<>();
+            final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.POST,
+                    url, new JSONObject(params),
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response1) {
+                            System.out.println("co vrati server "+ response1);
+                            JSONObject response = null;
+                            profile_user_followers.setText(String.valueOf(response1.length()));
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                    profile_user_followers.setText(String.valueOf("0"));
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            queue.add(jsonArrayRequest);
+
+        } else {
+            System.out.println("token je prazdny "+token);
+        }
+
+    }
+
+    public void getUserFollowing(){
+        System.out.println("tahaju sa posty usera zo servera");
+        if(!(token.equals(""))){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", String.valueOf(otherUserID));
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            String url = registerurl + "getUserFollowers";
+            responseMapPosts = new HashMap<>();
+            final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.POST,
+                    url, new JSONObject(params),
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response1) {
+                            System.out.println("co vrati server "+ response1);
+                            JSONObject response = null;
+                            profile_user_following.setText(String.valueOf(response1.length()));
+
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            queue.add(jsonArrayRequest);
+
+        } else {
+            System.out.println("token je prazdny "+token);
+        }
+    }
+
+
+    public void openFollowers(View view){
+        Intent intent = new Intent(ProfileOfOthersActivity.this, FollowersActivity.class);
+        intent.putExtra("idU", otherUserID);
+        view.getContext().startActivity(intent);
+    }
+
+    public void openFollowing(View view){
+        Intent intent = new Intent(ProfileOfOthersActivity.this, FollowingActivity.class);
+        intent.putExtra("idU", otherUserID);
+        view.getContext().startActivity(intent);
     }
 }
