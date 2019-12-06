@@ -1,6 +1,7 @@
 package com.example.instaliter;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.instaliter.activities.CameraActivity;
+import com.example.instaliter.activities.DarkModeActivity;
 import com.example.instaliter.activities.ProfileActivity;
 import com.example.instaliter.activities.SearchActivity;
 import com.example.instaliter.adapters.PostsAdapter;
@@ -46,10 +48,16 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Post> arrayList = new ArrayList<>();
     RecyclerView recyclerView;
     TextView textView;
-
+    DarkModeActivity modSharedPrefs;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         System.out.println("vykresluje sa prva screena + " + RegisterActivity.userID + " a zaroven  name: "+ RegisterActivity.userName);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -37,9 +37,16 @@ public class FollowersActivity extends AppCompatActivity {
     UsersAdapter adapter;
     RecyclerView recyclerView;
     ArrayList<User> arrayList = new ArrayList<>();
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.followers_activity);
         recyclerView = findViewById(R.id.followers);

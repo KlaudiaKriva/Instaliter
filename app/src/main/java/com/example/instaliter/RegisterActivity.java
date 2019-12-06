@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.instaliter.activities.DarkModeActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,11 +33,18 @@ public class RegisterActivity extends AppCompatActivity {
     public static long userID;
     public static String userName;
     public static String token;
-    public static String registerurl = "http://192.168.1.123:5005/";
+    public static String registerurl = "http://192.168.0.103:5005/";
     public static String profileimage;
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
         register_name = findViewById(R.id.register_name);

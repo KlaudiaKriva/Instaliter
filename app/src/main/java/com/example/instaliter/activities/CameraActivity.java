@@ -54,9 +54,16 @@ public class CameraActivity extends AppCompatActivity {
     TextView textView;
     String pathImage;
     File photoFile;
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         System.out.println(" vykresluje sa druha screena");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_layout);

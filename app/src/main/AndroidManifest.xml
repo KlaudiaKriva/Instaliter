@@ -34,6 +34,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".activities.EditProfileActivity" />
         <activity android:name=".activities.CommentsActivity" />
+        <activity android:name=".activities.DarkModeActivity" />
 
         <provider
             android:authorities="${applicationId}.provider"

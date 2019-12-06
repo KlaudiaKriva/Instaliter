@@ -64,9 +64,16 @@ public class ProfileActivity extends AppCompatActivity {
     TextView profile_number_of_posts, profile_number_of_followers, profile_number_following;
     TextView profile_username, profile_desc;
     ImageView imageView;
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
 
