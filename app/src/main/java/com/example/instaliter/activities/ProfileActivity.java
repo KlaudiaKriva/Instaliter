@@ -501,11 +501,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void openFollowers(View view){
         Intent intent = new Intent(ProfileActivity.this, FollowersActivity.class);
+        intent.putExtra("idU", (int)userID);
         view.getContext().startActivity(intent);
     }
 
     public void openFollowing(View view){
         Intent intent = new Intent(ProfileActivity.this, FollowingActivity.class);
+        intent.putExtra("idU", (int)userID);
         view.getContext().startActivity(intent);
     }
 
