@@ -38,6 +38,7 @@ public class FollowersActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<User> arrayList = new ArrayList<>();
     DarkModeActivity modSharedPrefs;
+    int idU;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +58,8 @@ public class FollowersActivity extends AppCompatActivity {
         adapter = new UsersAdapter(this,arrayList);
         recyclerView.setAdapter(adapter);
 
+        idU = getIntent().getIntExtra("idU", 0);
+
         try {
             getFollowers();
         } catch (JSONException e) {
@@ -74,7 +77,7 @@ public class FollowersActivity extends AppCompatActivity {
         System.out.println("tahaju sa posty usera zo servera");
         if(!(token.equals(""))){
             HashMap<String, String> params = new HashMap<>();
-            params.put("id", String.valueOf(userID));
+            params.put("id", String.valueOf(idU));
 
             RequestQueue queue = Volley.newRequestQueue(this);
 

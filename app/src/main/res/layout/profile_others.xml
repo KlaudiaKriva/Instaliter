@@ -166,13 +166,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
+                android:onClick="openFollowers"
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="145k"
+                    android:text="0"
                     android:id="@+id/profile_number_followers"
                     android:textSize="24sp"/>
 
@@ -199,13 +200,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
+                android:onClick="openFollowing"
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="123"
+                    android:text="0"
                     android:id="@+id/profile_number_following"
                     android:textSize="24sp"/>
 
