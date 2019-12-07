@@ -127,6 +127,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                             System.out.println("co je totototototot za fotkuuuuuuuuuuuu "+path);
 //                            if (path )
 //                            holder.profileImage
+                            if(path != null){
+                                System.out.println("ta ja neviem totot co ej  "+path);
+                                glide.load(path).into(holder.profileImage);
+                                glide.load(profileimage).into(holder.commentUser);
+                            }
                             holder.userName.setText(instaname);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -167,11 +172,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 
         //pozor profileimage je staticka z registeractivity a profileImage je tu holder.profileImage
 
-        if(profileimage != null){
-            System.out.println("ta ja neviem totot co ej  "+profileimage);
-            glide.load(profileimage).into(holder.profileImage);
-            glide.load(profileimage).into(holder.commentUser);
-        }
+
 
         final int[] active = new int[1];
 

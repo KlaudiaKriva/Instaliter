@@ -102,28 +102,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
         postsAdapter = new PostsAdapter(this, arrayList);
         recyclerView.setAdapter(postsAdapter);
 
-        System.out.println("folovuje toho cloveka ? "+isFollowed);
 
-        if(isFollowed){
-            unfollow.setVisibility(View.VISIBLE);
-            unfollow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    unfollowUser();
-                }
-            });
-        }else{
-            button.setVisibility(View.VISIBLE);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    followUser();
-                    Toast.makeText(getBaseContext(), "Follow",Toast.LENGTH_LONG).show();
-                    button.setVisibility(View.GONE);
-                }
-            });
-
-        }
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
@@ -419,6 +398,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             getUsersFollowers();
+                            isUserFollowed();
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -457,6 +437,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             getUsersFollowers();
+                            isUserFollowed();
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -605,6 +586,34 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             try {
                                 isFollowed = response.getBoolean("followed");
+                                System.out.println("is folowed je: "+ isFollowed);
+                                System.out.println("folovuje toho cloveka ? "+isFollowed);
+
+                                if(isFollowed){
+                                    unfollow.setVisibility(View.VISIBLE);
+                                    button.setVisibility(View.GONE);
+                                    unfollow.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            unfollowUser();
+                                            button.setVisibility(View.VISIBLE);
+                                            unfollow.setVisibility(View.GONE);
+                                        }
+                                    });
+                                }else{
+                                    button.setVisibility(View.VISIBLE);
+                                    unfollow.setVisibility(View.GONE);
+                                    button.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            followUser();
+                                            Toast.makeText(getBaseContext(), "Follow",Toast.LENGTH_LONG).show();
+                                            button.setVisibility(View.GONE);
+                                            unfollow.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
