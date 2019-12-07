@@ -60,6 +60,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
     DarkModeActivity modSharedPrefs;
     TextView profile_user_followers, profile_user_following;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         modSharedPrefs = new DarkModeActivity(this);
@@ -581,7 +582,8 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
         view.getContext().startActivity(intent);
     }
 
-    boolean isFollowed;
+    Map<String, String> responseMapIsFollowed;
+    boolean isFollowed = false;
 
     public void isUserFollowed(){
         System.out.println("checkuje sa follow usera zo servera");
@@ -595,6 +597,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
 
             String url = registerurl + "checkIfUserFollowed";
 
+            responseMapIsFollowed = new HashMap<>();
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
                     new JSONObject(params),
                     new Response.Listener<JSONObject>() {
@@ -605,6 +608,8 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+
+                            responseMapIsFollowed.put("followed", String.valueOf(isFollowed));
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -613,6 +618,12 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                     System.out.println(error.getMessage());
                 }
             }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> paramas = new HashMap<String, String>();
+                    paramas.put("followed", String.valueOf(isFollowed));
+                    return paramas;
+                }
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> headers= new HashMap<String, String>();
