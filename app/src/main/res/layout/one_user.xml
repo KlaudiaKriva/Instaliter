@@ -52,6 +52,7 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/card_onProfPic"
             android:text="Line 2"
+            android:textColor="?attr/colorText2"
             android:textSize="15sp" />
 
     </RelativeLayout>

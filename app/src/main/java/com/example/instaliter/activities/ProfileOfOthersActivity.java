@@ -89,6 +89,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             getUserPosts();
             getUsersFollowers();
             getUserFollowing();
+            isUserFollowed();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -100,21 +101,28 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
         postsAdapter = new PostsAdapter(this, arrayList);
         recyclerView.setAdapter(postsAdapter);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                followUser();
-                Toast.makeText(getBaseContext(), "Follow",Toast.LENGTH_LONG).show();
-                button.setVisibility(View.GONE);
-            }
-        });
+        System.out.println("folovuje toho cloveka ? "+isFollowed);
 
-        unfollow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                unfollowUser();
-            }
-        });
+        if(isFollowed){
+            unfollow.setVisibility(View.VISIBLE);
+            unfollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    unfollowUser();
+                }
+            });
+        }else{
+            button.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    followUser();
+                    Toast.makeText(getBaseContext(), "Follow",Toast.LENGTH_LONG).show();
+                    button.setVisibility(View.GONE);
+                }
+            });
+
+        }
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
@@ -571,5 +579,51 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
         Intent intent = new Intent(ProfileOfOthersActivity.this, FollowingActivity.class);
         intent.putExtra("idU", otherUserID);
         view.getContext().startActivity(intent);
+    }
+
+    boolean isFollowed;
+
+    public void isUserFollowed(){
+        System.out.println("checkuje sa follow usera zo servera");
+        if(!(token.equals(""))){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", String.valueOf(userID));
+            params.put("idF", String.valueOf(otherUserID));
+            Map<String, String> result = new HashMap<>();
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            String url = registerurl + "checkIfUserFollowed";
+
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url,
+                    new JSONObject(params),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                isFollowed = response.getBoolean("followed");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println(error.getMessage());
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers= new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+            queue.add(jsObjRequest);
+        } else {
+            System.out.println("token je prazdny "+token);
+        }
     }
 }

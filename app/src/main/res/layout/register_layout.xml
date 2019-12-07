@@ -10,6 +10,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
+        android:shadowColor="?attr/white"
         android:background="@drawable/icon_back">
     </Button>
 
@@ -43,7 +44,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/sing_up"
                 android:textSize="30sp"
-                android:textColor="@color/colorText"
+                android:textColor="?attr/colorText"
                 android:fontFamily="sans-serif-medium">
             </TextView>
 
@@ -67,14 +68,14 @@
                         android:textAllCaps="true"
                         android:textSize="15sp"
                         android:fontFamily="sans-serif-light"
-                        android:textColor="@color/colorText" />
+                        android:textColor="?attr/colorText" />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:textSize="15sp"
                         android:id="@+id/register_name"
-                        android:textColor="@color/colorText"
+                        android:textColor="?attr/colorText"
                         android:fontFamily="sans-serif-light"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
@@ -95,14 +96,14 @@
                         android:textAllCaps="true"
                         android:textSize="15sp"
                         android:fontFamily="sans-serif-light"
-                        android:textColor="@color/colorText" />
+                        android:textColor="?attr/colorText" />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:textSize="15sp"
                         android:id="@+id/register_username"
-                        android:textColor="@color/colorText"
+                        android:textColor="?attr/colorText"
                         android:fontFamily="sans-serif-light"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
@@ -123,14 +124,14 @@
                         android:textAllCaps="true"
                         android:textSize="15sp"
                         android:fontFamily="sans-serif-light"
-                        android:textColor="@color/colorText" />
+                        android:textColor="?attr/colorText" />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:textSize="15sp"
                         android:id="@+id/register_email"
-                        android:textColor="@color/colorText"
+                        android:textColor="?attr/colorText"
                         android:fontFamily="sans-serif-light"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
@@ -151,14 +152,14 @@
                         android:textAllCaps="true"
                         android:textSize="15sp"
                         android:fontFamily="sans-serif-light"
-                        android:textColor="@color/colorText" />
+                        android:textColor="?attr/colorText" />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:textSize="15sp"
                         android:id="@+id/register_password"
-                        android:textColor="@color/colorText"
+                        android:textColor="?attr/colorText"
                         android:fontFamily="sans-serif-light"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
@@ -174,6 +175,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@id/linlay1"
                 android:text="@string/sing_up"
+                android:textColor="?attr/colorText"
                 android:textAllCaps="false"
                 android:onClick="insertNewUser"
                 android:fontFamily="sans-serif"
