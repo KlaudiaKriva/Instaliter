@@ -25,6 +25,7 @@
                 android:id="@+id/back_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:drawableTint="?attr/colorText"
                 android:background="@drawable/icon_cancel">
             </Button>
 
@@ -175,6 +176,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
+                android:textColor="?attr/colorText"
                 android:id="@+id/change_desc">
             </EditText>
 

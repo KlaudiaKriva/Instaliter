@@ -44,7 +44,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -148,7 +152,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         queue111.add(jsonArrayRequest);
 
 //        holder.userName.setText(RegisterActivity.userName); //tu sa nastavuje usrname postovv na prvej screene
-        holder.time.setText(post.getDate());
+
+        String mytime=post.getDate();
+        String date = mytime.substring(0,10);
+        String time = mytime.substring(11,19);
+        String datik = date+ " "+time;
+        holder.time.setText(datik);
         holder.post_text.setText(post.getPost_text());
 
         String pathPath = registerurl +post.getPostImage();

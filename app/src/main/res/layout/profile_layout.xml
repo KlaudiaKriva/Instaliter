@@ -54,8 +54,7 @@
                 android:layout_below="@+id/imgUser"
                 android:layout_centerHorizontal="true"
                 android:text="-"
-                android:textSize="32sp"
-                android:textColor="?attr/colorText"/>
+                android:textSize="32sp" />
 
             <TextView
                 android:layout_below="@+id/profile_username"
@@ -64,8 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="About me..."
-                android:textSize="14sp"
-                android:textColor="?attr/grey"/>
+                android:textSize="14sp" />
 
             <Button
                 android:layout_below="@id/profile_description"
@@ -95,7 +93,7 @@
             android:paddingBottom="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="?attr/colorAccent">
+            android:background="@drawable/grad_bg3">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -106,7 +104,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorText2"
                     android:text="0"
                     android:id="@+id/profile_number_of_posts"
                     android:textSize="24sp"/>
@@ -114,7 +111,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorText2"
                     android:text="Posts"
                     android:textAllCaps="true"
                     android:textSize="13sp"/>
@@ -130,7 +126,7 @@
             android:paddingBottom="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@drawable/grad_bg2">
+            android:background="@drawable/grad_bg3">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -143,7 +139,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorText2"
                     android:text="0"
                     android:id="@+id/profile_number_followers"
                     android:textSize="24sp"/>
@@ -151,7 +146,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorText2"
                     android:text="Followers"
                     android:textAllCaps="true"
                     android:textSize="13sp"/>
@@ -167,7 +161,7 @@
             android:paddingBottom="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="?attr/colorAccent">
+            android:background="@drawable/grad_bg3">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -179,7 +173,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorText2"
                     android:text="0"
                     android:id="@+id/profile_number_following"
                     android:textSize="24sp"/>
@@ -187,7 +180,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorText2"
                     android:text="Following"
                     android:textAllCaps="true"
                     android:textSize="13sp"/>
