@@ -134,13 +134,17 @@ public class ProfileActivity extends AppCompatActivity {
                         Intent intent1 = new Intent(ProfileActivity.this, MainActivity.class);
                         startActivity(intent1);
                         break;
+                    case R.id.nav_search:
+                        Intent intent = new Intent(ProfileActivity.this, SearchActivity.class);
+                        startActivity(intent);
+                        break;
                     case R.id.nav_camera:
                         Intent intent3 = new Intent(ProfileActivity.this, CameraActivity.class);
                         startActivity(intent3);
                         break;
-                    case R.id.nav_search:
-                        Intent intent = new Intent(ProfileActivity.this, SearchActivity.class);
-                        startActivity(intent);
+                    case R.id.nav_messagges:
+                        Intent intent4 = new Intent(ProfileActivity.this, ChatsActivity.class);
+                        startActivity(intent4);
                         break;
                     case R.id.nav_profile:
                         break;

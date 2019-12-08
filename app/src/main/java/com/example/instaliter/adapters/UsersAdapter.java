@@ -24,6 +24,8 @@ import com.example.instaliter.MainActivity;
 import com.example.instaliter.R;
 import com.example.instaliter.User;
 import com.example.instaliter.activities.CameraActivity;
+import com.example.instaliter.activities.ChatWithOneUserActivity;
+import com.example.instaliter.activities.ChatsActivity;
 import com.example.instaliter.activities.ProfileOfOthersActivity;
 import com.example.instaliter.activities.SearchActivity;
 
@@ -46,6 +48,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
         TextView tv_instaName;
         TextView tv_userName;
         RelativeLayout rl_User;
+        Button btn_user;
 
         public UsersViewHolder(View itemView) {
             super(itemView);
@@ -53,7 +56,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
             tv_instaName = itemView.findViewById(R.id.textview);
             tv_userName = itemView.findViewById(R.id.textview2);
             rl_User = itemView.findViewById(R.id.lay_ofOneUser);
-
+            btn_user = itemView.findViewById(R.id.send_mess);
         }
     }
 
@@ -89,6 +92,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
             }
         });
 
+        holder.btn_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, ChatWithOneUserActivity.class));
+            }
+        });
 
 
 

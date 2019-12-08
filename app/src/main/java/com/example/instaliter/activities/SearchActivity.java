@@ -100,11 +100,15 @@ public class SearchActivity extends AppCompatActivity{
                         Intent intent1 = new Intent(SearchActivity.this, MainActivity.class);
                         startActivity(intent1);
                         break;
+                    case R.id.nav_search:
+                        break;
                     case R.id.nav_camera:
                         Intent intent3 = new Intent(SearchActivity.this, CameraActivity.class);
                         startActivity(intent3);
                         break;
-                    case R.id.nav_search:
+                    case R.id.nav_messagges:
+                        Intent intent4 = new Intent(SearchActivity.this, ChatsActivity.class);
+                        startActivity(intent4);
                         break;
                     case R.id.nav_profile:
                         Intent intent = new Intent(SearchActivity.this, ProfileActivity.class);
