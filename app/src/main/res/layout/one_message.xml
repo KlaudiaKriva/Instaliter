@@ -33,7 +33,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textview"
+            android:id="@+id/user_mess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -45,32 +45,15 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textview2"
+            android:id="@+id/text_mess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textview"
+            android:layout_below="@+id/user_mess"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/card_onProfPic"
             android:text="Line 2"
             android:textColor="?attr/colorText2"
             android:textSize="15sp" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:layout_alignParentEnd="true"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/send_mess"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:drawableTint="?attr/colorText"
-                android:background="@drawable/icon_messages">
-            </Button>
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

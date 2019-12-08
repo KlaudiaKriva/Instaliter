@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.instaliter.activities.CameraActivity;
+import com.example.instaliter.activities.ChatsActivity;
 import com.example.instaliter.activities.DarkModeActivity;
 import com.example.instaliter.activities.ProfileActivity;
 import com.example.instaliter.activities.SearchActivity;
@@ -87,13 +88,17 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.nav_home:
                          break;
+                    case R.id.nav_search:
+                        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                        startActivity(intent);
+                        break;
                     case R.id.nav_camera:
                         Intent intent2 = new Intent(MainActivity.this, CameraActivity.class);
                         startActivity(intent2);
                         break;
-                    case R.id.nav_search:
-                        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                        startActivity(intent);
+                    case R.id.nav_messagges:
+                        Intent intent4 = new Intent(MainActivity.this, ChatsActivity.class);
+                        startActivity(intent4);
                         break;
                     case R.id.nav_profile:
                         Intent intent3 = new Intent(MainActivity.this, ProfileActivity.class);

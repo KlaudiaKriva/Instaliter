@@ -22,4 +22,5 @@
     <string name="comm">Comments</string>
     <string name="no_comm">No comments</string>
     <string name="dark_mode">Violet mode</string>
+    <string name="chats">Your chats</string>
 </resources>
