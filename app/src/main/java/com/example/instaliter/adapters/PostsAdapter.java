@@ -124,8 +124,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                             String path = response.getString("imagePath");
                             if(path != null){
                                 String pathPath = registerurl +path;
-                                glide.load(pathPath).into(holder.profileImage);
+                                if (!pathPath.equals(registerurl+"null")){
+                                    System.out.println("akurat tu vypise ze aka je registerlurl plus pathpath + " + pathPath);
+                                    glide.load(pathPath).into(holder.profileImage);
+                                }
+
                             } //inac tam ma byt drawable
+
                             glide.load(profileimage).into(holder.commentUser);
                             holder.userName.setText(instaname);
                         } catch (JSONException e) {
