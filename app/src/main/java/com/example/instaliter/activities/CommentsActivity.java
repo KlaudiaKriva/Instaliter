@@ -1,6 +1,8 @@
 package com.example.instaliter.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +38,7 @@ public class CommentsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     CommentAdapter commentAdapter;
+    Button button;
     int idI;
     DarkModeActivity modSharedPrefs;
 
@@ -51,6 +54,13 @@ public class CommentsActivity extends AppCompatActivity {
         MyVolley.getRequestQueue(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comments_layout);
+        button = findViewById(R.id.back_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         recyclerView = findViewById(R.id.list_comments);
         idI = getIntent().getIntExtra("idI", 0);

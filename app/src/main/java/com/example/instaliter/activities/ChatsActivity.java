@@ -42,11 +42,18 @@ import static com.example.instaliter.RegisterActivity.token;
 import static com.example.instaliter.RegisterActivity.userID;
 
 public class ChatsActivity extends AppCompatActivity {
+    DarkModeActivity modSharedPrefs;
 
     RecyclerView recyclerView;
     UserChatsAdapter userChatsAdapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chats_layout);
         getChatUsers((int)userID);
