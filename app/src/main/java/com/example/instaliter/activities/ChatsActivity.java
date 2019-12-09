@@ -14,9 +14,16 @@ import com.example.instaliter.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ChatsActivity extends AppCompatActivity {
+    DarkModeActivity modSharedPrefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        modSharedPrefs = new DarkModeActivity(this);
+        if (modSharedPrefs.loadDarkModeState()) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chats_layout);
 
