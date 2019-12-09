@@ -124,7 +124,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(3);
+        MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -223,6 +223,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (!responseMap.isEmpty()){
                                     Toast.makeText(getBaseContext(), "User authentificed",Toast.LENGTH_LONG).show();
                                     RegisterActivity.userName = username;
+                                    profileimage = imagePath;
                                     profile_desc.setText(profileDescription);
                                     profile_username.setText(username);
                                     if(profileDescription.equals("null")){

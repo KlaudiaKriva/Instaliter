@@ -31,6 +31,8 @@ import com.example.instaliter.activities.SearchActivity;
 
 import java.util.ArrayList;
 
+import static com.example.instaliter.RegisterActivity.registerurl;
+
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHolder> {
 
     private Context context;
@@ -74,7 +76,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
 
         if(!(currentUser.getProfileImage() == null || currentUser.getProfileImage().equals("null") || currentUser.getProfileImage().equals(""))) {
             System.out.println("vypis mi currentuser pfoileimage: " + currentUser.getProfileImage());
-            glide.load(currentUser.getProfileImage()).into(holder.iv_profileImage);
+            glide.load(registerurl + currentUser.getProfileImage()).into(holder.iv_profileImage);
 //            holder.iv_profileImage.setImageResource(Integer.parseInt(currentUser.getProfileImage()));
         }
         else{

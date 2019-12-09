@@ -120,18 +120,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                         // tento response je [{object}]
                         System.out.println("response userInfo "+response);
                         try {
-
                             String instaname = response.getString("instaName");
-
                             String path = response.getString("imagePath");
-                            System.out.println("co je totototototot za fotkuuuuuuuuuuuu "+path);
-//                            if (path )
-//                            holder.profileImage
                             if(path != null){
-                                System.out.println("ta ja neviem totot co ej  "+path);
-                                glide.load(path).into(holder.profileImage);
-                                glide.load(profileimage).into(holder.commentUser);
-                            }
+                                String pathPath = registerurl +path;
+                                glide.load(pathPath).into(holder.profileImage);
+                            } //inac tam ma byt drawable
+                            glide.load(profileimage).into(holder.commentUser);
                             holder.userName.setText(instaname);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -345,14 +340,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 if(holder.count == 0) {
-//                    holder.show_comments.setVisibility(View.VISIBLE);
-//                    holder.show_commentsLeyout.setVisibility(View.VISIBLE);
                     holder.linearLayoutComment.setVisibility(View.VISIBLE);
                     holder.count = 1;
                 }
                 else {
-//                    holder.show_comments.setVisibility(View.GONE);
-//                    holder.show_commentsLeyout.setVisibility(View.GONE);
                     holder.linearLayoutComment.setVisibility(View.GONE);
                     holder.count = 0;
                 }
