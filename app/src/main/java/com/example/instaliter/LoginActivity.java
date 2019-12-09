@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
+        MyVolley.getRequestQueue(this);
         setContentView(R.layout.login_layout);
         rellay1 = findViewById(R.id.rellay1);
         rellay2 = findViewById(R.id.rellay2);
@@ -87,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             params.put("password", login_pass.getText().toString());
             Map<String, String> result = new HashMap<>();
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "login";
 
@@ -140,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsObjRequest);
+            MyVolley.addToQueueObject(jsObjRequest);
         }
     }
 }

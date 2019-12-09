@@ -36,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.gifdecoder.GifDecoder;
 import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.NetworkClient;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
@@ -116,6 +117,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         modSharedPrefs = new DarkModeActivity(this);
 
+        MyVolley.getRequestQueue(this);
         switchDarkMode = findViewById(R.id.simpleSwitch);
         if(modSharedPrefs.loadDarkModeState()){
             switchDarkMode.setChecked(true);
@@ -235,7 +237,6 @@ public class EditProfileActivity extends AppCompatActivity {
             params.put("profileDescription", changeDesc.getText().toString());
             Map<String, String> result = new HashMap<>();
 
-            RequestQueue queue = Volley.newRequestQueue(this);
             String url = registerurl + "setProfileDescription";
 
             responseMap = new HashMap<>();
@@ -264,7 +265,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsObjRequest);
+            MyVolley.addToQueueObject(jsObjRequest);
             Toast.makeText(getBaseContext(), "Description changed",Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(EditProfileActivity.this,ProfileActivity.class);

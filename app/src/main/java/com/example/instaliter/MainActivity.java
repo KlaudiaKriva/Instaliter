@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.no_posts);
         recyclerView = findViewById(R.id.list_posts);
 
+        MyVolley.getRequestQueue(this);
+
         try {
             getUserPosts();
         } catch (JSONException e) {
@@ -132,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(userID));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
+
 
             String url = registerurl + "getFeed";
 
@@ -227,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);

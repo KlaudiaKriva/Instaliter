@@ -29,6 +29,7 @@ import com.bumptech.glide.RequestManager;
 import com.example.instaliter.Comment;
 import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
@@ -76,6 +77,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
+
+        MyVolley.getRequestQueue(this);
 
         profile_number_of_posts = findViewById(R.id.profile_number_of_posts);
         profile_number_of_followers = findViewById(R.id.profile_number_followers);
@@ -174,7 +177,8 @@ public class ProfileActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(userID));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
+
 
             String url = registerurl + "userInfo";
 
@@ -284,7 +288,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
         } else {
             System.out.println("token je prazdny "+token);
         }
@@ -308,7 +312,8 @@ public class ProfileActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(userID));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
+//            MyVolle
 
             String url = registerurl + "getUserImages";
 
@@ -406,7 +411,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);
@@ -420,7 +425,7 @@ public class ProfileActivity extends AppCompatActivity {
                 HashMap<String, String> params = new HashMap<>();
                 params.put("id", String.valueOf(userID));
 
-                RequestQueue queue = Volley.newRequestQueue(this);
+//                RequestQueue queue = Volley.newRequestQueue(this);
 
                 String url = registerurl + "getUsersFollowers";
                 responseMapPosts = new HashMap<>();
@@ -451,7 +456,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 };
 
-                queue.add(jsonArrayRequest);
+                MyVolley.addToQueueArray(jsonArrayRequest);
 
             } else {
                 System.out.println("token je prazdny "+token);
@@ -465,7 +470,7 @@ public class ProfileActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(userID));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "getUserFollowers";
             responseMapPosts = new HashMap<>();
@@ -496,7 +501,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);

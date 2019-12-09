@@ -34,6 +34,7 @@ import com.bumptech.glide.RequestManager;
 import com.example.instaliter.Comment;
 import com.example.instaliter.LoginActivity;
 import com.example.instaliter.MainActivity;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
@@ -80,7 +81,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_contribution, parent,false);
-
+        MyVolley.getRequestQueue(parent.getContext());
         return new MyViewHolder(view);
 
 
@@ -99,7 +100,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         final HashMap<String, String> params111 = new HashMap<>();
         params111.put("id", String.valueOf(post.getUserName()));
 
-        RequestQueue queue111 = Volley.newRequestQueue(context);
+//        RequestQueue queue111 = Volley.newRequestQueue(context);
         String url111 = registerurl + "userInfo";
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.POST,
@@ -154,7 +155,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             }
         };
 
-        queue111.add(jsonArrayRequest);
+        MyVolley.addToQueueArray(jsonArrayRequest);
 
 //        holder.userName.setText(RegisterActivity.userName); //tu sa nastavuje usrname postovv na prvej screene
 
@@ -180,7 +181,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         //na zaklade toho sa nastavi ci je checked
 
 
-        RequestQueue queue = Volley.newRequestQueue(context);
+//        RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<>();
         params.put("id", String.valueOf(userID));
         params.put("idI", String.valueOf(getItemId(position)));
@@ -237,13 +238,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                 return headers;
             }
         };
-        queue.add(jsObjRequest);
+        MyVolley.addToQueueArray(jsObjRequest);
 
         holder.heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                RequestQueue queue = Volley.newRequestQueue(context);
+//                RequestQueue queue = Volley.newRequestQueue(context);
                 HashMap<String, String> params = new HashMap<>();
                 params.put("id", String.valueOf(userID));
                 params.put("idI", String.valueOf(getItemId(position)));
@@ -289,7 +290,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                     String numString = String.valueOf(newNum);
                     System.out.println("string nove cislo "+numString);
                     holder.number.setText(numString);
-                    queue.add(jsObjRequest);
+                    MyVolley.addToQueueObject(jsObjRequest);
                 }
                 else {
                     post.setLiked(false);
@@ -330,7 +331,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                     System.out.println("string nove cislo "+numString);
                     holder.number.setText(numString);
 //                    queue.add(jsObjRequest);
-                    queue.add(jsObjRequest);
+                    MyVolley.addToQueueObject(jsObjRequest);
 
                 }
             }
@@ -382,7 +383,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                     params.put("commentText", holder.addComment.getText().toString());
                     Map<String, String> result = new HashMap<>();
 
-                    RequestQueue queue = Volley.newRequestQueue(context);
+//                    RequestQueue queue = Volley.newRequestQueue(context);
 
                     String url = registerurl + "setImageComment";
 
@@ -409,7 +410,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                         }
                     };
 
-                    queue.add(jsObjRequest);
+                    MyVolley.addToQueueObject(jsObjRequest);
                     holder.linearLayoutComment.setVisibility(View.GONE);
                     //tu pride nazov metody
 
@@ -441,7 +442,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             HashMap<String, String> params222 = new HashMap<>();
             params222.put("idI", String.valueOf(getItemImageID(position)));
 
-            RequestQueue queue222 = Volley.newRequestQueue(context);
+//            RequestQueue queue222 = Volley.newRequestQueue(context);
 
             String url222 = registerurl + "getImageComments";
             responseMapComments = new HashMap<>();
@@ -508,7 +509,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                 }
             };
 
-            queue222.add(jsonArrayRequest222);
+            MyVolley.addToQueueArray(jsonArrayRequest222);
 
         } else {
             System.out.println("token je prazdny "+token);

@@ -5,10 +5,12 @@ public class Comment {
     int idI;
     String cTime;
     String commenttext;
+    int idOfUser;
 
-    public Comment(String name, int idI, String cTime, String commenttext) {
+    public Comment(String name, int idI, int idOfUser, String cTime, String commenttext) {
         this.name = name;
         this.idI = idI;
+        this.idOfUser = idOfUser;
         this.cTime = cTime;
         this.commenttext = commenttext;
     }
@@ -43,5 +45,13 @@ public class Comment {
 
     public void setCommenttext(String commenttext) {
         this.commenttext = commenttext;
+    }
+
+    public int getIdOfUser() {
+        return idOfUser;
+    }
+
+    public void setIdOfUser(int idOfUser) {
+        this.idOfUser = idOfUser;
     }
 }
