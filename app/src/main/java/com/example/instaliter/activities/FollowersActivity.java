@@ -1,6 +1,8 @@
 package com.example.instaliter.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +40,7 @@ public class FollowersActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<User> arrayList = new ArrayList<>();
     DarkModeActivity modSharedPrefs;
+    Button button;
     int idU;
 
     @Override
@@ -51,6 +54,13 @@ public class FollowersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.followers_activity);
         recyclerView = findViewById(R.id.followers);
+        button = findViewById(R.id.back_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);

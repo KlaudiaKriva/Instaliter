@@ -68,6 +68,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
         holder.username.setText(comment.getName());
         holder.text_comment.setText(comment.getCommenttext());
+
+        String mytime=comment.getcTime();
+        String date = mytime.substring(0,10);
+        String time = mytime.substring(11,19);
+        String datik = date+ " "+time;
+        holder.time_comment.setText(datik);
 //
 //        RequestQueue queue = Volley.newRequestQueue(context);
 //        HashMap<String, String> params = new HashMap<>();
