@@ -54,7 +54,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView profile_number_of_posts;
     TextView profile_username, profile_desc;
-    ImageView imageView;
+    ImageView profile_picture;
     ArrayList<Post> arrayList = new ArrayList<>();
     Button button, unfollow;
     DarkModeActivity modSharedPrefs;
@@ -75,7 +75,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
 
         profile_number_of_posts = findViewById(R.id.profile_number_of_posts);
         profile_username = findViewById(R.id.profile_username);
-        imageView = findViewById(R.id.profile_picture);
+        profile_picture = findViewById(R.id.profile_picture);
         recyclerView = findViewById(R.id.myPosts);
         profile_desc = findViewById(R.id.profile_description);
         button = findViewById(R.id.followUser);
@@ -202,7 +202,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
 
                                 if (!responseMap.isEmpty()){
                                     Toast.makeText(getBaseContext(), "User authentificed",Toast.LENGTH_LONG).show();
-                                    RegisterActivity.userName = username;
+//                                    RegisterActivity.userName = username;
                                     profile_desc.setText(profileDescription);
                                     profile_username.setText(username);
                                     if(profileDescription.equals("null")){
@@ -214,10 +214,10 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                                     System.out.println("tu by som chcela nastavit imagepath: "+ registerurl + imagePath);
 
                                     if((registerurl+imagePath).equals(registerurl+"null")){
-                                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.profile_pic));
+                                        profile_picture.setImageDrawable(getResources().getDrawable(R.drawable.profile_pic));
                                     }else {
-                                        profileimage = registerurl+imagePath;
-                                        glide.load(profileimage).into(imageView);
+                                        String profileimageOfOther = registerurl+imagePath;
+                                        glide.load(profileimageOfOther).into(profile_picture);
                                     }
 
                                     System.out.println("profile activity som "+ RegisterActivity.userID + "profile druheho");

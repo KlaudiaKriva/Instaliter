@@ -107,10 +107,11 @@ public class LoginActivity extends AppCompatActivity {
                                 responseMap.put("token", token);
                                 if (!responseMap.isEmpty()){
                                     Toast.makeText(getBaseContext(), "Login inserted successfully",Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                                     RegisterActivity.userID = Long.parseLong(id);
                                     RegisterActivity.userName = username;
                                     RegisterActivity.token = token;
+                                    RegisterActivity.profileimage = null;
                                     System.out.println("loginactivity som "+ RegisterActivity.userID + "meno moje je "+ RegisterActivity.userName + "a moj token je "+ RegisterActivity.token);
                                     startActivity(intent);
                                 }
