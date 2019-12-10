@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.R;
 import com.example.instaliter.User;
 import com.example.instaliter.adapters.UsersAdapter;
@@ -45,6 +46,7 @@ public class FollowingActivity extends AppCompatActivity {
         } else {
             setTheme(R.style.AppTheme);
         }
+        MyVolley.getRequestQueue(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.followers_activity);
         recyclerView = findViewById(R.id.followers);
@@ -76,7 +78,7 @@ public class FollowingActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(idU));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "getUserFollowers";
 
@@ -123,7 +125,7 @@ public class FollowingActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);

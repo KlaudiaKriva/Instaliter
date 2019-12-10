@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.instaliter.Comment;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.R;
 import com.example.instaliter.adapters.CommentAdapter;
 import com.example.instaliter.adapters.PostsAdapter;
@@ -50,6 +51,7 @@ public class CommentsActivity extends AppCompatActivity {
             setTheme(R.style.AppTheme);
         }
 
+        MyVolley.getRequestQueue(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comments_layout);
         button = findViewById(R.id.back_button);
@@ -80,6 +82,7 @@ public class CommentsActivity extends AppCompatActivity {
     String usernameComment;
     String commentText;
     String commentTime;
+    int idOfUser;
 
     public void getUserComments(int idImage) {
         System.out.println("tahaju sa comenty obrazka zo servera");
@@ -87,7 +90,7 @@ public class CommentsActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("idI", String.valueOf(idImage));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "getImageComments";
             responseMapComments = new HashMap<>();
@@ -108,6 +111,7 @@ public class CommentsActivity extends AppCompatActivity {
                                     usernameComment = response.getString("name");
                                     commentTime = response.getString("cTime");
                                     commentText= response.getString("commentText");
+                                    idOfUser = response.getInt("id");
 
 
                                     responseMapComments.put("name", usernameComment);
@@ -115,7 +119,7 @@ public class CommentsActivity extends AppCompatActivity {
                                     responseMapComments.put("commentText", commentText);
 
 
-                                    Comment comment = new Comment(usernameComment, idI, commentTime, commentText);
+                                    Comment comment = new Comment(usernameComment, idI, idOfUser, commentTime, commentText);
 
                                     commentArray.add(comment);
                                     commentAdapter.notifyDataSetChanged();
@@ -154,7 +158,7 @@ public class CommentsActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);

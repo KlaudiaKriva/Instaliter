@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.instaliter.MainActivity;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
@@ -84,6 +85,8 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
         profile_user_following = findViewById(R.id.profile_number_following);
 
         glide = Glide.with(getApplicationContext());
+
+        MyVolley.getRequestQueue(this);
 
         try {
             getUserInfo();
@@ -154,7 +157,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(otherUserID));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "userInfo";
 
@@ -263,7 +266,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
 
 
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
         } else {
             System.out.println("token je prazdny "+token);
         }
@@ -285,7 +288,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(otherUserID));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "getUserImages";
 
@@ -374,7 +377,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);
@@ -388,7 +391,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             params.put("idF", String.valueOf(otherUserID));
             Map<String, String> result = new HashMap<>();
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "setUserFollow";
 
@@ -416,7 +419,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsObjRequest);
+            MyVolley.addToQueueObject(jsObjRequest);
         }
     }
 
@@ -427,7 +430,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             params.put("idF", String.valueOf(otherUserID));
             Map<String, String> result = new HashMap<>();
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "setUserUnFollow";
 
@@ -455,7 +458,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsObjRequest);
+            MyVolley.addToQueueObject(jsObjRequest);
         }
     }
 
@@ -465,7 +468,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(otherUserID));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "getUsersFollowers";
             responseMapPosts = new HashMap<>();
@@ -497,7 +500,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);
@@ -511,7 +514,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(otherUserID));
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "getUserFollowers";
             responseMapPosts = new HashMap<>();
@@ -543,7 +546,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);
@@ -574,7 +577,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
             params.put("idF", String.valueOf(otherUserID));
             Map<String, String> result = new HashMap<>();
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "checkIfUserFollowed";
 
@@ -641,7 +644,7 @@ public class ProfileOfOthersActivity extends AppCompatActivity {
                     return headers;
                 }
             };
-            queue.add(jsObjRequest);
+            MyVolley.addToQueueObject(jsObjRequest);
         } else {
             System.out.println("token je prazdny "+token);
         }

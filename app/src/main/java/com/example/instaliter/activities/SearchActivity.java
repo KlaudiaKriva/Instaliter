@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.instaliter.MainActivity;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
@@ -81,6 +82,7 @@ public class SearchActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
+        MyVolley.getRequestQueue(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
@@ -147,7 +149,7 @@ public class SearchActivity extends AppCompatActivity{
             HashMap<String, String> params = new HashMap<>();
             params.put("word", findUser.getText().toString());
 
-            RequestQueue queue = Volley.newRequestQueue(this);
+//            RequestQueue queue = Volley.newRequestQueue(this);
 
             String url = registerurl + "searchUser";
 
@@ -234,7 +236,7 @@ public class SearchActivity extends AppCompatActivity{
                 }
             };
 
-            queue.add(jsonArrayRequest);
+            MyVolley.addToQueueArray(jsonArrayRequest);
 
         } else {
             System.out.println("token je prazdny "+token);

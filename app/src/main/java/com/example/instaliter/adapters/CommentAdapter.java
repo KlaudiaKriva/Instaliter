@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.instaliter.Comment;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
 
@@ -57,6 +58,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @Override
     public CommentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_comment, parent,false);
+        MyVolley.getRequestQueue(parent.getContext());
         return new MyViewHolder(view);
     }
 
@@ -74,6 +76,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         String time = mytime.substring(11,19);
         String datik = date+ " "+time;
         holder.time_comment.setText(datik);
+
+        getUserImageId(comment.getIdOfUser(), holder);
+//        loadProfileImage(comment.getIdOfUser(), holder);
+
 //
 //        RequestQueue queue = Volley.newRequestQueue(context);
 //        HashMap<String, String> params = new HashMap<>();
@@ -156,10 +162,60 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         return commentArrayList.size();
     }
 
+    static int imageTemp;
+
+    public void getUserImageId(int idUser, final CommentAdapter.MyViewHolder holder){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(idUser));
+
+        String url = registerurl + "userInfo";
+        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.POST, url,
+                new JSONObject(params),
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response1) {
+                        System.out.println("co vrati server "+ response1);
+                        JSONObject response = null;
+                        try {
+                            for (int i = 0; i< response1.length(); i++){
+                                response = response1.getJSONObject(i);
+                                System.out.println("response spravy uz "+response);
+                                int imagePath = response.getInt("idI");
+//                            imageTemp = imagePath;
+                                System.out.println("a tuuu???" + imagePath);
+                                loadProfileImage(imagePath, holder);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // tento response je [{object}]
+                        System.out.println("response checkUserLike "+response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof ServerError){
+                }
+                System.out.println(error);
+                System.out.println(error.getMessage());
+            }
+
+        }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers= new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        MyVolley.addToQueueArray(jsObjRequest);
+    }
 
     public void loadProfileImage(int idProfilePhoto, final CommentAdapter.MyViewHolder holder){
 
-        RequestQueue queue = Volley.newRequestQueue(context);
+//        RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<>();
         params.put("idI", String.valueOf(idProfilePhoto));
         String url = registerurl + "getImage";
@@ -182,8 +238,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                         System.out.println("response checkUserLike "+response);
                         try {
                             String imagePath = response.getString("path");
-                            glide.load(imagePath).into(holder.profileImage);
-//                            int idProfilePhoto = response.getInt("idI");
+                            String realPath = registerurl + imagePath;
+                            glide.load(realPath).into(holder.profileImage); //tu nemozem dat, lebo sa nevracia idI profilovej fotky pri commentsactivity
+////                            int idProfilePhoto = response.getInt("idI");
 
                         } catch (JSONException e) {
 
@@ -209,7 +266,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                 return headers;
             }
         };
-        queue.add(jsObjRequest);
+        MyVolley.addToQueueArray(jsObjRequest);
 
 
     }
