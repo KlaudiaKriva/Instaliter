@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Instaliter</string>
+    <string name="zero_number" textSize="28sp">0</string>
+    <string name="new_post">New Post</string>
+    <string name="share">Share</string>
+    <string name="hint_text">Write a title …</string>
+    <string name="login_text">Login</string>
+    <string name="username_text">Username</string>
+    <string name="email_text">Email</string>
+    <string name="pass_text">Password</string>
+    <string name="sing_up">Sign up</string>
+    <string name="name_text">Name</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="about_me">About me...</string>
+    <string name="edit_done">Done</string>
+    <string name="change_pic">Change profile picture</string>
+    <string name="desc_text">Description</string>
+    <string name="per_info">Personal information</string>
+    <string name="showComm">Show all comments</string>
+    <string name="timeComm">Time of comment</string>
+    <string name="no_posts">No posts to show, no followers</string>
+    <string name="comm">Comments</string>
+    <string name="no_comm">No comments</string>
+    <string name="dark_mode">Violet mode</string>
+    <string name="chats">Your chats</string>
 </resources>

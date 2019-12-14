@@ -1,11 +1,48 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorLight">@color/colorLight</item>
+        <item name="colorText">@color/colorText</item>
+        <item name="colorText2">@color/colorText2</item>
+        <item name="transparent">@color/transparent</item>
+        <item name="light_grey">@color/light_grey</item>
+        <item name="grey">@color/grey</item>
+        <item name="dark_grey">@color/dark_grey</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="white">@color/white</item>
+        <item name="android:buttonStyle">@style/NoShadowButton</item>
     </style>
 
+    <style name="NoShadowButton" parent="android:style/Widget.Button">
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#6b03fc</item>
+        <item name="colorPrimaryDark">#5000bf</item>
+        <item name="colorAccent">#7824ed</item>
+        <item name="colorLight">#bc92f7</item>
+        <item name="colorText">@color/colorText</item>
+        <item name="colorText2">@color/colorText2</item>
+        <item name="transparent">@color/transparent</item>
+        <item name="light_grey">@color/light_grey</item>
+        <item name="grey">@color/grey</item>
+        <item name="dark_grey">@color/dark_grey</item>
+        <item name="colorBackground">@color/white</item>
+        <item name="white">@color/white</item>
+        <item name="android:buttonStyle">@style/NoShadowButton</item>
+    </style>
+
+
 </resources>
+
+
+<!--<item name="colorPrimary">#121212</item>-->
+<!--<item name="colorAccent">#424234</item>-->
+<!--<item name="colorPrimaryDark">#303028</item>-->

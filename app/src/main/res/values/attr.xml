@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTheme">
+        <attr name="colorPrimary" format="color" />
+        <attr name="colorPrimaryDark" format="color" />
+        <attr name="colorAccent" format="color" />
+        <attr name="colorLight" format="color" />
+        <attr name="colorText" format="color"/>
+        <attr name="colorText2" format="color"/>
+        <attr name="transparent" format="color"/>
+        <attr name="light_grey" format="color"/>
+        <attr name="grey" format="color"/>
+        <attr name="dark_grey" format="color"/>
+        <attr name="white" format="color"/>
+        <attr name="colorBackground" format="color"/>
+    </declare-styleable>
+</resources>

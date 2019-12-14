@@ -6,9 +6,17 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Home"/>
     <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search" />
+    <item
         android:id="@+id/nav_camera"
         android:icon="@drawable/ic_add_box_black_24dp"
         android:title="Add" />
+    <item
+        android:id="@+id/nav_messagges"
+        android:icon="@drawable/icon_messages"
+        android:title="Messagges"/>
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_person_black_24dp"
