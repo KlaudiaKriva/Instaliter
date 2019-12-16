@@ -1,0 +1,31 @@
+(Bearer Token),(JWT - JSON Web Token)
+Token needs to be set in the header of every request except in registration and login (just to be sure :D).
+If you request an image |example: http://localhost:5005/images/kmxalsmfekasdopmp5.jpg| token is not used.
+                                  http://localhost:5005/thumbnails/kmxalsmfekasdopmp5.jpg
+One token is valid for 30 days, after 30 days the user have to log in again.
+You have to store id of the user and the token in a local storage or somewhere else.
+
+Code example for a request with token:
+(javascript)
+$.ajax({
+	type: "POST",
+	crossDomain: true,
+	contentType: "application/json; charset=utf-8",
+	url: "http://localhost:1205/plantData",
+	//data: "{\"ArduinoSerial\":\""+arduinoID+"\",\"Interval\":\""+"DAY"+"\"}",
+	data: JSON.stringify({ ArduinoSerial: arduinoID , Interval: "DAY" }),
+	headers: {
+	'Accept':'application/json',
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Credentials': 'true',
+	"Content-Type": "application/json",
+	'Cache-Control':'no-cache',
+	"Authorization": `Bearer ${token}`                      <--------------------------TOKEN
+	},
+	success: function (result,textStatus,xhr) {
+	console.log("it works");
+	if(xhr.status == 200){
+		console.log(result);
+		if(!$.trim(result)){
+			console.log("blank data");
+		}else{...}

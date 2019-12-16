@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.SearchView;
@@ -69,6 +71,19 @@ public class SearchActivity extends AppCompatActivity{
         recyclerView = findViewById(R.id.users);
         findUser = findViewById(R.id.findUser);
 
+        findUser.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                try {
+                    getAllUsers();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
+
+
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.topPanel);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("User Search");
@@ -123,8 +138,9 @@ public class SearchActivity extends AppCompatActivity{
         });
     }
 
+/*
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         try {
             getAllUsers();
         } catch (JSONException e) {
@@ -132,6 +148,8 @@ public class SearchActivity extends AppCompatActivity{
         }
         return super.onKeyUp(keyCode, event);
     }
+*/
+
 
     Map<String, String> responseMapUsers;
     String id_users="";

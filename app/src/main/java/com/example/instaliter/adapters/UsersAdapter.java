@@ -6,12 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,14 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.example.instaliter.MainActivity;
 import com.example.instaliter.R;
 import com.example.instaliter.User;
-import com.example.instaliter.activities.CameraActivity;
 import com.example.instaliter.activities.ChatWithOneUserActivity;
-import com.example.instaliter.activities.ChatsActivity;
 import com.example.instaliter.activities.ProfileOfOthersActivity;
-import com.example.instaliter.activities.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -54,7 +45,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
 
         public UsersViewHolder(View itemView) {
             super(itemView);
-            iv_profileImage = itemView.findViewById(R.id.imageview);
+            iv_profileImage = itemView.findViewById(R.id.userPhotoMessage);
             tv_instaName = itemView.findViewById(R.id.textview);
             tv_userName = itemView.findViewById(R.id.textview2);
             rl_User = itemView.findViewById(R.id.lay_ofOneUser);
@@ -71,7 +62,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final UsersViewHolder holder, final int position) {
         final User currentUser = fullArrayList.get(position);
 
         if(!(currentUser.getProfileImage() == null || currentUser.getProfileImage().equals("null") || currentUser.getProfileImage().equals(""))) {
@@ -97,7 +88,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
         holder.btn_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, ChatWithOneUserActivity.class));
+                Intent intent = new Intent(context, ChatWithOneUserActivity.class);
+                System.out.println("halo halo halo " + (int)getItemId(position) + " "+ getUserThumbnail(position));
+                intent.putExtra("receiverID", (int)getItemId(position));
+                intent.putExtra("receiverThumbnail", getUserThumbnail(position));
+                intent.putExtra("receiveName", getUserName(position));
+                context.startActivity(intent);
+//                context.startActivity(new Intent(context, ChatWithOneUserActivity.class));
             }
         });
 
@@ -109,6 +106,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     @Override
     public long getItemId(int position) {
         return Long.parseLong(fullArrayList.get(position).getId());
+    }
+
+    public String getUserThumbnail(int position){
+        return fullArrayList.get(position).getThumbnailPath();
+    }
+
+    public String getUserName(int position){
+        return fullArrayList.get(position).getUserName();
     }
 
     @Override

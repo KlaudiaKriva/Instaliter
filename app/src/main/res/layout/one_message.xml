@@ -22,7 +22,7 @@
             app:cardCornerRadius="26dp">
 
             <ImageView
-                android:id="@+id/imageview"
+                android:id="@+id/userPhotoMessage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
