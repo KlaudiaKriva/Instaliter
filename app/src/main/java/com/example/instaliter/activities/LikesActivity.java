@@ -89,8 +89,7 @@ public class LikesActivity extends AppCompatActivity {
                                 User user = new User(id_users, name_users, instaName_users, "", "", "");
 
                                 updateUserInfo(user);
-                                arrayList.add(user);
-                                adapter.notifyDataSetChanged();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -129,11 +128,15 @@ public class LikesActivity extends AppCompatActivity {
 
     //dokoncit
 
-    public void updateUserInfo(User user){
+    String id_image = "";
+    String profileImagePath = "";
+    String thumbnailPath = "";
+
+    public void updateUserInfo(final User user){
         HashMap<String, String> params2 = new HashMap<>();
-        params2.put("idI", String.valueOf(idImage));
-        System.out.println("idimageu jee: "+ idImage);
-        String url2 = registerurl + "getImageLikes";
+        params2.put("id", user.getId());
+        System.out.println("id jee: "+ user.getId());
+        String url2 = registerurl + "userInfo";
         JsonArrayRequest jsObjRequest2 = new JsonArrayRequest(Request.Method.POST, url2,
                 new JSONObject(params2),
                 new Response.Listener<JSONArray>() {
@@ -145,12 +148,14 @@ public class LikesActivity extends AppCompatActivity {
                             for (int i = 0; i< response1.length(); i++){
                                 response = response1.getJSONObject(i);
                                 System.out.println("response spravy checkuserlikes uz "+response);
-                                id_users = response.getString("id");
-                                name_users = response.getString("name");
-                                instaName_users = response.getString("instaname");
-                                User user = new User(id_users, name_users, instaName_users, "", "", "");
+                                id_image = response.getString("idI");
+                                profileImagePath = response.getString("imagePath");
+                                thumbnailPath = response.getString("thumbnailPath");
 
-                                updateUserInfo(user);
+                                user.setIdI(String.valueOf(idImage));
+                                user.setProfileImage(profileImagePath);
+                                user.setThumbnailPath(thumbnailPath);
+
                                 arrayList.add(user);
                                 adapter.notifyDataSetChanged();
                             }
@@ -170,13 +175,6 @@ public class LikesActivity extends AppCompatActivity {
 
         }
         ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("idI", String.valueOf(idImage));
-                return params;
-
-            }
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
