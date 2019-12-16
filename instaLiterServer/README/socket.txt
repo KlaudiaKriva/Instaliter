@@ -1,0 +1,29 @@
+Socket example with javascript
+
+CONNECTION
+
+let myID = {"id":8};
+
+let socket = io.connect('http://localhost:5005');
+
+socket.on('connect', function(data) {     <- this block is only called once, for example after the user logs in, or opens the app
+    socket.emit('setIdentifier', myID);
+});
+
+<------------------------------------------------------------------------------------------------------------------>
+
+//AFTER THE SOCKET IS ALREADY CONNECTED
+
+Sends message to the given user
+
+let message = {"id":8, "recieverID":3, "messageText":"Im John Connor"}; 
+
+socket.emit('sendMessage', message);
+
+<------------------------------------------------------------------------------------------------------------------>
+
+Listens for the message from another users
+
+socket.on('message', (data) =>{              //"data" contains the json message what the another user sent
+	  console.log(data);                // the json is the same what we send
+	});
