@@ -20,7 +20,11 @@ public class ApplicationOwner extends Application implements LifecycleObserver
     public void onResume()
     {
 
-        if(RegisterActivity.userID > 0){SocketClient.getInstance();}
+        if(RegisterActivity.userID > 0)
+        {
+
+            SocketClient.getInstance();
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
