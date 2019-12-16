@@ -18,6 +18,8 @@ import com.example.instaliter.activities.ChatWithOneUserActivity;
 
 import java.util.ArrayList;
 
+import static com.example.instaliter.RegisterActivity.registerurl;
+
 public class UserChatsAdapter extends RecyclerView.Adapter<UserChatsAdapter.ChatsViewHolder>{
 
     Context context;
@@ -59,10 +61,17 @@ public class UserChatsAdapter extends RecyclerView.Adapter<UserChatsAdapter.Chat
         holder.user_mess.setText(chatUser.getUserName());
         holder.text_mess.setText(chatUser.getInstaName());
 
+        System.out.println("chauusuer thumbnail "+ chatUser.getThumbnailPath());
+        if(!(chatUser.getThumbnailPath().equals("") || chatUser.getThumbnailPath() == null || chatUser.getThumbnailPath().equals("null") || chatUser.getThumbnailPath() == registerurl + "null")) {
+            glide.load(registerurl + chatUser.getThumbnailPath()).into(holder.imageview_message);
+        }
+
+
         holder.lay_ofOneUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChatWithOneUserActivity.class);
+                System.out.println("halo halo halo " + chatUser.getId());
                 intent.putExtra("receiverID", chatUser.getId());
                 intent.putExtra("receiverThumbnail", chatUser.getThumbnailPath());
                 intent.putExtra("receiveName", chatUser.getUserName());

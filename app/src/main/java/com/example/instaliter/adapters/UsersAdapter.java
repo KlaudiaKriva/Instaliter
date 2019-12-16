@@ -62,7 +62,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final UsersViewHolder holder, final int position) {
         final User currentUser = fullArrayList.get(position);
 
         if(!(currentUser.getProfileImage() == null || currentUser.getProfileImage().equals("null") || currentUser.getProfileImage().equals(""))) {
@@ -88,7 +88,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
         holder.btn_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, ChatWithOneUserActivity.class));
+                Intent intent = new Intent(context, ChatWithOneUserActivity.class);
+                System.out.println("halo halo halo " + (int)getItemId(position) + " "+ getUserThumbnail(position));
+                intent.putExtra("receiverID", (int)getItemId(position));
+                intent.putExtra("receiverThumbnail", getUserThumbnail(position));
+                intent.putExtra("receiveName", getUserName(position));
+                context.startActivity(intent);
+//                context.startActivity(new Intent(context, ChatWithOneUserActivity.class));
             }
         });
 
@@ -100,6 +106,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     @Override
     public long getItemId(int position) {
         return Long.parseLong(fullArrayList.get(position).getId());
+    }
+
+    public String getUserThumbnail(int position){
+        return fullArrayList.get(position).getThumbnailPath();
+    }
+
+    public String getUserName(int position){
+        return fullArrayList.get(position).getUserName();
     }
 
     @Override

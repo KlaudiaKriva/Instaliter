@@ -33,7 +33,9 @@ public class RegisterActivity extends AppCompatActivity {
     public static long userID;
     public static String userName;
     public static String token;
-    public static String registerurl = "http://192.168.2.199:5005/";
+
+    public static String registerurl = "http://192.168.2.240:5005/";
+
     public static String profileimage;
     DarkModeActivity modSharedPrefs;
 
