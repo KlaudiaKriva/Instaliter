@@ -1,0 +1,397 @@
+EVERY REQUEST RESPONSE IF TOKEN IS NOT VALID: response code 200 {"success": false,"message": "Token is not valid"}
+
+
+localhost:5005/register
+(POST request)
+Android: {"name":"GraveJohnny", "instaName":"@gjohn", "email":"johnnygt@gmail.com", "password":"213"}
+Server: response code 200, {"User registered"}
+Server: response code 403, {"User is already registered"}
+Server: response code 403, {"Email is already in use"}
+Server: response code 403, {"Insta name is already in use"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/login
+(POST request)
+Android: {"email":"arnold@schwarz.com", "password":213}
+Server: response code 200 {"token":"ahds56dfasd56sf65", "id":12}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/userInfo
+(POST request)
+Android: {"id":8}
+Server: response code 200 [{"id":8,"name":"jonathan","instaName":"@jolann","email":"jono@gmail.com","profileDescription":null,"idI":null,"imagePath":null,"type":null, "imageDate":null, "thumbnailPath":null,"description":null}]
+//variables with null values are not yet added informations by the user
+//basic user info is never null (id, name, instaName, email)
+Server: response code 403 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/uploadImage
+(POST request)
+Android: see in postman usage
+Server: response code 200 {"Image uploaded successfully"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getUserImages
+(POST request)
+Android: {"id":3} //id of the user
+Server: response code 200 
+[
+    {
+        "id": 3,
+        "idI": 1,
+        "path": "c:/users/photos/dfknasdmask.jpg",
+        "thumbnailPath": "c:/users/tumbnails/hotosfndsjnd.jpg",
+        "description": "A photo of Arnold",
+	"type":null
+    },
+    {
+        "id": 3,
+        "idI": 10,
+        "path": "images/06210c6bb0ddf757cb0be0397f32492eb3d6.png",
+        "thumbnailPath": "thumbnails/06210c6bb0ddf757cb0be0397f32492eb3d6.png",
+        "description": "image of me333333",
+	"type":null
+    },
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getImageTag
+(POST request)
+Android: {"idI":3} //id of the image
+Server: response code 200 
+[
+    {
+        "idI": 3,
+        "tagText": "#angular"
+    },
+    {
+        "idI": 3,
+        "tagText": "#gursky"
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getImage
+(POST request)
+Android: {"idI":3} //id of the image
+Server: response code 200 
+[
+    {
+        "id": 8,
+        "idI": 3,
+        "path": "images/27b547230060788c7ce84324f87ebb2f55d5.jpg",
+        "thumbnailPath": "thumbnails/27b547230060788c7ce84324f87ebb2f55d5.jpg",
+        "description": "image of me333333",
+	"type":null
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/deleteUserImage
+(POST request)
+Android: {"id":8, "idI":4}
+Server: response code 200 {"Ok"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/setProfileDescription
+(POST request)
+Android: {"id":3, "profileDescription":"This is my profile description"}
+Server: response code 200 {"Ok"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/setUserLike
+(POST request)
+Android: {"id":3, "idI":22}
+Server: response code 200 {"Ok"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/setDisLike
+(POST request)
+Android: {"id":3, "idI":22}
+Server: response code 200 {"Ok"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/checkUserLike
+(POST request)
+Android: {"id":3, "idI":22}
+Server: response code 200 <----------------------//Only if once or more liked the given image
+[
+    {
+        "id": 3,
+        "idI": 22,
+        "active": 1 //1-Likes image, 0-Dislikes image
+    }
+]
+Server: response code 400 {"Error"} //Never liked the given image
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getImageLikes
+(POST request)
+Android: {"idI":22}
+Server: response code 200 
+[
+    {
+        "id": 3,
+        "name": "Arnold",
+        "instaname": "@arnoldd"
+    },
+    {
+        "id": 11,
+        "name": "Bravo",
+        "instaname": "@bravo"
+    }
+]
+Server: response code 400 {"Error"} //Image does not exists or does not have any likes
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/setUserProfilePhoto
+(POST request)
+Android: {"id":3, "idI":22}
+Server: response code 200 {"Ok"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/setImageComment
+(POST request)
+Android: {"id":9, "idI":26, "commentText":"Cthats a comment"}
+Server: response code 200 {"Ok"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getImageComments
+(POST request)
+Android: {"idI":25}
+Server: response code 200 //Sorted by time, the ones at the beginning are the newer.
+[
+    {
+        "name": "Arnold",
+        "idI": 25,
+        "cTime": "2019-12-01T18:56:39.000Z",
+        "commentText": "looks cool"
+    },
+    {
+        "name": "Arnold",
+        "idI": 25,
+        "cTime": "2019-12-01T18:57:05.000Z",
+        "commentText": "DUDI DIBIDU"
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/setUserFollow
+(POST request)
+Android: {"id":3, "idF":11} //idF is the user who we will follow
+Server: response code 200 {"Ok"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/setUserUnFollow
+(POST request)
+Android: {"id":3, "idF":11} //idF is the user who we will unfollow
+Server: response code 200 {"Ok"}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getUserFollowers //returns the users we are following
+(POST request)
+Android: {"id":3}
+Server: response code 200 
+[
+    {
+        "id": 8,
+        "name": "jonathan",
+        "instaname": "@jolann"
+    },
+    {
+        "id": 10,
+        "name": "SmoothieJohnny",
+        "instaname": "@gjohhn"
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getUsersFollowers //NOTICE THE 's', returns the users who are following our user
+(POST request)
+Android: {"id":3}
+Server: response code 200 
+[
+    {
+        "id": 8,
+        "name": "jonathan",
+        "instaname": "@jolann"
+    },
+    {
+        "id": 10,
+        "name": "SmoothieJohnny",
+        "instaname": "@gjohhn"
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getFeed
+(POST request)
+Android: {"id":3}
+Server: response code 200 
+[
+  {
+        "idI": 2,
+        "id": 8,
+        "path": "images/c3b26728c7237ead1cca59f31ccc0fa521af.jpg",
+        "thumbnailpath": "thumbnails/c3b26728c7237ead1cca59f31ccc0fa521af.jpg",
+        "type": 0,
+        "ctime": "2019-11-27T11:01:40.000Z",
+        "description": "image of me333333"
+    },
+    {
+        "idI": 3,
+        "id": 8,
+        "path": "images/27b547230060788c7ce84324f87ebb2f55d5.jpg",
+        "thumbnailpath": "thumbnails/27b547230060788c7ce84324f87ebb2f55d5.jpg",
+        "type": 0,
+        "ctime": "2019-11-27T11:37:57.000Z",
+        "description": "image of me333333"
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getFeedByIntervall
+(POST request)
+Android: {"id":3, "from":"2019-11-27 11:43:50", "till":"2019-11-30 14:04:00"} //from a till musi presne tak vyzerat
+Server: response code 200 
+[
+   {
+        "idI": 7,
+        "id": 8,
+        "path": "images/282ceb803618553cd120c865c7da31c6b2d9.png",
+        "thumbnailpath": "thumbnails/282ceb803618553cd120c865c7da31c6b2d9.png",
+        "type": 0,
+        "ctime": "2019-11-27T11:43:56.000Z",
+        "description": "image of me333333"
+    },
+    {
+        "idI": 8,
+        "id": 8,
+        "path": "images/38ed592939b4abf1cf619d98f96110c1f51b.png",
+        "thumbnailpath": "thumbnails/38ed592939b4abf1cf619d98f96110c1f51b.png",
+        "type": 0,
+        "ctime": "2019-11-27T11:45:53.000Z",
+        "description": "image of me333333"
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/searchUser
+(POST request)
+Android: {"word":"a"}
+Server: response code 200 
+[
+    {
+        "id": 3,
+        "name": "Arnold",
+        "instaName": "@arnoldd",
+        "idI": 25,
+        "imagePath": "images//25e7a9833ed275375a0bd236ed079fde2fee.png",
+        "thumbnailPath": "thumbnails//25e7a9833ed275375a0bd236ed079fde2fee.png"
+    },
+    {
+        "id": 8,
+        "name": "jonathan",
+        "instaName": "@jolann",
+        "idI": null,
+        "imagePath": null,
+        "thumbnailPath": null
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/checkIfUserFollowed
+(POST request)
+Android: {"id":3, "idF":11}
+Server: response code 200 {"followed":false} / {"followed":true}
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getChatUsers //returns the users we already chatted with
+(POST request)
+Android: {"id":3}
+Server: response code 200 
+[
+    {
+        "id": 8,
+        "name": "jonathan",
+        "instaName": "@jolann"
+    },
+    {
+        "id": 11,
+        "name": "Bravo",
+        "instaName": "@bravo"
+    }
+]
+Server: response code 400 {"Error"}
+
+<------------------------------------------------------------------------------------------------------------------>
+
+localhost:5005/getChatHistoryById //returns the chat between the users, sorted by time
+(POST request)
+Android: {"id":3, "recieverID":8}
+Server: response code 200 
+[
+    {
+        "senderID": 8,
+        "recieverID": 3,
+        "messageText": "Im John Connor",
+        "cTime": "2019-12-07T18:04:12.000Z"
+    },
+    {
+        "senderID": 3,
+        "recieverID": 8,
+        "messageText": "Where are you bro",
+        "cTime": "2019-12-07T18:46:53.000Z"
+    },
+    {
+        "senderID": 3,
+        "recieverID": 8,
+        "messageText": "Fluor",
+        "cTime": "2019-12-07T19:11:36.000Z"
+    }
+]
+Server: response code 400 {"Error"}

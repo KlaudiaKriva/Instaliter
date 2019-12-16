@@ -1,0 +1,109 @@
+CREATE USER 'instaserver'@'localhost' IDENTIFIED BY 'akademiasovy';
+ALTER USER 'instaserver'@'localhost' IDENTIFIED WITH mysql_native_password BY 'akademiasovy';
+CREATE DATABASE insta_database;
+USE insta_database;
+
+CREATE TABLE User
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  name VARCHAR(30) NOT NULL,
+  instaName VARCHAR(20) NOT NULL,
+  UNIQUE(instaName),
+  email VARCHAR(40) NOT NULL,
+  UNIQUE(email),
+  password VARCHAR(40) NOT NULL,
+  cTime DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Image
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  idU INT,
+  FOREIGN KEY(idU) REFERENCES User(id),
+  path TINYTEXT,
+  thumbnailPath TINYTEXT,
+  type TINYINT,
+  cTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+  description TINYTEXT,
+  deleted TINYINT DEFAULT 0
+);
+
+CREATE TABLE UserInfo
+(
+  idU INT,
+  PRIMARY KEY(idU),
+  FOREIGN KEY(idU) REFERENCES User(id),
+  profileDescription TEXT,
+  profilePhoto INT,
+  FOREIGN KEY(profilePhoto) REFERENCES Image(id)
+);
+
+CREATE TABLE Comment
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  idI INT,
+  FOREIGN KEY(idI) REFERENCES Image(id),
+  idU INT,
+  FOREIGN KEY(idU) REFERENCES User(id),
+  commentText TEXT,
+  cTime DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Tag
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  tagText VARCHAR(30),
+  UNIQUE(tagText)
+);
+
+CREATE TABLE ImageTag
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  idI INT,
+  FOREIGN KEY(idI) REFERENCES Image(id),
+  idT INT,
+  FOREIGN KEY(idT) REFERENCES Tag(id)
+);
+
+CREATE TABLE UserLike
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  idU INT,
+  FOREIGN KEY(idU) REFERENCES User(id),
+  idI INT,
+  FOREIGN KEY(idI) REFERENCES Image(id),
+  active TINYINT DEFAULT 0,
+  UNIQUE id(idU, idI)
+);
+
+CREATE TABLE Follow
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  followerID INT,
+  FOREIGN KEY(followerID) REFERENCES User(id),
+  followedID INT,
+  FOREIGN KEY(followedID) REFERENCES User(id),
+  active TINYINT DEFAULT 1,
+  UNIQUE id(followerID, followedID)
+);
+
+CREATE TABLE Message
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id),
+  senderID INT,
+  FOREIGN KEY(senderID) REFERENCES User(id),
+  recieverID INT,
+  FOREIGN KEY(recieverID) REFERENCES User(id),
+  messageText TEXT,
+  cTime DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+GRANT SELECT, INSERT, UPDATE ON insta_database.* TO 'instaserver'@'localhost';

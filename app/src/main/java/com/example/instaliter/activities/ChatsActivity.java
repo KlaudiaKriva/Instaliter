@@ -146,7 +146,6 @@ public class ChatsActivity extends AppCompatActivity {
                                     ChatUser chatUser = new ChatUser( Integer.parseInt(idU), name, instaName, thumbnailPath);
 
                                     arrayList.add(chatUser);
-                                    //Collections.reverse(arrayList);
                                     userChatsAdapter.notifyDataSetChanged();
 
                                     if (!responseMapPosts.isEmpty()){
@@ -156,8 +155,6 @@ public class ChatsActivity extends AppCompatActivity {
                                     else {
                                         Toast.makeText(getBaseContext(), "User posts not loaded",Toast.LENGTH_LONG).show();
                                     }
-
-
                                 }
                                 System.out.println("tu vypisujem size arau: " + arrayList.size());
 
