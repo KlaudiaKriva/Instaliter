@@ -45,7 +45,7 @@ module.exports = {
         + "inner join User on User.id = Message.recieverID where Message.senderID = :idd) "
         + "UNION "
         + "(select DISTINCT User.id, User.name, User.instaName from Message "
-        + "inner join User on User.id = Message.senderID where Message.senderID like '.*- H[0-9]+' and Message.recieverID  = :idd);",
+        + "inner join User on User.id = Message.senderID where Message.recieverID  = :idd);",
         { replacements: {idd: obj.id}, type: database.sequelizeconn.QueryTypes.SELECT }).then(result => {
               if(result.length != 0){JSON.stringify(data(result))} else{data("Error");};
         }).catch(err =>{console.log(err); data("Error");});
