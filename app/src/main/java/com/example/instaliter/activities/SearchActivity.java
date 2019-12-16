@@ -83,6 +83,18 @@ public class SearchActivity extends AppCompatActivity{
             }
         });
 
+        findUser.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                try {
+                    getAllUsers();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
+
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.topPanel);
         setSupportActionBar(toolbar);
