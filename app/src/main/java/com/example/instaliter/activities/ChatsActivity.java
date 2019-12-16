@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.instaliter.ChatUser;
 import com.example.instaliter.MainActivity;
+import com.example.instaliter.MyVolley;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
@@ -37,6 +38,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.instaliter.RegisterActivity.profileimage;
 import static com.example.instaliter.RegisterActivity.registerurl;
 import static com.example.instaliter.RegisterActivity.token;
 import static com.example.instaliter.RegisterActivity.userID;
@@ -110,6 +112,7 @@ public class ChatsActivity extends AppCompatActivity {
         if(!(token.equals(""))){
             HashMap<String, String> params = new HashMap<>();
             params.put("id", String.valueOf(userID));
+            System.out.println("getchatusers reqiest: " + userID);
 
             RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -144,9 +147,10 @@ public class ChatsActivity extends AppCompatActivity {
 
 
                                     ChatUser chatUser = new ChatUser( Integer.parseInt(idU), name, instaName, thumbnailPath);
+                                    getThumbnail(chatUser);
 
-                                    arrayList.add(chatUser);
-                                    userChatsAdapter.notifyDataSetChanged();
+                                    System.out.println("tu sa vratilo uz s thumbnailom: "+ chatUser.getThumbnailPath());
+
 
                                     if (!responseMapPosts.isEmpty()){
                                         Toast.makeText(getBaseContext(), "User posts loaded",Toast.LENGTH_LONG).show();
@@ -169,15 +173,6 @@ public class ChatsActivity extends AppCompatActivity {
                     System.out.println(error.getMessage());
                 }
             }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> paramas = new HashMap<String, String>();
-                    paramas.put("id", String.valueOf(idU));
-                    paramas.put("name", name);
-                    paramas.put("instaname", instaName);
-                    paramas.put("thumbnailPath", thumbnailPath);
-                    return paramas;
-                }
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
@@ -193,6 +188,57 @@ public class ChatsActivity extends AppCompatActivity {
         } else {
             System.out.println("token je prazdny "+token);
         }
+    }
+
+    String thumbnail ="";
+    public void getThumbnail(final ChatUser chatUser){
+
+        final HashMap<String, String> params111 = new HashMap<>();
+        params111.put("id", String.valueOf(chatUser.getId()));
+
+//        RequestQueue queue111 = Volley.newRequestQueue(context);
+        String url111 = registerurl + "userInfo";
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.POST,
+                url111, new JSONObject(params111),
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response1) {
+                        System.out.println("co vrati server "+ response1);
+                        JSONObject response = null;
+                        try {
+                            for (int i = 0; i< response1.length(); i++) {
+                                response = response1.getJSONObject(i);
+                                thumbnail = response.getString("thumbnailPath");
+                                chatUser.setThumbnailPath(thumbnail);
+                                arrayList.add(chatUser);
+                                userChatsAdapter.notifyDataSetChanged();
+                                System.out.println(" tu je thumbaaaanananaail : " + thumbnail);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                System.out.println(error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers= new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        MyVolley.addToQueueArray(jsonArrayRequest);
+
     }
 
 }
