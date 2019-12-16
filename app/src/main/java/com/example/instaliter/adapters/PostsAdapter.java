@@ -392,14 +392,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                         System.out.println("co vrati server "+ response1);
                         JSONObject response = null;
                         try {
-                            for (int i = 0; i< response1.length(); i++){
-                                response = response1.getJSONObject(i);
-                                System.out.println("response spravy checkimagelikes je praaaave "+response);
-
-
-                            }
                             holder.number.setText(String.valueOf(response1.length()));
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
