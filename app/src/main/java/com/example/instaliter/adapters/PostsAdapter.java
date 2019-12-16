@@ -38,7 +38,9 @@ import com.example.instaliter.MyVolley;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
+import com.example.instaliter.User;
 import com.example.instaliter.activities.CommentsActivity;
+import com.example.instaliter.activities.LikesActivity;
 import com.example.instaliter.activities.ProfileActivity;
 
 import org.json.JSONArray;
@@ -240,6 +242,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         };
         MyVolley.addToQueueArray(jsObjRequest);
 
+
+
         holder.heart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -367,8 +371,59 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             }
         });
 
+        holder.number_Likes_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context.getApplicationContext(), LikesActivity.class);
+                intent.putExtra("idI", getItemImageID(position));
+                context.startActivity(intent);
+            }
+        });
+
+        HashMap<String, String> params2 = new HashMap<>();
+        params2.put("idI", String.valueOf(getItemImageID(position)));
+        System.out.println("idimageu jee: "+ getItemImageID(position));
+        String url2 = registerurl + "getImageLikes";
+        JsonArrayRequest jsObjRequest2 = new JsonArrayRequest(Request.Method.POST, url2,
+                new JSONObject(params2),
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response1) {
+                        System.out.println("co vrati server "+ response1);
+                        JSONObject response = null;
+                        try {
+                            for (int i = 0; i< response1.length(); i++){
+                                response = response1.getJSONObject(i);
+                                System.out.println("response spravy checkimagelikes je praaaave "+response);
 
 
+                            }
+                            holder.number.setText(String.valueOf(response1.length()));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof ServerError){
+                    System.out.println(error.getMessage());
+                }
+                System.out.println(error);
+                System.out.println(error.getMessage());
+            }
+
+        }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers= new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        MyVolley.addToQueueArray(jsObjRequest2);
 
         checkNumberOfComments(holder.show_comments, position);
         holder.btn_share.setOnClickListener(new View.OnClickListener() {
@@ -527,6 +582,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     }
 
 
+
+
+
 //    CommentAdapter commentAdapter;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -536,7 +594,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         CheckBox heart;
         Button comment, btn_share, show_comments;
         EditText addComment;
-        LinearLayout linearLayoutComment;
+        LinearLayout linearLayoutComment, number_Likes_layout;
         RecyclerView all_comments;
         RelativeLayout show_commentsLeyout;
         int count;
@@ -566,6 +624,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             all_comments = itemView.findViewById(R.id.all_comments);
             show_commentsLeyout = itemView.findViewById(R.id.show_commentsLeyout);
             recyclerViewComments = itemView.findViewById(R.id.all_comments);
+            number_Likes_layout = itemView.findViewById(R.id.number_Likes_layout);
         }
     }
 }
