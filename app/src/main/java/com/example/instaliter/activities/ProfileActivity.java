@@ -71,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         modSharedPrefs = new DarkModeActivity(this);
-        if(RegisterActivity.userID > 0){ SocketClient.getInstance();}
+        if(RegisterActivity.userID > 0){SocketClient.getInstance();}
 
         if (modSharedPrefs.loadDarkModeState()) {
             setTheme(R.style.DarkTheme);

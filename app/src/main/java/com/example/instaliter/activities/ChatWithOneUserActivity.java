@@ -88,6 +88,13 @@ public class ChatWithOneUserActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        mSocket.off("message", onNewMessage);
+        super.onBackPressed();
+    }
+
     private void attemptSend()
     {
         try {
