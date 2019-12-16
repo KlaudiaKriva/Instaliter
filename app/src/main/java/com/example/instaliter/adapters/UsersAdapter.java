@@ -6,12 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,14 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.example.instaliter.MainActivity;
 import com.example.instaliter.R;
 import com.example.instaliter.User;
-import com.example.instaliter.activities.CameraActivity;
 import com.example.instaliter.activities.ChatWithOneUserActivity;
-import com.example.instaliter.activities.ChatsActivity;
 import com.example.instaliter.activities.ProfileOfOthersActivity;
-import com.example.instaliter.activities.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -54,7 +45,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
 
         public UsersViewHolder(View itemView) {
             super(itemView);
-            iv_profileImage = itemView.findViewById(R.id.imageview);
+            iv_profileImage = itemView.findViewById(R.id.userPhotoMessage);
             tv_instaName = itemView.findViewById(R.id.textview);
             tv_userName = itemView.findViewById(R.id.textview2);
             rl_User = itemView.findViewById(R.id.lay_ofOneUser);

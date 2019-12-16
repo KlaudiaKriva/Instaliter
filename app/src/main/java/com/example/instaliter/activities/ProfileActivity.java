@@ -33,6 +33,7 @@ import com.example.instaliter.MyVolley;
 import com.example.instaliter.Post;
 import com.example.instaliter.R;
 import com.example.instaliter.RegisterActivity;
+import com.example.instaliter.SocketClient;
 import com.example.instaliter.adapters.CommentAdapter;
 import com.example.instaliter.adapters.PostsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -70,6 +71,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         modSharedPrefs = new DarkModeActivity(this);
+        if(RegisterActivity.userID > 0){ SocketClient.getInstance();}
+
         if (modSharedPrefs.loadDarkModeState()) {
             setTheme(R.style.DarkTheme);
         } else {

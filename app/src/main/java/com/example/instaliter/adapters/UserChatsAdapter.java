@@ -38,7 +38,7 @@ public class UserChatsAdapter extends RecyclerView.Adapter<UserChatsAdapter.Chat
 
         public ChatsViewHolder(View itemView) {
             super(itemView);
-            imageview_message = itemView.findViewById(R.id.imageview);
+            imageview_message = itemView.findViewById(R.id.userPhotoMessage);
             user_mess = itemView.findViewById(R.id.user_mess);
             text_mess = itemView.findViewById(R.id.text_mess);
             lay_ofOneUser = itemView.findViewById(R.id.lay_ofOneUser);
@@ -63,7 +63,9 @@ public class UserChatsAdapter extends RecyclerView.Adapter<UserChatsAdapter.Chat
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChatWithOneUserActivity.class);
-                intent.putExtra("iduser", chatUser.getId());
+                intent.putExtra("receiverID", chatUser.getId());
+                intent.putExtra("receiverThumbnail", chatUser.getThumbnailPath());
+                intent.putExtra("receiveName", chatUser.getUserName());
                 context.startActivity(intent);
             }
         });
