@@ -164,16 +164,23 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println("vola sa onActivity result");
         if (requestCode == 100) {
-            Uri imageUri = data.getData();
-            String imagePath = getRealPathFromURI(imageUri);
+            System.out.println("result code "+resultCode);
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                profilePic.setImageBitmap(bitmap);
+                if (data == null) {
+                    Intent intent = new Intent(EditProfileActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                } else {
+                    Uri imageUri = data.getData();
+                    String imagePath = getRealPathFromURI(imageUri);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    profilePic.setImageBitmap(bitmap);
 
-                System.out.println("image path from bitmap "+imagePath);
-                uploadToServer(imagePath);
+                    System.out.println("image path from bitmap "+imagePath);
+                    uploadToServer(imagePath);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+                onBackPressed();
             }
         }
     }
